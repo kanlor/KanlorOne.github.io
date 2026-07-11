@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KanlorOne WordSuite — 使用说明</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif; line-height: 1.7; color: #333; background: #f5f7fa; }
+.container { max-width: 960px; margin: 0 auto; padding: 30px 24px; }
+h1 { font-size: 28px; color: #1e3a8a; border-bottom: 3px solid #3b82f6; padding-bottom: 12px; margin-bottom: 24px; }
+h2 { font-size: 20px; color: #1e40af; margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid #3b82f6; }
+h3 { font-size: 16px; color: #374151; margin-top: 20px; margin-bottom: 10px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; }
+.card-title { font-weight: bold; color: #1e40af; font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: #555; font-size: 14px; }
+.tag { display: inline-block; background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.com { background: #fef3c7; color: #92400e; }
+.tag.style { background: #ede9fe; color: #5b21b6; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: #3b82f6; color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: #1e40af; color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid #e5e7eb; }
+tr:nth-child(even) td { background: #f9fafb; }
+ul { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+ol { margin: 8px 0 12px 2em; }
+.toc { background: #fff; border-radius: 8px; padding: 16px 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.toc a { color: #2563eb; text-decoration: none; display: block; padding: 4px 0; }
+.toc a:hover { text-decoration: underline; }
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #888; font-size: 13px; }
+.download-links { background: #eff6ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+.download-links h3 { margin-top: 0; margin-bottom: 10px; }
+.download-links a { display: block; padding: 6px 0; color: #1e40af; text-decoration: none; }
+.download-links a:hover { text-decoration: underline; }
+.download-links code { background: #dbeafe; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.marker-demo { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-family: 'Consolas', 'Microsoft YaHei', monospace; font-size: 13px; line-height: 1.8; white-space: pre-wrap; }
+.marker-tag { color: #dc2626; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+<img src="../logo/KanlorOne_WordSuite_logo.png" alt="KanlorOne WordSuite Logo" style="height:60px;">
+<img src="../logo/kanlorone_weixin.png" alt="微信二维码" style="height:80px; margin-left:20px;">
+</div>
+<h1>KanlorOne WordSuite — Word 文档一站式排版工具</h1>
+
+<div class="download-links">
+<h3>📥 下载地址</h3>
+<p class="no-indent">① 微云下载：<a href="https://share.weiyun.com/d56f8rp2" target="_blank">https://share.weiyun.com/d56f8rp2</a></p>
+<p class="no-indent">② 阿里云下载：<a href="https://www.alipan.com/s/HMbcHsbys5S" target="_blank">https://www.alipan.com/s/HMbcHsbys5S</a></p>
+<p class="no-indent">③ Gitee 仓库：<a href="https://gitee.com/kanlor/KanlorOne_WordSuite" target="_blank">https://gitee.com/kanlor/KanlorOne_WordSuite</a></p>
+</div>
+
+<div class="toc">
+<p class="no-indent" style="font-weight:bold; margin-bottom:8px;">目录</p>
+<a href="#what">一、这是什么工具？</a>
+<a href="#why">二、为什么要用它？</a>
+<a href="#how">三、怎么用？（6步搞定）</a>
+<a href="#features">四、核心功能介绍</a>
+<a href="#range">五、通用处理范围标识</a>
+<a href="#templates">六、排版模板怎么用？</a>
+<a href="#faq">七、常见问题解答</a>
+<a href="#shortcuts">八、快捷键</a>
+</div>
+
+<!-- ══════════════════ 一、这是什么工具？ ══════════════════ -->
+<h2 id="what">一、这是什么工具？</h2>
+<p>KanlorOne WordSuite 是一款 <b>Word 文档批量排版工具</b>。简单来说，你可以用它一次性处理几十上百个 Word 文档，自动完成排版工作，不用一个个手动调整格式。</p>
+<p>工具集成了 22 项常用排版功能，每一项都可以独立勾选、自由组合，执行顺序也能灵活调整。配置会自动保存，下次打开直接沿用上次设置。</p>
+
+<div class="tip">
+<b>最新更新</b>：标题识别支持指定层级、标题升降级支持转正文、新增标题编号删除功能、正文编号设置支持连续/间隔编号和编号删除、新增对结果进行处理（增量循环处理）、处理完毕后自动打开、输出文件命名优化（自定义后缀+版本号递增）、日志窗口支持一键跳转顶部/底部、序号输入框点击反馈和自动恢复。
+</div>
+
+<!-- ══════════════════ 二、为什么要用它？ ══════════════════ -->
+<h2 id="why">二、为什么要用它？</h2>
+
+<div class="card">
+<div class="card-title">🤔 你是否遇到这些问题？</div>
+<div class="card-desc">
+<ul>
+<li>写了几十份文档，格式不统一，一个个改太麻烦？</li>
+<li>从网上下载的文档有很多隐形垃圾字符，清理起来很费劲？</li>
+<li>公文/科技文档有严格的格式规范，手动调整容易遗漏？</li>
+<li>图片和表格大小不一，排版效果差？</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✅ 使用 KanlorOne WordSuite 能解决什么？</div>
+<div class="card-desc">
+<ul>
+<li><b>批量处理</b>：一次操作完成所有文档的统一排版</li>
+<li><b>样式优先</b>：修改 Word 样式定义而非单个段落，彻底根治格式问题</li>
+<li><b>智能识别</b>：自动识别标题编号、公文标题，一键应用标题样式</li>
+<li><b>模板预设</b>：内置公文和科技文档两套模板，一键加载</li>
+<li><b>格式标准化</b>：表格、图片、题注统一格式，排版效果专业</li>
+</ul>
+</div>
+</div>
+
+<!-- ══════════════════ 三、怎么用？（6步搞定） ══════════════════ -->
+<h2 id="how">三、怎么用？（6步搞定）</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>选文件</b>：点击"选择文件"或"选择文件夹"指定要处理的文档。未注册用户仅支持 .docx 格式；注册后支持 .docx、.doc、.wps 格式，.doc 和 .wps 会自动转换为 .docx。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>设输出</b>：默认在原文目录输出，支持「时间戳后缀」和「自定义后缀」两种模式。时间戳模式输出如 报告_20260709200000.docx；自定义后缀模式默认值为 <code>_V</code>，自动按 X.XX 格式递增版本号（如 报告_V1.00.docx、报告_V1.01.docx）。两种后缀可共存，布局固定为「自定义后缀在前，时间戳在后」。单文件模式下可勾选「对结果进行处理」（循环增量处理）和「处理完毕后自动打开」。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>选模板（可选）</b>：下拉框选择「公文文档排版-内置」或「科技文档排版-内置」，自动加载预设功能和参数。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>勾功能</b>：在右侧面板勾选需要的功能，参数面板自动展开。鼠标悬停有详细说明，按需要调整参数。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>排顺序</b>：拖拽功能卡片或左侧导航栏调整执行顺序，序号实时更新。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>点执行</b>：点击"开始执行"或按 F5。日志实时显示进度，完成后可点击文件路径直接打开。</div>
+</div>
+
+<div class="tip">
+<b>推荐执行顺序</b>：标题编号取消 → 页面设置 → 字符清理 → 标题识别 → 标题样式 → 标题编号 → 正文样式 → 表格/图片/题注 → 样式清理 → 文档属性 → 数据统计
+</div>
+
+<!-- ══════════════════ 四、核心功能介绍 ══════════════════ -->
+<h2 id="features">四、核心功能介绍</h2>
+
+<p>以下功能按推荐执行顺序排列。<span class="tag free">免费</span>标记的功能未注册用户可用，<span class="tag reg">注册</span>标记的功能需注册后使用。</p>
+
+<div class="card">
+<div class="card-title"><span class="tag num">1</span> <span class="tag com">需 Word</span> <span class="tag free">免费</span> 标题编号取消</div>
+<div class="card-desc">
+<p class="no-indent">将 Word 自动多级列表编号转为纯文字，脱离自动编号系统，方便自由编辑。需要安装 Microsoft Word。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">2</span> <span class="tag free">免费</span> 文档页面设置</div>
+<div class="card-desc">
+<p class="no-indent">设置纸张大小（A3/A4/A5/B5/Letter）、横纵向、页边距、装订线位置、页眉页脚距边距离。一次设置，所有文档统一。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">3</span> <span class="tag reg">注册</span> 文档字符清理</div>
+<div class="card-desc">
+<p class="no-indent">清理制表符、不间断空格、零宽字符、控制字符等隐形垃圾。可替换手动换行符、清理多余空行、删除中英文之间和数字与字符间的多余空格。</p>
+<p class="no-indent"><b>智能保护</b>：含图片的段落和 run 不会被误删。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">4</span> <span class="tag reg">注册</span> 标题WBS识别</div>
+<div class="card-desc">
+<p class="no-indent">自动识别段落开头的 WBS 编号（如"1.1 概述"），应用对应级别的标题样式。多层过滤避免误识别：目录行、日期、表格等都会被排除。</p>
+<p class="no-indent"><span class="tag new">可指定识别层级</span>：支持 1~9 级自由勾选，单选、多选、全选皆可，精确控制识别范围。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">5</span> <span class="tag style">样式优先</span> <span class="tag free">免费</span> 标题样式设置</div>
+<div class="card-desc">
+<p class="no-indent">批量设置各级标题格式：字体、字号、颜色、对齐、缩进、间距。<span class="tag new">默认取消标题与多级列表关联</span>，应用样式时不会自动显示编号。支持 cm 和字符两种缩进单位。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">6</span> <span class="tag reg">注册</span> 标题WBS编号</div>
+<div class="card-desc">
+<p class="no-indent">为标题自动生成层级编号（如"1 标题"、"1.1 子标题"），支持阿拉伯数字或中文数字样式。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">7</span> <span class="tag style">样式优先</span> <span class="tag free">免费</span> 正文样式设置</div>
+<div class="card-desc">
+<p class="no-indent">批量设置正文格式：中英文字体、字号、加粗/斜体/下划线、颜色、对齐方式、缩进、段前后间距、行距。支持 cm 和字符两种缩进单位。</p>
+<p class="no-indent"><b>彻底执行</b>：清除主题字体/颜色遮盖，确保格式设置生效。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">8</span> <span class="tag reg">注册</span> 表格样式设置</div>
+<div class="card-desc">
+<p class="no-indent">统一表格格式：宽度比例、字体字号、首行加粗底色、居中对齐、最小化行高、清除缩进。<span class="tag new">横竖页面自适应</span>：自动识别页面方向，按各自页面宽度计算表格实际宽度。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">9</span> <span class="tag reg">注册</span> 图片样式设置</div>
+<div class="card-desc">
+<p class="no-indent">浮动图片转嵌入、超出宽度按比例缩小、居中对齐、清除缩进。<span class="tag new">横竖页面自适应</span>：竖向和横向页面可分别设置最大宽度比例。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">10</span> <span class="tag reg">注册</span> 题注样式设置</div>
+<div class="card-desc">
+<p class="no-indent">统一图/表题注格式：字体、字号、加粗/斜体/下划线、颜色、对齐、缩进、行距。支持分别设置图题注和表题注。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">11</span> <span class="tag reg">注册</span> 文档样式清理</div>
+<div class="card-desc">
+<p class="no-indent">删除文档中无用的自定义样式，清理样式面板。可从模板文件加载标准样式，默认模板为根目录下 Template/KanlorOne_DocStyleTemplate.dotm。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">12</span> <span class="tag reg">注册</span> 文档属性设置</div>
+<div class="card-desc">
+<p class="no-indent">查看和修改文档属性：标题、作者、主题、备注、类别、公司、经理等。只读属性（页数、创建时间等）灰色显示。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">13</span> <span class="tag free">免费</span> 文档数据统计</div>
+<div class="card-desc">
+<p class="no-indent">全面统计汉字数、非汉字字符数、总字符数、空格数、段落数、表格数、图片数、节数、行数、页数。<span class="tag new">默认开启处理前后对比</span>，直观展示排版效果。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">14</span> <span class="tag free">免费</span> 标题公文识别</div>
+<div class="card-desc">
+<p class="no-indent">按公文规范识别一至四级标题：一级"一、"、二级"（一）"、三级"1."、四级"（1）"。<span class="tag new">默认识别已有大纲级别</span>，对已有大纲级别但样式为"正文"的段落自动应用标题样式。</p>
+<p class="no-indent"><span class="tag new">可指定识别层级</span>：支持 1~4 级自由勾选，只处理需要的层级。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">15</span> <span class="tag reg">注册</span> 标题公文编号</div>
+<div class="card-desc">
+<p class="no-indent">为公文标题添加编号：一级"一、""二、"、二级"（一）""（二）"、三级"1.""2."、四级"（1）""（2）"，按级别自动计数递增。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">16</span> <span class="tag reg">注册</span> 标题级别升降</div>
+<div class="card-desc">
+<p class="no-indent">对全文标题统一升级、降级或转为正文。<span class="tag new">支持指定作用层级</span>：1~9 级自由勾选，只处理选中的级别。</p>
+<p class="no-indent"><b>三种操作模式</b>：升级（如三级→二级）、降级（如二级→三级）、转为正文（取消标题级别，恢复为普通段落）。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">17</span> <span class="tag reg">注册</span> 标题编号替换</div>
+<div class="card-desc">
+<p class="no-indent">支持 WBS 编号与公文编号互转（WBS→公文、公文→WBS），以及 WBS 序号升级。彻底替换原有编号，支持 4~9 级标题。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">18</span> <span class="tag new">新增</span> <span class="tag reg">注册</span> 标题编号删除</div>
+<div class="card-desc">
+<p class="no-indent">删除标题前的编号文字，同时支持 WBS 编号体系和公文编号体系，一键清除所有标题编号。</p>
+<p class="no-indent"><span class="tag new">可指定层级</span>：1~9 级自由勾选，只删除选中层级的编号。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">19</span> <span class="tag reg">注册</span> 正文编号设置</div>
+<div class="card-desc">
+<p class="no-indent">识别正文中的项目符号和编号列表，进行标准化处理。支持 5 种编号类型和自定义格式，自动设置悬挂缩进。</p>
+<p class="no-indent"><span class="tag new">不影响原有样式</span>：仅调整左缩进和悬挂缩进，保留字体、字号、加粗、间距等所有格式属性。</p>
+<p class="no-indent"><span class="tag new">两种编号模式</span>：连续编号（跨标题不断）和间隔编号（每个标题内从头开始）。</p>
+<p class="no-indent"><span class="tag new">删除编号模式</span>：一键删除正文中所有编号和项目符号，识别规则参照标题编号删除。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">20</span> <span class="tag reg">注册</span> 文档冒号强调</div>
+<div class="card-desc">
+<p class="no-indent">为冒号前的文字加粗或取消加粗，适用于"定义：说明""条款：内容"格式的文档。操作完成后输出统计数据。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">21</span> <span class="tag reg">注册</span> 文档标点转换</div>
+<div class="card-desc">
+<p class="no-indent">中英文标点批量互换，智能保护数字间的小数点不被误替换。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">22</span> <span class="tag reg">注册</span> 文档正则工具</div>
+<div class="card-desc">
+<p class="no-indent">使用正则表达式进行高级查找、替换和格式化操作，适合处理非标准格式的文档。</p>
+<p class="no-indent"><span class="tag new">替换文本留空=删除匹配内容</span>，同时支持 \1、\2 等捕获组引用。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 五、通用处理范围标识 ══════════════════ -->
+<h2 id="range">五、通用处理范围标识</h2>
+
+<div class="card">
+<div class="card-title">什么是处理范围标识？</div>
+<div class="card-desc">
+<p class="no-indent">处理范围标识用于在文档中标记需要处理的内容范围。通过在文档中插入<b>起始标识</b>和<b>结束标识</b>，可以让工具仅处理标识之间的内容，避免影响封面、目录等不需要排版的区域。</p>
+<p class="no-indent">标识设置位于功能面板顶部的「通用处理范围标识」区域，<b>一次设置，全局生效</b>——所有勾选了「遵循范围标识」的功能都会自动应用此范围。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">如何使用？</div>
+<div class="card-desc">
+<p class="no-indent"><b>第一步</b>：在功能面板顶部「通用处理范围标识」区域设置起始标识和结束标识（默认均为 <code>@@@@@@</code>）。</p>
+<p class="no-indent"><b>第二步</b>：在 Word 文档中，找到需要处理内容的起始位置，在上一段落插入起始标识；找到结束位置，在下一段落插入结束标识。</p>
+<p class="no-indent"><b>第三步</b>：勾选需要的功能，确保各功能的「遵循范围标识」复选框已勾选（默认勾选）。</p>
+
+<div class="marker-demo">封面
+<span class="marker-tag">@@@@@@</span>
+第一章 概述
+1.1 项目背景
+1.2 研究目标
+……（需要处理的正文内容）……
+第二章 方法
+2.1 技术路线
+<span class="marker-tag">@@@@@@</span>
+参考文献
+附录</div>
+
+<p class="no-indent">如上所示，工具仅处理两个 <code>@@@@@@</code> 之间的内容，封面和附录不受影响。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">起始标识与结束标识的规则</div>
+<div class="card-desc">
+<table>
+<tr><th style="width:25%">设置</th><th>说明</th></tr>
+<tr><td><b>起始标识</b></td><td>工具从标识<b>首次出现位置的下一段</b>开始处理。留空 = 从文档开头处理。</td></tr>
+<tr><td><b>结束标识</b></td><td>处理到标识<b>首次出现位置的上一段</b>结束。留空 = 处理到文档末尾。</td></tr>
+<tr><td><b>标识相同</b></td><td>当起始标识与结束标识相同时（如均为 <code>@@@@@@</code>），第 1 次出现 = 起始，第 2 次出现 = 结束。</td></tr>
+<tr><td><b>标识不同</b></td><td>可设置不同的起始和结束标识（如起始 <code>@@START</code>，结束 <code>@@END</code>），各自独立匹配。</td></tr>
+<tr><td><b>未找到标识</b></td><td>如果文档中未找到设置的标识，起始标识未找到则从开头处理，结束标识未找到则处理到末尾。</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">删除标识段落</div>
+<div class="card-desc">
+<p class="no-indent">「通用处理范围标识」区域还提供「处理结束后删除标识段落」复选框。勾选后，处理完成后自动删除包含标识的段落，输出文档中不会残留标识文字。</p>
+<div class="warn">
+<b>注意</b>：删除标识段落仅对输出文件生效，原始文件不受影响。
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">「遵循范围标识」复选框</div>
+<div class="card-desc">
+<p class="no-indent">大部分内容级功能（如标题样式设置、正文样式设置、表格/图片/题注样式、字符清理、标点转换等）的参数面板底部都有一个「遵循范围标识」复选框：</p>
+<ul>
+<li><b>勾选</b>（默认）：仅处理通用范围标识内的内容，遵循全局起始/结束标识</li>
+<li><b>不勾选</b>：处理全文档，不受范围标识限制</li>
+</ul>
+<p class="no-indent">这样可以在同一批次中，让某些功能只处理正文范围，而另一些功能处理全文。例如：标题样式设置勾选范围标识（仅处理正文标题），文档样式清理不勾选（清理全文样式）。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 六、排版模板怎么用？ ══════════════════ -->
+<h2 id="templates">六、排版模板怎么用？</h2>
+
+<div class="card">
+<div class="card-title">选择内置模板</div>
+<div class="card-desc">
+<p class="no-indent">功能面板顶部下拉框提供两个内置模板，选择后自动加载预设功能和参数：</p>
+<ul>
+<li><b>科技文档排版-内置</b>：适合报告/论文，按推荐顺序执行：标题编号取消 → 页面设置 → 字符清理 → 标题WBS识别 → 标题样式设置（黑体多级） → 标题WBS编号 → 正文样式设置（宋体小四） → 表格/图片/题注样式 → 样式清理 → 文档属性 → 数据统计</li>
+<li><b>公文文档排版-内置</b>：符合公文规范，按推荐顺序执行：标题编号取消 → 页面设置 → 字符清理 → 标题公文识别 → 标题样式设置（黑体/楷体/仿宋分级） → 标题公文编号 → 正文样式设置（仿宋三号） → 表格/图片样式 → 样式清理</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">创建自己的模板</div>
+<div class="card-desc">
+<p class="no-indent"><b>三步搞定</b>：选择内置模板 → 按需微调功能勾选和参数 → 点击"从当前配置创建模板"命名保存。</p>
+<p class="no-indent">点击"模板管理"可管理所有模板：创建、重命名、导入/导出、删除。内置模板不可删除。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 七、常见问题解答 ══════════════════ -->
+<h2 id="faq">七、常见问题解答</h2>
+
+<div class="card">
+<div class="card-title">Q: 执行后找不到输出文件？</div>
+<div class="card-desc"><p class="no-indent">查看日志末尾的输出路径。时间戳后缀格式如"报告_20260709200000.docx"。点击日志中的路径可直接打开文件夹。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 支持 .doc 和 .wps 格式吗？</div>
+<div class="card-desc">
+<p class="no-indent"><b>未注册用户</b>：仅支持 .docx 格式。</p>
+<p class="no-indent"><b>注册用户</b>：支持 .docx、.doc、.wps 格式。工具会自动将 .doc 和 .wps 文件转换为 .docx 格式后再处理，需要安装 Microsoft Word（用于 COM 转换）。转换后输出为 .docx 文件，后续所有功能都基于 .docx 执行。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: WPS 文件打开时提示"无法读取的内容"？</div>
+<div class="card-desc"><p class="no-indent">工具已针对此问题优化：.wps 文件转换后会进行二次保存，确保格式完全标准化。如果仍然出现此提示，请点击"是"恢复内容，处理结果依然有效。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 标题样式设置后字体/颜色没变化？</div>
+<div class="card-desc">
+<p class="no-indent">常见原因：段落 run 中带有主题字体或主题颜色属性，遮盖了显式设置。本工具已自动清除这些主题属性，确保参数执行彻底。</p>
+<p class="no-indent">如果还有问题，可在 Word 中选中段落按 Ctrl+Space 清除直接格式。建议排版后不要再手动调格式。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 标题编号取消功能不可用？</div>
+<div class="card-desc"><p class="no-indent">此功能需要 Microsoft Word 环境。如果电脑已安装 Office，重启工具后再试。该功能会显示"需 Word"标记。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: WBS 识别标题误识别了怎么办？</div>
+<div class="card-desc"><p class="no-indent">调整"一级最大序号"参数（默认 10），可过滤日期格式。也可以用处理范围标识限定处理范围来避免误识别。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 缩进的 cm 和字符单位怎么选？</div>
+<div class="card-desc"><p class="no-indent">公文规范通常用字符（如首行缩进 2 字符），科技文档常用 cm（如 0.74cm ≈ 2 字符）。两种单位可随时切换。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 如何批量处理子文件夹？</div>
+<div class="card-desc"><p class="no-indent">选择"整个文件夹"后勾选"包含子文件夹"，工具会递归扫描所有子目录中的文档。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: "恢复默认"按钮会清除什么？</div>
+<div class="card-desc"><p class="no-indent">重置功能选择、窗口尺寸、日志内容、输入输出路径、功能执行顺序、处理范围标识。恢复为初始默认状态。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: "对结果进行处理"怎么用？</div>
+<div class="card-desc">
+<p class="no-indent">勾选后，每次执行完会自动把输出文件作为下一次的输入文件，实现循环增量处理。适合反复调试排版效果的场景。</p>
+<p class="no-indent"><b>使用方法</b>：选择单个文件 → 勾选「对结果进行处理」 → 勾选需要的功能 → 点执行 → 再点执行（自动对上次结果处理）→ 可反复执行。</p>
+<p class="no-indent">首次执行使用原始输入文件，从第二次开始自动使用上一次的输出文件。可与「处理完毕后自动打开」组合使用，边处理边查看效果。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 正文编号设置会不会改变字体字号？</div>
+<div class="card-desc"><p class="no-indent">不会。正文编号设置仅调整左缩进和悬挂缩进，不影响字体、字号、加粗、颜色、间距等任何其他格式属性，原有样式完全保留。</p></div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 连续编号和间隔编号有什么区别？</div>
+<div class="card-desc">
+<p class="no-indent"><b>连续编号</b>：整个有效范围内编号从头到尾连续，中间遇到标题不会中断，跨标题持续计数。</p>
+<p class="no-indent"><b>间隔编号</b>：每个标题范围内（无论级别）的编号都从 1 开始，遇到下一个标题时重新计数。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 如何删除标题或正文中的编号文字？</div>
+<div class="card-desc">
+<p class="no-indent"><b>标题编号</b>：使用「标题编号删除」功能，可同时删除 WBS 编号和公文编号，支持指定层级。</p>
+<p class="no-indent"><b>正文编号</b>：使用「正文编号设置」功能，选择「删除编号」模式，一键删除正文中所有编号和项目符号。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 时间戳后缀和自定义后缀有什么区别？如何切换？</div>
+<div class="card-desc">
+<p class="no-indent"><b>时间戳后缀</b>：每次执行时自动添加当前时间戳（如 报告_20260709200000.docx），适合区分同一文档的不同处理时间。</p>
+<p class="no-indent"><b>自定义后缀</b>：默认值为 <code>_V</code>，自动按 X.XX 格式递增版本号（如 报告_V1.00.docx、报告_V1.01.docx），适合版本管理。</p>
+<p class="no-indent"><b>两种后缀可共存</b>：布局固定为「自定义后缀在前，时间戳在后」（如 报告_V1.00_20260709200000.docx），每种只出现一次。</p>
+<p class="no-indent"><b>切换后仅更新对应后缀</b>：从时间戳切换到自定义时，保留原时间戳，仅更新版本号；从自定义切换到时间戳时，保留原版本号，仅更新时间戳。切换后立即生效，下次存储按最新规则执行。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 日志窗口如何快速定位？</div>
+<div class="card-desc">
+<p class="no-indent">日志窗口右上角有「⇧ 顶部」和「⇩ 底部」按钮，点击可一键直达顶部或底部。配合右侧垂直滚动条，可方便快速上下拖动查看日志内容。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q: 序号输入框点击后如何恢复？</div>
+<div class="card-desc">
+<p class="no-indent">点击序号输入框时边框会高亮突出，提示当前处于编辑状态。如果没有修改或删除内容后没有输入新值，失去焦点时会自动恢复原序号，避免误操作导致序号丢失。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 八、快捷键 ══════════════════ -->
+<h2 id="shortcuts">八、快捷键</h2>
+
+<div class="card">
+<div class="card-desc">
+<table>
+<tr><th>快捷键</th><th>功能</th></tr>
+<tr><td>Ctrl + A</td><td>全选所有可用功能</td></tr>
+<tr><td>Ctrl + D</td><td>取消所有功能选择</td></tr>
+<tr><td>F5</td><td>开始执行</td></tr>
+</table>
+</div>
+</div>
+
+<div class="footer">
+<p class="no-indent">KanlorOne WordSuite | 微信: MToolsService | 邮箱: kanjorone@163.com</p>
+</div>
+
+</div>
+</body>
+</html>
