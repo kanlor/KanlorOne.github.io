@@ -47,37 +47,40 @@ const productsData = [
             },
             {
                 id: 2,
-                name: "KanlorOne Data",
+                name: "KanlorOne ScreenGuard",
                 icon: "📊",
-                image: "assets/products/kanlor-data.jpg",
-                version: "1.9.3",
-                releaseDate: "2026-05-28",
-                description: "专业数据可视化与分析工具，一键生成精美报表与商业洞察。",
-                features: ["拖拽式图表构建", "海量数据处理", "AI洞察建议", "实时数据同步"],
-                functions: ["数据清洗与转换", "交互式仪表盘", "预测分析模型", "导出多种格式"],
-                updates: ["v1.9.3 - 支持更多图表类型", "v1.8.0 - 大幅提升性能"],
+                image: "assets/products/KanlorOne_ScreenGuard.png",
+                version: "2.8",
+                releaseDate: "2026-07-12",
+                description: "一款强大的屏幕时间管理工具，专为儿童护眼与时间控制以及成人专注工作两种场景设计",
+                features: ["每日总时长限制（工作日/节假日分别设置）", "托盘常驻，右键菜单快速操作", "", ""],
+                functions: ["儿童用屏管理", "工作休息管理", "待办提醒管理", "时长时间管理"],
+                updates: ["v2.8 - 新增待办及提醒管理", "v2.7 - 优化开机启动"],
                 downloads: [
                     {
                         "platform": "Windows 64位",
                         "link": "https://share.weiyun.com/d56f8rp2",
-                        "size": "20.09 MB"
+                        "size": "17 MB"
                     }
                 ]
             },
             {
                 id: 3,
-                name: "Kanlor Secure",
+                name: "KanlorOne PandocGUI",
                 icon: "🔐",
-                image: "assets/products/kanlor-secure.jpg",
-                version: "3.2.0",
-                releaseDate: "2026-07-01",
-                description: "企业级密码管理与安全认证系统，端到端加密保护您的数字资产。",
-                features: ["零知识端到端加密", "生物识别认证", "安全分享功能", "自动密码生成"],
-                functions: ["密码库管理", "双因素认证", "漏洞扫描", "审计日志"],
-                updates: ["v3.2.0 - 增强硬件密钥支持", "v3.1.0 - 移动端离线模式"],
+                image: "assets/products/KanlorOne_PandocGUI.png",
+                version: "1.4",
+                releaseDate: "2026-07-12",
+                description: "万能文档转换工具Pandoc的图形化版本应用",
+                features: ["可视化操作，无需命令"],
+                functions: ["参数可视化", "参数建议填充", "更新检测", "过程记录"],
+                updates: ["V1.4 - 全面优化界面及参数推荐", "V1.3 - 解决md到docx乱码"],
                 downloads: [
-                    { platform: "Windows", link: "#", size: "67 MB" },
-                    { platform: "macOS", link: "#", size: "71 MB" }
+                    {
+                        "platform": "Windows 64位",
+                        "link": "https://share.weiyun.com/d56f8rp2",
+                        "size": "9 MB"
+                    }
                 ]
             },
 
