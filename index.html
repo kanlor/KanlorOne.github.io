@@ -1,87 +1,366 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="KanlorOne 软件系列 — 专注文档效率的桌面工具集合。Word 文档批量排版、公文规范、科技文档模板，一次操作，全部统一。">
-<meta name="keywords" content="KanlorOne, WordSuite, Word 排版, 批量排版, 公文排版, 文档工具">
-<meta name="author" content="KanlorOne">
-<meta property="og:title" content="KanlorOne 软件系列">
-<meta property="og:description" content="专注文档效率，释放专业价值">
-<meta property="og:type" content="website">
-<title>KanlorOne 软件系列 — 专注文档效率</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KanlorOne - 专业软件产品中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .logo-font { font-family: 'Space Grotesk', sans-serif; }
+        
+        .hero-bg { 
+            background: linear-gradient(135deg, #FF3B00 0%, #E63900 100%); 
+        }
+        
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .modal {
+            animation: modalPop 0.3s ease-out forwards;
+        }
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .accent-color { color: #FF3B00; }
+        .accent-bg { background-color: #FF3B00; }
+        .accent-border { border-color: #FF3B00; }
 
-<link rel="icon" href="logo/KanlorOne_WordSuite_logo.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="css/style.css">
+        /* 产品图片统一显示范围：不同尺寸图片均以中心裁切，保持卡片与详情布局协调 */
+        .product-card .product-image {
+            width: 100%;
+            height: clamp(180px, 22vw, 224px);
+            object-fit: cover;
+            object-position: center;
+            background: #f3f4f6;
+        }
+        #modal-image {
+            width: 100%;
+            height: clamp(220px, 40vh, 360px);
+            object-fit: cover;
+            object-position: center;
+            background: #f3f4f6;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
-<!-- 噪点纹理叠加层 -->
-<div class="grain" aria-hidden="true"></div>
+    <script src="assets/products.js"></script>
+    <!-- ==================== 【集中维护区】 ==================== -->
+    <script>
+        // ==================== 网站全局配置 ====================
+        const siteConfig = {
+            companyName: "KanlorOne",
+            heroTitle: "专业软件，<span class='text-orange-200'>驱动未来</span>",
+            heroSubtitle: "高效 · 安全 · 持续更新"
+        };
 
-<!-- 顶部导航 -->
-<header class="site-header" id="siteHeader">
-  <div class="container nav-container">
-    <a href="#/" class="brand-mark" aria-label="KanlorOne 首页">
-      <span class="brand-mark__symbol">K</span>
-      <span class="brand-mark__text">KanlorOne</span>
-    </a>
-    <nav class="nav" id="primaryNav" aria-label="主导航">
-      <a href="#/" data-nav="home">首页</a>
-      <a href="#/products" data-nav="products">产品</a>
-      <a href="#/contact" data-nav="contact">联系</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="切换菜单" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+        // ==================== 首页介绍文字 ====================
+        const heroIntro = {
+            title: "沉淀办公经验，<span class='text-orange-200'>打造趁手工具</span>",
+            subtitle: "功能精准 · 轻量高效 · 持续进化",
+            buttonText: "告别机械劳作，释放核心精力"
+        };
 
-<!-- 主内容容器：路由渲染注入此处 -->
-<main id="app" class="app-main" aria-live="polite">
-  <!-- 骨架屏：数据加载前显示 -->
-  <div class="skeleton-screen" id="skeleton">
-    <div class="container">
-      <div class="skeleton-hero">
-        <div class="sk-line sk-line--xl"></div>
-        <div class="sk-line sk-line--l"></div>
-        <div class="sk-line sk-line--m"></div>
-      </div>
+        // ==================== 联系方式（已集中维护） ====================
+        const contactInfo = {
+            email: "kanlorone@163.com",
+            wechatId: "MToolsService",
+            wechatQRCode: "assets/wechat.png",   // 二维码路径
+            wechatTip: "扫码添加微信"
+        };
+
+        // ==================== 页脚信息 ====================
+        const footerInfo = {
+            copyright: `© 2026 KanlorOne. All Rights Reserved.`,
+            links: [
+                { text: "服务条款", url: "#" },
+                { text: "隐私政策", url: "#" },
+                { text: "关于我们", url: "#" }
+            ]
+        };
+    </script>
+    <!-- ==================== 集中维护区结束 ==================== -->
+
+    <!-- Header -->
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="KanlorOne" class="h-10 w-auto">
+                <span class="logo-font text-3xl font-semibold tracking-tighter text-gray-900">KanlorOne</span>
+            </div>
+            <nav class="flex gap-8 text-sm font-medium">
+                <a href="#home" class="hover:text-orange-600 transition-colors">首页</a>
+                <a href="#products" class="hover:text-orange-600 transition-colors">产品</a>
+                <a href="#contact" class="hover:text-orange-600 transition-colors">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+<section id="home" class="hero-bg text-white py-20 md:py-24">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-6xl font-semibold tracking-tighter mb-5" id="hero-title"></h1>
+            <p class="text-xl max-w-2xl mx-auto mb-3" id="hero-subtitle"></p>
+            <p id="hero-cta" class="text-sm font-medium text-orange-100"></p>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="flex justify-between items-end mb-12">
+            <h2 class="text-4xl font-semibold">我们的产品</h2>
+            <p class="text-gray-500">点击卡片查看详情</p>
+        </div>
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl font-semibold mb-8">联系我们</h2>
+                    <div class="space-y-6 text-lg">
+                        <p><i class="fas fa-envelope mr-3 accent-color"></i> <span id="email"></span></p>
+                        <p><i class="fab fa-weixin mr-3 text-green-600"></i> <span id="wechat"></span></p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <img id="wechat-qrcode" src="" alt="微信二维码" class="mx-auto w-64 rounded-3xl shadow-xl">
+                    <p id="wechat-tip" class="mt-4 text-gray-600"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <img src="assets/logo.png" alt="KanlorOne" class="h-8 w-auto brightness-75">
+                    <span class="logo-font text-2xl font-semibold tracking-tighter text-white">KanlorOne</span>
+                </div>
+                <div id="footer-links" class="flex gap-6 text-sm"></div>
+                <div id="copyright" class="text-sm"></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4">
+        <div class="modal bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+            <div class="px-8 py-6 border-b flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <span id="modal-icon" class="text-5xl"></span>
+                    <div>
+                        <h2 id="modal-name" class="text-3xl font-semibold"></h2>
+                        <p id="modal-version" class="accent-color font-medium"></p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-3xl leading-none">×</button>
+            </div>
+
+            <div class="flex-1 overflow-auto p-8">
+                <div class="grid md:grid-cols-5 gap-8">
+                    <div class="md:col-span-2">
+                        <img id="modal-image" class="w-full rounded-2xl shadow-lg" alt="">
+                    </div>
+                    
+                    <div class="md:col-span-3 space-y-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 flex items-center gap-2">
+                                <i class="fas fa-info-circle accent-color"></i> 产品简介
+                            </h3>
+                            <p id="modal-description" class="text-gray-600 leading-relaxed"></p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-star text-amber-500"></i> 核心特色
+                            </h3>
+                            <ul id="modal-features" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-cogs accent-color"></i> 主要功能
+                            </h3>
+                            <ul id="modal-functions" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-clock text-emerald-600"></i> 最近更新
+                            </h3>
+                            <ul id="modal-updates" class="space-y-2 text-sm"></ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-download accent-color"></i> 下载链接
+                            </h3>
+                            <div id="modal-downloads" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-8 py-5 border-t bg-gray-50 flex justify-end">
+                <button onclick="closeModal()" class="px-6 py-3 text-gray-600 hover:bg-gray-100 rounded-2xl transition-colors">
+                    关闭
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-</main>
 
-<!-- 全局页脚 -->
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div class="footer-brand">
-      <span class="footer-brand__name">KanlorOne</span>
-      <p class="footer-brand__tagline">专注文档效率，释放专业价值</p>
-    </div>
-    <nav class="footer-nav" aria-label="页脚导航">
-      <a href="#/">首页</a>
-      <a href="#/products">产品</a>
-      <a href="#/contact">联系</a>
-    </nav>
-    <div class="footer-meta">
-      <p>© <span id="footerYear">2026</span> KanlorOne. All rights reserved.</p>
-      <p class="footer-meta__sub">Built as a static site · Zero build step</p>
-    </div>
-  </div>
-</footer>
+    <script>
+        function renderHero() {
+            document.getElementById('hero-title').innerHTML = heroIntro.title;
+            document.getElementById('hero-subtitle').textContent = heroIntro.subtitle;
+            document.getElementById('hero-cta').textContent = heroIntro.buttonText;
+        }
 
-<!-- 返回顶部按钮 -->
-<button class="back-to-top" id="backToTop" aria-label="返回顶部" hidden>
-  <i data-lucide="arrow-up"></i>
-</button>
+        function renderContact() {
+            document.getElementById('email').textContent = contactInfo.email;
+            document.getElementById('wechat').textContent = contactInfo.wechatId;
+            document.getElementById('wechat-qrcode').src = contactInfo.wechatQRCode;
+            document.getElementById('wechat-tip').textContent = contactInfo.wechatTip;
+        }
 
-<!-- Lucide 图标库 -->
-<script src="https://unpkg.com/lucide@latest"></script>
-<!-- 应用入口（ES Module） -->
-<script type="module" src="js/app.js"></script>
+        function renderFooter() {
+            document.getElementById('copyright').textContent = footerInfo.copyright;
+            const linksContainer = document.getElementById('footer-links');
+            footerInfo.links.forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.textContent = link.text;
+                a.className = "hover:text-white transition-colors";
+                linksContainer.appendChild(a);
+            });
+        }
+
+        function loadProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            productsData.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "product-card bg-white rounded-3xl overflow-hidden border border-gray-100 cursor-pointer group";
+                card.innerHTML = `
+                    <div class="p-6 pb-4 flex items-start justify-between gap-4">
+                        <h3 class="text-2xl font-semibold leading-tight">${product.name}</h3>
+                        <span class="shrink-0 bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-xs font-medium">v${product.version}</span>
+                    </div>
+                    <div class="px-6">
+                        <img src="${product.image}" class="product-image rounded-2xl transition-transform group-hover:scale-[1.02]" alt="${product.name}">
+                    </div>
+                    <div class="p-6 pt-4">
+                        <p class="text-gray-600 line-clamp-3 mb-0">${product.description}</p>
+                    </div>
+                `;
+                card.onclick = () => { window.location.href = `detail.html?id=${encodeURIComponent(product.id)}`; };
+                grid.appendChild(card);
+            });
+        }
+
+        function showProductDetail(product) {
+            document.getElementById('modal-icon').textContent = product.icon;
+            document.getElementById('modal-name').textContent = product.name;
+            document.getElementById('modal-version').innerHTML = `
+                最新版本 <span class="font-mono">${product.version}</span> 
+                <span class="text-gray-500 text-sm ml-3">发布于 ${product.releaseDate}</span>
+            `;
+            document.getElementById('modal-image').src = product.image;
+            document.getElementById('modal-description').textContent = product.description;
+
+            const featuresList = document.getElementById('modal-features');
+            featuresList.innerHTML = '';
+            product.features.forEach(f => {
+                const li = document.createElement('li');
+                li.className = "flex items-start gap-3 bg-gray-50 p-3 rounded-2xl";
+                li.innerHTML = `<i class="fas fa-check text-emerald-500 mt-0.5"></i><span>${f}</span>`;
+                featuresList.appendChild(li);
+            });
+
+            const functionsList = document.getElementById('modal-functions');
+            functionsList.innerHTML = '';
+            product.functions.forEach(f => {
+                const li = document.createElement('li');
+                li.className = "flex items-start gap-3 bg-gray-50 p-3 rounded-2xl";
+                li.innerHTML = `<i class="fas fa-cog accent-color mt-0.5"></i><span>${f}</span>`;
+                functionsList.appendChild(li);
+            });
+
+            const updatesList = document.getElementById('modal-updates');
+            updatesList.innerHTML = '';
+            product.updates.forEach(u => {
+                const li = document.createElement('li');
+                li.className = "flex items-center gap-3 text-gray-700";
+                li.innerHTML = `<span class="w-2 h-2 bg-emerald-500 rounded-full"></span>${u}`;
+                updatesList.appendChild(li);
+            });
+
+            const downloadsDiv = document.getElementById('modal-downloads');
+            downloadsDiv.innerHTML = '';
+            product.downloads.forEach(d => {
+                const dl = document.createElement('a');
+                dl.href = d.link;
+                dl.target = "_blank";
+                dl.className = "group flex items-center justify-between p-4 bg-white border border-gray-200 hover:accent-border rounded-2xl transition-all hover:shadow";
+                dl.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center text-xl">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium">${d.platform}</div>
+                            <div class="text-xs text-gray-500">${d.size}</div>
+                        </div>
+                    </div>
+                    <div class="accent-color group-hover:translate-x-1 transition-transform">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                `;
+                downloadsDiv.appendChild(dl);
+            });
+
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('product-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+
+        document.getElementById('product-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // 初始化
+        window.onload = () => {
+            renderHero();
+            renderContact();
+            renderFooter();
+            loadProducts();
+        };
+    </script>
 </body>
 </html>
