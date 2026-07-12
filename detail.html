@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="KanlorOne 产品详情">
+  <meta name="theme-color" content="#ff3b00">
+  <title>产品详情｜KanlorOne</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <style>
+    :root{--brand:#ff3b00;--ink:#20242a;--muted:#667085;--line:#e8eaed;--bg:#f7f8fa}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:inherit}.container{width:min(1060px,calc(100% - 40px));margin:auto}.header{background:#fff;border-bottom:1px solid var(--line)}.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:1.25rem;font-weight:800}.brand img{height:34px;width:auto}.links{display:flex;align-items:center;gap:22px}.links a{color:#45505e;text-decoration:none;font-size:.92rem;font-weight:600}.links a:hover,.back:hover{color:var(--brand);text-decoration:underline}.back{color:var(--brand);font-weight:700;text-decoration:none}.card{margin:44px 0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 28px #17212b0d}.hero{display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,3fr);gap:34px;padding:34px}.cover{width:100%;height:clamp(220px,34vw,360px);object-fit:cover;object-position:center;border-radius:14px;background:#edf0f2}.hero h1{margin:0 0 10px;font-size:clamp(2rem,4vw,3rem);line-height:1.15}.meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}.version{color:var(--brand);font-weight:700}.date,.desc{color:var(--muted)}.hero-downloads{margin-top:22px}.download-label{margin:20px 0 8px;font-size:.9rem;font-weight:700;color:#465160}.desc{margin:22px 0 0}.changelog{display:grid;gap:10px;padding:0;margin:0;list-style:none}.changelog li{display:grid;grid-template-columns:minmax(84px,auto) 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:10px;color:#465160}.changelog strong{color:var(--brand)}.content{padding:0 34px 36px}.section{margin-top:34px}.section h2{margin:0 0 14px;padding-left:10px;border-left:3px solid var(--brand);font-size:1.15rem}.tags{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0;margin:0;list-style:none}.tags li{padding:11px 13px;border-radius:10px;background:#f6f7f8;color:#465160}.updates{margin:0;padding-left:22px;color:#465160}.updates li{margin:9px 0}.downloads{display:flex;flex-wrap:wrap;gap:12px}.download{display:flex;min-width:210px;justify-content:space-between;gap:18px;padding:15px 17px;border:1px solid var(--brand);border-radius:11px;color:#fff;background:var(--brand);font-weight:700;text-decoration:none;box-shadow:0 8px 16px #ff3b0026}.download:hover{background:#d93200}.download:hover small{color:#fff0eb}.download small{color:#fff0eb;font-weight:400}.empty{padding:100px 20px;text-align:center;color:var(--muted)}footer{padding:26px 0;text-align:center;color:#8a929c;font-size:.88rem}@media(max-width:720px){.nav{height:62px}.brand img{height:29px}.links{gap:12px}.links a{font-size:.82rem}.links a:nth-child(4){display:none}.card{margin:24px 0;border-radius:14px}.hero{grid-template-columns:1fr;gap:22px;padding:20px}.content{padding:0 20px 25px}.tags{grid-template-columns:1fr}.changelog li{grid-template-columns:1fr;gap:3px}.cover{height:230px}}
+  </style>
+</head>
+<body>
+  <header class="header"><nav class="container nav" aria-label="主导航"><a class="brand" href="index.html#home"><img src="assets/logo.png" alt="KanlorOne"><span>KanlorOne</span></a><div class="links"><a href="index.html#home">首页</a><a href="index.html#products">产品</a><a href="index.html#contact">联系我们</a><a class="back" href="index.html#products">← 返回列表</a></div></nav></header>
+  <main class="container" id="main"><div class="empty">正在加载产品详情…</div></main>
+  <footer>© <span id="year"></span> KanlorOne. All rights reserved.</footer>
+  <script src="assets/products.js"></script>
+  <script>
+    const main=document.getElementById('main');
+    const create=(tag,text,className)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e};
+    const createDownloads=(items,className)=>{const list=create('div',undefined,className);items.forEach(item=>{if(item.link&&item.link!=='#'){const link=create('a',undefined,'download');link.href=item.link;link.target='_blank';link.rel='noopener noreferrer';link.append(create('span',`下载 ${item.platform}`),create('small',item.size));list.append(link)}});return list};
+    const params=new URLSearchParams(location.search);const product=productsData.find(item=>String(item.id)===params.get('id'));
+    document.getElementById('year').textContent=new Date().getFullYear();
+    if(!product){main.innerHTML='<div class="empty"><h1>未找到该产品</h1><p><a href="index.html#products">返回产品列表</a></p></div>'}else{
+      document.title=`${product.name}｜KanlorOne`;
+      const card=create('article',undefined,'card'),hero=create('div',undefined,'hero'),image=create('img',undefined,'cover');
+      image.src=product.image;image.alt=`${product.name} 产品封面`;image.onerror=()=>{image.removeAttribute('src');image.alt='产品图片待添加'};
+      const info=create('div'),meta=create('div',undefined,'meta');meta.append(create('span',`当前版本 v${product.version}`,'version'),create('span',`发布日期：${product.releaseDate}`,'date'));
+      const downloads=createDownloads(product.downloads,'downloads hero-downloads');info.append(create('h1',product.name),meta);if(downloads.childElementCount){info.append(create('div','立即下载','download-label'),downloads)}info.append(create('p',product.description,'desc'));hero.append(image,info);
+      const content=create('div',undefined,'content');const addTags=(title,values)=>{const section=create('section',undefined,'section'),list=create('ul',undefined,'tags');values.forEach(value=>list.append(create('li',value)));section.append(create('h2',title),list);content.append(section)};
+      addTags('核心特色',product.features);addTags('主要功能',product.functions);
+      const logSection=create('section',undefined,'section'),logs=create('ul',undefined,'changelog');product.updates.forEach(value=>{const parts=value.split(/\s[-–—]\s/),item=create('li'),version=create('strong',parts.shift()),description=create('span',parts.join(' - ')||'更新说明');item.append(version,description);logs.append(item)});logSection.append(create('h2','更新日志'),logs);content.append(logSection);
+      card.append(hero,content);main.replaceChildren(card);
+    }
+  </script>
+</body>
+</html>
