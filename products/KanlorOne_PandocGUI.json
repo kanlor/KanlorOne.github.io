@@ -1,0 +1,30 @@
+{
+    "id": 3,
+    "name": "KanlorOne PandocGUI",
+    "nameCn": "PandocGUI 文档转换",
+    "icon": "🔐",
+    "image": "products/KanlorOne_PandocGUI.png",
+    "version": "1.4",
+    "releaseDate": "2026-07-12",
+    "description": "万能文档转换工具Pandoc的图形化版本应用",
+    "features": [
+        "可视化操作，无需命令"
+    ],
+    "functions": [
+        "参数可视化",
+        "参数建议填充",
+        "更新检测",
+        "过程记录"
+    ],
+    "updates": [
+        "V1.4 - 全面优化界面及参数推荐",
+        "V1.3 - 解决md到docx乱码"
+    ],
+    "downloads": [
+        {
+            "platform": "Windows 64位",
+            "link": "https://share.weiyun.com/d56f8rp2",
+            "size": "9 MB"
+        }
+    ]
+}

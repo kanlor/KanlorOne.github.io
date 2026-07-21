@@ -1,117 +1,139 @@
 # KanlorOne 软件系列展示站
 
-面向 GitHub Pages / Cloudflare Pages 的纯静态官网，介绍 KanlorOne 系列软件。
-零构建、零依赖运行时，所有产品数据由 `data/products.json` 单一文件驱动。
+面向 GitHub Pages 的纯静态官网，介绍 KanlorOne 系列软件。
+零构建、零依赖运行时，所有产品数据由 `assets/products.js` 单一文件驱动。
 
 ## 本地预览
 
-由于使用 `fetch` 加载数据，需通过 HTTP 服务预览（不能直接双击打开 `index.html`）：
-
 ```bash
 python -m http.server 8000
-# 或
-npx serve .
 ```
 
 浏览器打开 `http://localhost:8000/`。
 
-## 部署
+## 一键部署
 
-### GitHub Pages（已配置）
-直接 push 到 `main` 分支，`.github/workflows/static.yml` 会自动部署。
+双击 `deploy.bat` 即可自动完成 git 添加、提交、推送，GitHub Pages 会在 1-5 分钟后自动更新。
 
-### Cloudflare Pages
-- 构建命令：留空
-- 输出目录：`/`（仓库根）
-- 连接 GitHub 仓库后推送即部署
-
-## ★ 增删改产品（核心维护流程）
-
-所有产品信息集中在 **`data/products.json`** 单一文件。编辑后保存、提交、推送，站点会自动更新。**无需触碰任何 HTML/CSS/JS 代码。**
-
-### 新增产品
-在 `products` 数组中追加一个对象：
-
-```jsonc
-{
-  "id": "my-new-tool",                 // 唯一标识，kebab-case，用于 URL
-  "name": "KanlorOne NewTool",
-  "tagline": "一句话简介",
-  "description": "详细描述……",
-  "logo": "logo/your-logo.png",        // 把 logo 文件放到 logo/ 目录
-  "status": "active",                  // active | archived
-  "currentVersion": "1.0.0",
-  "releaseDate": "2026-08-01",
-  "platforms": ["Windows"],
-  "tags": ["文档处理", "办公效率"],
-  "highlights": ["亮点1", "亮点2"],
-  "downloads": [
-    { "source": "微云", "url": "https://...", "label": "推荐" }
-  ],
-  "features": [
-    {
-      "group": "功能分组名",
-      "items": [
-        { "name": "功能名", "desc": "描述", "tags": ["免费"], "icon": "list" }
-      ]
-    }
-  ],
-  "versions": [
-    { "version": "1.0.0", "date": "2026-08-01", "type": "feature", "notes": ["首次发布"] }
-  ]
-}
-```
-
-### 删除产品
-从 `products` 数组中移除对应对象即可。
-
-### 修改产品
-直接编辑对应字段。常用操作：
-- **发布新版本**：在 `versions` 数组开头插入新版本对象，并更新 `currentVersion` 与 `releaseDate`
-- **更新下载链接**：修改 `downloads` 数组
-- **新增功能**：在对应 `features[].items` 中追加
-- **归档产品**：将 `status` 改为 `archived`
-
-### 字段速查
-
-| 字段 | 说明 |
-|------|------|
-| `products[].tags` | 产品分类标签数组（如 `["文档处理","办公效率"]`），用于产品页筛选 |
-| `features[].items[].tags` | 功能标签，可选值：`免费` / `注册` / `新增` / `样式优先` / `需 Word`（自动配色） |
-| `icon` | [Lucide 图标名](https://lucide.dev/icons)（如 `list`、`search`、`download`） |
-| `versions[].type` | `feature` / `fix` / `improvement` |
-| `status` | `active`（活跃）/ `archived`（归档） |
-
-## 页面结构
-
-三个页签，简洁直观：
-
-| 页签 | 路由 | 内容 |
-|------|------|------|
-| 首页 | `#/` | 品牌简介 + 各产品最新版本/发布时间/下载/详情入口 |
-| 产品 | `#/products` | 按标签切换产品，每个产品含：是什么、为什么用、核心功能、下载 |
-| 联系 | `#/contact` | 联系方式（微信/邮箱/仓库/官网）+ 关于 KanlorOne |
-
-点击首页"详情"按钮可直达对应产品标签：`#/products/:id`
+访问地址：https://kanlorone.github.io
 
 ## 项目结构
 
 ```
-├── index.html              # 入口
-├── css/style.css           # 设计系统
-├── js/
-│   ├── app.js              # 入口逻辑
-│   ├── router.js           # hash 路由
-│   ├── store.js            # 数据加载
-│   ├── utils.js            # 渲染辅助
-│   └── render/             # 各页面渲染（home / products / contact）
-├── data/products.json      # ★ 唯一数据源
-├── logo/                   # 品牌与产品 logo
-└── .github/workflows/      # GitHub Pages 部署
+KanlorOne.github.io/
+├── index.html                          # 首页（产品列表、导航、联系我们）
+├── manage.html                         # 产品数据管理工具（增删改查、导入导出）
+├── deploy.bat                          # 一键部署脚本
+├── Kanlor_html.md                      # 网站架构与设计规范文档
+├── KanlorOne_PRODUCT_TEMPLATE.json     # 产品数据模板
+├── products/                           # 产品统一目录（数据、详情页、图片）
+│   ├── KanlorOne_WordSuite.json        # 产品数据
+│   ├── KanlorOne_WordSuite.html        # 详情页面
+│   ├── KanlorOne_WordSuite.png         # 产品图片
+│   ├── KanlorOne_ScreenGuard.*
+│   └── KanlorOne_PandocGUI.*
+├── assets/
+│   ├── products.js                     # 产品数据（唯一数据源）
+│   ├── logo.png                        # 网站Logo
+│   ├── favicon.ico                     # 网站图标
+│   └── wechat.png                      # 微信二维码
+└── .github/workflows/static.yml        # GitHub Pages 自动部署配置
 ```
+
+## 产品维护
+
+### 文件命名规范
+
+所有产品相关文件使用统一的 `APP_NAME` 命名规则，存放在 `/products/` 目录：
+
+| 文件类型 | 命名规则 | 示例 |
+|----------|----------|------|
+| 产品数据 | `APP_NAME.json` | `KanlorOne_WordSuite.json` |
+| 详情页面 | `APP_NAME.html` | `KanlorOne_WordSuite.html` |
+| 产品图片 | `APP_NAME.png` | `KanlorOne_WordSuite.png` |
+
+### 增删改产品
+
+访问 `http://localhost:8000/manage.html` 使用可视化管理工具：
+
+1. **新增产品**：填写表单 → 保存 → 生成代码 → 复制覆盖 `assets/products.js`
+2. **修改产品**：点击编辑 → 修改 → 保存 → 生成代码 → 复制覆盖
+3. **删除产品**：点击删除 → 生成代码 → 复制覆盖
+4. **导入导出**：支持单个产品数据的导入和导出
+
+新增产品后，需在 `/products/` 目录创建对应的 `APP_NAME.html` 详情页，首页会自动链接。
+
+### 产品数据结构
+
+```json
+{
+    "id": 1,
+    "name": "KanlorOne WordSuite",
+    "nameCn": "WordSuite 文档套件",
+    "icon": "📋",
+    "image": "products/KanlorOne_WordSuite.png",
+    "version": "1.9.3",
+    "releaseDate": "2026-07-11",
+    "description": "产品简介",
+    "features": ["特色1", "特色2"],
+    "functions": ["功能1", "功能2"],
+    "updates": ["v1.9.3 - 更新内容"],
+    "downloads": [
+        {
+            "platform": "Windows 64位",
+            "link": "https://...",
+            "size": "20 MB"
+        }
+    ]
+}
+```
+
+## 详情页规范
+
+每个产品详情页必须包含以下章节：
+
+1. 产品简介
+2. 核心特色
+3. 使用指南
+4. 功能详解
+5. 下载安装
+6. 更新日志
+7. 常见问题
+8. 快捷键（可选）
+
+详细规范请参阅 [Kanlor_html.md](Kanlor_html.md)。
 
 ## 技术栈
 
-原生 HTML5 + CSS3 + ES6 模块化 JS。无构建步骤、无框架运行时。
-字体：Fraunces / Manrope / JetBrains Mono（Google Fonts CDN）。
-图标：Lucide Icons（CDN）。
+| 技术 | 用途 |
+|------|------|
+| HTML5 | 页面结构 |
+| Tailwind CSS | 响应式样式框架（CDN） |
+| Font Awesome 6.5.1 | 图标库（CDN） |
+| JavaScript (ES6+) | 交互逻辑 |
+| Google Fonts | 字体（Inter、Space Grotesk） |
+
+## 响应式设计
+
+| 设备类型 | 屏幕宽度 | 产品列数 | 导航方式 |
+|----------|----------|----------|----------|
+| PC端 | ≥1024px | 3列 | 顶部导航栏 |
+| 平板端 | 768px-1023px | 2列 | 顶部导航栏 |
+| 移动端 | <640px | 1列 | 汉堡菜单 |
+
+## 部署
+
+### GitHub Pages（已配置）
+
+直接 push 到 `main` 分支，`.github/workflows/static.yml` 会自动部署。
+
+### 一键部署
+
+双击 `deploy.bat`，脚本会自动执行：
+1. `git add -A`
+2. `git commit -m "部署更新 YYYY-MM-DD HH:MM"`
+3. `git push origin`
+
+## 相关文档
+
+- [Kanlor_html.md](Kanlor_html.md) - 网站架构与设计规范（传给大模型可按规范维护详情页）

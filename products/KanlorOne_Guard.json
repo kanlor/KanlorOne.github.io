@@ -1,0 +1,31 @@
+{
+    "id": 2,
+    "name": "KanlorOne Guard",
+    "nameCn": "Guard 桌面助手",
+    "icon": "🛡️",
+    "image": "products/KanlorOne_Guard.png",
+    "version": "2.8",
+    "releaseDate": "2026-07-12",
+    "description": "一款强大的屏幕时间管理工具，专为儿童护眼与时间控制以及成人专注工作两种场景设计",
+    "features": [
+        "每日总时长限制（工作日/节假日分别设置）",
+        "托盘常驻，右键菜单快速操作"
+    ],
+    "functions": [
+        "儿童用屏管理",
+        "工作休息管理",
+        "待办提醒管理",
+        "时长时间管理"
+    ],
+    "updates": [
+        "v2.8 - 新增待办及提醒管理",
+        "v2.7 - 优化开机启动"
+    ],
+    "downloads": [
+        {
+            "platform": "Windows 64位",
+            "link": "https://share.weiyun.com/d56f8rp2",
+            "size": "17 MB"
+        }
+    ]
+}

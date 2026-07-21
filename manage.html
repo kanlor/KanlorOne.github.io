@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KanlorOne - 产品数据管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .modal { animation: modalPop 0.2s ease-out; }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .highlight { animation: highlight 1s; }
+        @keyframes highlight { 0% { background-color: #fef3c7; } 100% { background-color: transparent; } }
+        textarea { resize: vertical; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <header class="bg-white border-b sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-cog text-2xl text-orange-600"></i>
+                    <span class="text-xl font-semibold text-gray-900">KanlorOne 产品管理</span>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="refreshData()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+                        <i class="fas fa-sync-alt"></i> 刷新
+                    </button>
+                    <button onclick="downloadTemplate()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                        <i class="fas fa-file-download"></i> 下载模板
+                    </button>
+                    <button onclick="generateCode()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <i class="fas fa-code"></i> 生成代码
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-6 py-8">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-semibold">产品列表</h2>
+                    <div class="flex gap-3">
+                        <label class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2 cursor-pointer">
+                            <i class="fas fa-file-import"></i> 导入产品
+                            <input type="file" id="import-file" accept=".json" class="hidden" onchange="importProduct(this)">
+                        </label>
+                        <button onclick="openModal()" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors flex items-center gap-2">
+                            <i class="fas fa-plus"></i> 新增产品
+                        </button>
+                    </div>
+                </div>
+                <div id="products-list" class="space-y-4"></div>
+                <div id="empty-state" class="text-center py-12 text-gray-400 hidden">
+                    <i class="fas fa-box-open text-6xl mb-4"></i>
+                    <p>暂无产品数据</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <h2 class="text-lg font-semibold mb-4">产品数据代码</h2>
+                <p class="text-sm text-gray-500 mb-4">复制下方代码覆盖 assets/products.js 文件，或点击下载按钮获取文件</p>
+                <textarea id="code-output" class="w-full h-64 p-4 border border-gray-200 rounded-xl font-mono text-sm resize-none" readonly></textarea>
+                <div class="flex justify-end mt-4 gap-3">
+                    <button onclick="downloadCode()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+                        <i class="fas fa-download"></i> 下载文件
+                    </button>
+                    <button onclick="copyCode()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+                        <i class="fas fa-copy"></i> 复制代码
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="modal-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div id="modal" class="modal bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+            <div class="px-6 py-4 border-b flex items-center justify-between">
+                <h3 id="modal-title" class="text-lg font-semibold">新增产品</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-auto p-6">
+                <form id="product-form" class="space-y-4">
+                    <input type="hidden" id="form-id">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">产品名称（英文）</label>
+                            <input type="text" id="form-name" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">产品名称（中文）</label>
+                            <input type="text" id="form-nameCn" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">图标（emoji）</label>
+                            <input type="text" id="form-icon" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="📋">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">版本号</label>
+                            <input type="text" id="form-version" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">发布日期</label>
+                        <input type="date" id="form-releaseDate" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">产品图片路径</label>
+                        <input type="text" id="form-image" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="products/xxx.png">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">产品简介</label>
+                        <textarea id="form-description" rows="3" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">核心特色（每行一个）</label>
+                        <textarea id="form-features" rows="4" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="特色1&#10;特色2&#10;特色3"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">主要功能（每行一个）</label>
+                        <textarea id="form-functions" rows="4" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="功能1&#10;功能2&#10;功能3"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">更新日志（每行一个，格式：版本 - 描述）</label>
+                        <textarea id="form-updates" rows="4" class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="v1.0 - 初始版本"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">下载链接</label>
+                        <div id="downloads-container" class="space-y-3">
+                            <div class="download-item grid grid-cols-3 gap-3">
+                                <input type="text" class="download-platform px-3 py-2 border border-gray-200 rounded-lg" placeholder="平台（如 Windows 64位）">
+                                <input type="text" class="download-size px-3 py-2 border border-gray-200 rounded-lg" placeholder="大小（如 20 MB）">
+                                <input type="text" class="download-link px-3 py-2 border border-gray-200 rounded-lg" placeholder="下载链接">
+                            </div>
+                        </div>
+                        <button type="button" onclick="addDownloadRow()" class="mt-2 text-sm text-orange-600 hover:text-orange-700 flex items-center gap-1">
+                            <i class="fas fa-plus"></i> 添加下载项
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="px-6 py-4 border-t bg-gray-50 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">取消</button>
+                <button onclick="saveProduct()" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/products.js"></script>
+    <script>
+        let products = [];
+
+        function init() {
+            if (typeof productsData !== 'undefined') {
+                try {
+                    products = JSON.parse(JSON.stringify(productsData));
+                } catch (e) {
+                    products = productsData.map(p => ({ ...p }));
+                }
+            }
+            renderProducts();
+            generateCode();
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('products-list');
+            const emptyState = document.getElementById('empty-state');
+            
+            container.innerHTML = '';
+            
+            if (products.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            
+            products.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'border border-gray-200 rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition-shadow';
+                card.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="text-3xl">${product.icon || '📦'}</div>
+                        <div>
+                            <div class="font-semibold text-gray-900">${product.name}</div>
+                            <div class="text-sm text-gray-500">${product.nameCn || ''} · v${product.version} · ${product.releaseDate}</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="exportProduct(${index})" class="px-3 py-1.5 bg-green-100 text-green-600 rounded-lg text-sm hover:bg-green-200 transition-colors">
+                            <i class="fas fa-file-export"></i> 导出
+                        </button>
+                        <button onclick="editProduct(${index})" class="px-3 py-1.5 bg-blue-100 text-blue-600 rounded-lg text-sm hover:bg-blue-200 transition-colors">
+                            <i class="fas fa-edit"></i> 编辑
+                        </button>
+                        <button onclick="deleteProduct(${index})" class="px-3 py-1.5 bg-red-100 text-red-600 rounded-lg text-sm hover:bg-red-200 transition-colors">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openModal(productIndex = -1) {
+            const overlay = document.getElementById('modal-overlay');
+            const title = document.getElementById('modal-title');
+            const form = document.getElementById('product-form');
+            
+            form.reset();
+            document.getElementById('downloads-container').innerHTML = `
+                <div class="download-item grid grid-cols-3 gap-3">
+                    <input type="text" class="download-platform px-3 py-2 border border-gray-200 rounded-lg" placeholder="平台（如 Windows 64位）">
+                    <input type="text" class="download-size px-3 py-2 border border-gray-200 rounded-lg" placeholder="大小（如 20 MB）">
+                    <input type="text" class="download-link px-3 py-2 border border-gray-200 rounded-lg" placeholder="下载链接">
+                </div>
+            `;
+            
+            if (productIndex >= 0) {
+                const product = products[productIndex];
+                title.textContent = '编辑产品';
+                document.getElementById('form-id').value = productIndex;
+                document.getElementById('form-name').value = product.name;
+                document.getElementById('form-nameCn').value = product.nameCn || '';
+                document.getElementById('form-icon').value = product.icon || '';
+                document.getElementById('form-version').value = product.version;
+                document.getElementById('form-releaseDate').value = product.releaseDate;
+                document.getElementById('form-image').value = product.image || '';
+                document.getElementById('form-description').value = product.description || '';
+                document.getElementById('form-features').value = (product.features || []).join('\n');
+                document.getElementById('form-functions').value = (product.functions || []).join('\n');
+                document.getElementById('form-updates').value = (product.updates || []).join('\n');
+                
+                const downloadsContainer = document.getElementById('downloads-container');
+                downloadsContainer.innerHTML = '';
+                (product.downloads || []).forEach(dl => {
+                    const row = document.createElement('div');
+                    row.className = 'download-item grid grid-cols-3 gap-3';
+                    row.innerHTML = `
+                        <input type="text" class="download-platform px-3 py-2 border border-gray-200 rounded-lg" value="${dl.platform}">
+                        <input type="text" class="download-size px-3 py-2 border border-gray-200 rounded-lg" value="${dl.size}">
+                        <input type="text" class="download-link px-3 py-2 border border-gray-200 rounded-lg" value="${dl.link}">
+                    `;
+                    downloadsContainer.appendChild(row);
+                });
+                if (!product.downloads || product.downloads.length === 0) {
+                    addDownloadRow();
+                }
+            } else {
+                title.textContent = '新增产品';
+                document.getElementById('form-id').value = '-1';
+                document.getElementById('form-icon').value = '📦';
+                document.getElementById('form-releaseDate').value = new Date().toISOString().split('T')[0];
+            }
+            
+            overlay.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+        }
+
+        function addDownloadRow() {
+            const container = document.getElementById('downloads-container');
+            const row = document.createElement('div');
+            row.className = 'download-item grid grid-cols-3 gap-3';
+            row.innerHTML = `
+                <input type="text" class="download-platform px-3 py-2 border border-gray-200 rounded-lg" placeholder="平台">
+                <input type="text" class="download-size px-3 py-2 border border-gray-200 rounded-lg" placeholder="大小">
+                <input type="text" class="download-link px-3 py-2 border border-gray-200 rounded-lg" placeholder="链接">
+            `;
+            container.appendChild(row);
+        }
+
+        function collectDownloads() {
+            const rows = document.querySelectorAll('.download-item');
+            const downloads = [];
+            rows.forEach(row => {
+                const platform = row.querySelector('.download-platform').value.trim();
+                const size = row.querySelector('.download-size').value.trim();
+                const link = row.querySelector('.download-link').value.trim();
+                if (platform && link) {
+                    downloads.push({ platform, size, link });
+                }
+            });
+            return downloads;
+        }
+
+        function saveProduct() {
+            const id = parseInt(document.getElementById('form-id').value);
+            const newProduct = {
+                id: id >= 0 ? products[id].id : Date.now(),
+                name: document.getElementById('form-name').value.trim(),
+                nameCn: document.getElementById('form-nameCn').value.trim() || undefined,
+                icon: document.getElementById('form-icon').value.trim() || '📦',
+                version: document.getElementById('form-version').value.trim(),
+                releaseDate: document.getElementById('form-releaseDate').value,
+                image: document.getElementById('form-image').value.trim() || '',
+                description: document.getElementById('form-description').value.trim() || '',
+                features: document.getElementById('form-features').value.split('\n').map(s => s.trim()).filter(s => s),
+                functions: document.getElementById('form-functions').value.split('\n').map(s => s.trim()).filter(s => s),
+                updates: document.getElementById('form-updates').value.split('\n').map(s => s.trim()).filter(s => s),
+                downloads: collectDownloads()
+            };
+            
+            if (!newProduct.name || !newProduct.version || !newProduct.releaseDate) {
+                alert('请填写必填字段：产品名称、版本号、发布日期');
+                return;
+            }
+            
+            if (id >= 0) {
+                products[id] = newProduct;
+            } else {
+                products.push(newProduct);
+            }
+            
+            renderProducts();
+            generateCode();
+            closeModal();
+        }
+
+        function editProduct(index) {
+            openModal(index);
+        }
+
+        function deleteProduct(index) {
+            if (confirm(`确定删除产品「${products[index].name}」吗？`)) {
+                products.splice(index, 1);
+                renderProducts();
+                generateCode();
+            }
+        }
+
+        function generateCode() {
+            const code = `// 产品信息唯一维护文件：首页与详情页共用。
+// 新增、删除或修改产品后，直接提交发布即可。
+
+const productsData = ${JSON.stringify(products, null, 4)};`;
+            document.getElementById('code-output').value = code;
+            showToast('代码已生成！', 'success');
+        }
+
+        function copyCode() {
+            const textarea = document.getElementById('code-output');
+            textarea.select();
+            document.execCommand('copy');
+            showToast('代码已复制到剪贴板！', 'success');
+        }
+
+        function downloadCode() {
+            const code = document.getElementById('code-output').value;
+            const blob = new Blob([code], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'products.js';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('文件已下载！', 'success');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-20 right-6 px-6 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 flex items-center gap-3 ${
+                type === 'success' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
+            }`;
+            toast.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function refreshData() {
+            location.reload();
+        }
+
+        function downloadTemplate() {
+            const template = {
+                id: 0,
+                name: "KanlorOne_ProductName",
+                nameCn: "产品中文名称",
+                icon: "📦",
+                image: "products/KanlorOne_ProductName.png",
+                version: "1.0.0",
+                releaseDate: new Date().toISOString().split('T')[0],
+                description: "产品简介描述",
+                features: ["核心特色1", "核心特色2", "核心特色3"],
+                functions: ["主要功能1", "主要功能2", "主要功能3"],
+                updates: ["v1.0.0 - 初始版本"],
+                downloads: [{
+                    platform: "Windows 64位",
+                    link: "https://example.com/download",
+                    size: "20 MB"
+                }]
+            };
+            const blob = new Blob([JSON.stringify(template, null, 4)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'KanlorOne_PRODUCT_TEMPLATE.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportProduct(index) {
+            const product = products[index];
+            const fileName = `${product.name.replace(/\s+/g, '_')}.json`;
+            const blob = new Blob([JSON.stringify(product, null, 4)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importProduct(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const productData = JSON.parse(e.target.result);
+                    if (validateProductData(productData)) {
+                        productData.id = Date.now();
+                        products.push(productData);
+                        renderProducts();
+                        generateCode();
+                        alert('产品导入成功！');
+                    } else {
+                        alert('产品数据格式不正确，请检查模板文件。');
+                    }
+                } catch (error) {
+                    alert('导入失败：JSON格式错误。');
+                }
+            };
+            reader.readAsText(file);
+            input.value = '';
+        }
+
+        function validateProductData(data) {
+            return data && 
+                   typeof data.name === 'string' && 
+                   typeof data.version === 'string' && 
+                   typeof data.releaseDate === 'string';
+        }
+
+        document.getElementById('modal-overlay').addEventListener('click', e => {
+            if (e.target === document.getElementById('modal-overlay')) closeModal();
+        });
+
+        window.onload = init;
+    </script>
+</body>
+</html>

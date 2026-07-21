@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KanlorOne PandocGUI — 使用说明 | KanlorOne</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); }
+.container { max-width: 960px; margin: 0 auto; padding: 30px 24px; }
+
+/* Header */
+.header-box { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.header-box img.logo { height: 60px; }
+.header-box img.wechat { height: 80px; }
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* Download */
+.download-links { background: #fff5f2; border: 1px solid #ffd9cc; border-radius: 8px; padding: 16px 20px; margin: 16px 0 24px; }
+.download-links h3 { font-size: 16px; color: var(--brand); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.download-links a { display: block; padding: 6px 0; color: var(--brand); text-decoration: none; }
+.download-links a:hover { text-decoration: underline; }
+.download-links code { background: #ffe6dd; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
+/* TOC */
+.toc { background: #fff; border-radius: 8px; padding: 16px 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.toc-title { font-weight: bold; margin-bottom: 8px; color: var(--ink); }
+.toc a { color: var(--brand); text-decoration: none; display: block; padding: 4px 0; }
+.toc a:hover { text-decoration: underline; }
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+.tag.rec { background: #ecfdf5; color: #059669; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header：Logo + 微信二维码 + 主标题 -->
+<div class="header-box">
+    <img src="KanlorOne_PandocGUI.png" alt="KanlorOne PandocGUI" class="logo">
+    <img src="../assets/wechat.png" alt="微信二维码" class="wechat">
+</div>
+<h1>KanlorOne PandocGUI — Pandoc 文档转换图形化工具</h1>
+
+<!-- 下载地址区域 -->
+<section class="download-links">
+    <h3><i class="fas fa-download"></i> 下载地址</h3>
+    <p class="no-indent">① 微云下载：<a href="https://share.weiyun.com/d56f8rp2" target="_blank">https://share.weiyun.com/d56f8rp2</a></p>
+    <p class="no-indent">② 文件大小：9 MB（Windows 64位）</p>
+</section>
+
+<!-- 目录导航 -->
+<nav class="toc">
+    <p class="no-indent toc-title">目录</p>
+    <a href="#intro">一、产品简介</a>
+    <a href="#features">二、核心特色</a>
+    <a href="#guide">三、使用指南</a>
+    <a href="#functions">四、功能详解</a>
+    <a href="#download">五、下载安装</a>
+    <a href="#updates">六、更新日志</a>
+    <a href="#faq">七、常见问题</a>
+    <a href="#shortcuts">八、快捷键</a>
+</nav>
+
+<!-- ══════════════════ 一、产品简介 ══════════════════ -->
+<h2 id="intro">一、产品简介</h2>
+<p>KanlorOne PandocGUI 是一款 <b>Pandoc 文档转换工具的图形化版本</b>。Pandoc 是被誉为「万能文档转换瑞士军刀」的命令行工具，支持数十种文档格式互转，但需要记忆复杂的命令行参数。PandocGUI 将其包装为可视化界面，让用户无需命令即可完成文档转换。</p>
+<p>工具集成了参数可视化、参数建议填充、更新检测、过程记录四大核心能力，配置自动保存，下次打开无需重新设置。支持 PDF / Docx / HTML / EPUB / PPTX / Markdown 等多种主流格式互转，并完美支持中文。</p>
+
+<div class="tip">
+<b>适用场景</b>：Markdown 转 PDF 生成报告、Word 转 Markdown 发布博客、HTML 转 PDF 留档存档、多格式文档统一转换。
+</div>
+
+<!-- ══════════════════ 二、核心特色 ══════════════════ -->
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title">✅ KanlorOne PandocGUI 的核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>可视化操作</b>：图形化界面替代命令行，参数勾选即可，无需记忆语法</li>
+<li><b>参数建议填充</b>：智能识别输入输出格式，自动推荐最佳参数组合</li>
+<li><b>中文完美支持</b>：内置 xelatex 引擎配置，PDF 输出无乱码</li>
+<li><b>更新检测</b>：自动检测 Pandoc 与程序自身版本，提醒更新</li>
+<li><b>过程记录</b>：完整记录每次转换的命令、参数、输出，方便复现</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🎯 支持的格式</div>
+<div class="card-desc">
+<table>
+<tr><th>方向</th><th>支持格式</th></tr>
+<tr><td>输入格式</td><td>markdown, docx, html, latex, epub, odt, rst 等</td></tr>
+<tr><td>输出格式</td><td>pdf, docx, html, epub, pptx, markdown 等</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ══════════════════ 三、使用指南 ══════════════════ -->
+<h2 id="guide">三、使用指南</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>选择输入文件</b>：点击「浏览...」按钮选择输入文件（Markdown、Word、HTML 等）。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>选择输出格式</b>：从下拉框选择目标格式（推荐 PDF 或 Docx）。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>配置参数</b>：根据需要勾选「生成目录」「章节编号」等选项；参数建议会自动填充推荐值。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>查看命令</b>：「当前执行命令」区域实时展示对应的 Pandoc 命令，可点击「复制命令」用于命令行复现。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>开始转换</b>：点击右上角「▶️ 开始转换」按钮，过程记录区实时显示转换日志。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>查看结果</b>：转换完成后，输出文件自动打开所在目录，方便查找。</div>
+</div>
+
+<div class="tip">
+<b>配置自动保存</b>：程序会自动保存您的配置，下次打开无需重新设置。
+</div>
+
+<!-- ══════════════════ 四、功能详解 ══════════════════ -->
+<h2 id="functions">四、功能详解</h2>
+
+<div class="card">
+<div class="card-title"><span class="tag num">1</span> 参数可视化</div>
+<div class="card-desc">
+<p class="no-indent">将 Pandoc 命令行参数拆解为可视化选项，用户通过勾选和输入框配置，无需记忆参数语法。所有参数变化实时反映在「当前执行命令」区域。</p>
+<ul>
+<li>输入输出文件选择</li>
+<li>输出格式下拉选择</li>
+<li>PDF 引擎选择（xelatex / pdflatex / lualatex / wkhtmltopdf 等）</li>
+<li>代码高亮主题选择（pygments / zenburn / kate 等）</li>
+<li>生成目录、章节编号、独立页面等开关</li>
+<li>Docx 参考模板文件选择</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">2</span> <span class="tag rec">智能</span> 参数建议填充</div>
+<div class="card-desc">
+<p class="no-indent">根据输入输出格式自动推荐最佳参数组合，避免新手踩坑：</p>
+<ul>
+<li><b>Markdown → PDF</b>：自动推荐 xelatex 引擎 + pygments 高亮 + 中文字体配置</li>
+<li><b>Markdown → Docx</b>：自动推荐参考模板（如有）+ 章节编号</li>
+<li><b>HTML → PDF</b>：自动推荐 wkhtmltopdf 引擎 + CSS 样式表</li>
+<li><b>Docx → Markdown</b>：自动推荐 wrap=none + markdown 格式</li>
+</ul>
+<p class="no-indent">用户可在推荐参数基础上自由调整，灵活组合。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">3</span> PDF 输出推荐设置</div>
+<div class="card-desc">
+<ul>
+<li><b>PDF 引擎</b>：优先选择 <code>xelatex</code>（最佳中文支持）</li>
+<li><b>代码高亮</b>：推荐 <code>pygments</code> 或 <code>zenburn</code></li>
+<li><b>中文字体</b>：通过 YAML 元数据或变量指定系统已安装的宋体（SimSun）</li>
+<li><b>页面设置</b>：可指定纸张大小、页边距、行距</li>
+</ul>
+<div class="warn">
+<b>注意</b>：PDF 输出需要安装 TeX 发行版（TeX Live 或 MiKTeX），并确保 <code>xelatex</code> 在系统 PATH 环境变量中。
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">4</span> Docx 输出与参考模板</div>
+<div class="card-desc">
+<p class="no-indent">选择一个已有的 Word 文档作为「Docx 参考模板」，可统一字体、样式、页眉页脚等格式。Pandoc 会将转换后的内容套用模板样式输出。</p>
+<p class="no-indent"><b>使用方法</b>：先在 Word 中调整好样式（标题、正文、引用等），保存为 <code>template.docx</code>；在程序中选择该文件作为参考模板即可。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">5</span> 更新检测</div>
+<div class="card-desc">
+<ul>
+<li>启动时自动检测 Pandoc 是否已安装、版本是否兼容</li>
+<li>支持手动指定 <code>pandoc.exe</code> 路径（点击「⚙️ 设置」）</li>
+<li>检测程序自身版本更新，提醒用户下载新版本</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">6</span> 过程记录</div>
+<div class="card-desc">
+<ul>
+<li>实时显示转换命令、参数、Pandoc 输出日志</li>
+<li>记录每次转换的时间、输入输出文件、耗时</li>
+<li>支持日志复制、清空、导出</li>
+<li>转换失败时显示详细错误信息，方便定位问题</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">7</span> 命令复制与自定义</div>
+<div class="card-desc">
+<p class="no-indent">「当前执行命令」区域完整展示对应的 Pandoc 命令行，点击「复制命令」可一键复制到剪贴板。</p>
+<p class="no-indent">用户可在复制后自行修改命令，用于命令行环境执行，实现更高级的定制需求。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 五、下载安装 ══════════════════ -->
+<h2 id="download">五、下载安装</h2>
+
+<div class="card">
+<div class="card-title">系统要求</div>
+<div class="card-desc">
+<ul>
+<li>操作系统：Windows 7 及以上（64 位）</li>
+<li><b>Pandoc</b>：需单独安装 Pandoc（推荐 2.x 及以上版本）</li>
+<li><b>TeX 发行版</b>：输出 PDF 需安装 TeX Live 或 MiKTeX（含 xelatex）</li>
+<li>磁盘空间：至少 50 MB 可用空间（不含 Pandoc 与 TeX）</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">安装步骤</div>
+<div class="card-desc">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text">安装 Pandoc：从 <a href="https://pandoc.org/installing.html" target="_blank" style="color:var(--brand);">pandoc.org</a> 下载 Windows 安装包并安装</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text">（可选）安装 TeX Live 或 MiKTeX，用于 PDF 输出</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text">从上方下载地址获取 PandocGUI 安装包（微云下载，9 MB）</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text">双击运行安装程序，按提示完成安装</div>
+</div>
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text">启动 KanlorOne PandocGUI，如未检测到 Pandoc，点击「⚙️ 设置」手动指定 <code>pandoc.exe</code> 路径</div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 六、更新日志 ══════════════════ -->
+<h2 id="updates">六、更新日志</h2>
+
+<table>
+<thead>
+<tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
+</thead>
+<tbody>
+<tr><td>v1.4</td><td>全面优化界面及参数推荐</td><td>2026-07-12</td></tr>
+<tr><td>v1.3</td><td>解决 md 到 docx 乱码问题</td><td>-</td></tr>
+</tbody>
+</table>
+
+<!-- ══════════════════ 七、常见问题 ══════════════════ -->
+<h2 id="faq">七、常见问题</h2>
+
+<div class="card">
+<div class="card-title">Q：PDF 中文显示方框 / 乱码怎么办？</div>
+<div class="card-desc">
+<p class="no-indent">使用 <b>xelatex</b> 引擎（在 PDF 引擎下拉框中选择），并确保系统已安装宋体（SimSun）等中文字体。PandocGUI 默认推荐 xelatex 引擎，已针对中文优化。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：提示「Pandoc 未找到」怎么办？</div>
+<div class="card-desc">
+<p class="no-indent">PandocGUI 是 Pandoc 的图形化前端，需要先安装 Pandoc 命令行工具。请从 <a href="https://pandoc.org/installing.html" target="_blank" style="color:var(--brand);">pandoc.org</a> 下载安装。安装后如仍未识别，点击「⚙️ 设置」手动指定 <code>pandoc.exe</code> 路径。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：PDF 引擎报错怎么办？</div>
+<div class="card-desc">
+<p class="no-indent">PDF 输出需要安装 TeX 发行版（TeX Live 或 MiKTeX），并确保 <code>xelatex</code> 在系统 PATH 环境变量中。安装后重启 PandocGUI 再试。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：如何自定义转换命令？</div>
+<div class="card-desc">
+<p class="no-indent">在「当前执行命令」区域点击「复制命令」按钮，将命令复制到剪贴板后自行修改，再在命令行环境中执行。可实现参数建议中未覆盖的高级定制。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：Docx 输出样式不统一？</div>
+<div class="card-desc">
+<p class="no-indent">选择一个已调整好样式的 Word 文档作为「Docx 参考模板」。Pandoc 会将转换后的内容套用模板样式输出，统一字体、段落、标题等格式。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：配置会不会丢失？</div>
+<div class="card-desc">
+<p class="no-indent">不会。程序会自动保存您的配置（输入输出路径、参数选项、PDF 引擎等），下次打开直接沿用上次设置。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：转换失败如何排查？</div>
+<div class="card-desc">
+<p class="no-indent">查看「过程记录」区域的错误日志，常见原因：输入文件路径含特殊字符、Pandoc 未安装、TeX 引擎缺失、输出目录无写入权限等。日志中会显示完整的 Pandoc 错误输出。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：支持哪些代码高亮主题？</div>
+<div class="card-desc">
+<p class="no-indent">支持 <code>pygments</code>、<code>zenburn</code>、<code>kate</code>、<code>monochrome</code>、<code>espresso</code>、<code>tango</code> 等多种主题，推荐 <code>pygments</code> 或 <code>zenburn</code>。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 八、快捷键 ══════════════════ -->
+<h2 id="shortcuts">八、快捷键</h2>
+
+<div class="card">
+<div class="card-desc">
+<table>
+<thead>
+<tr><th>快捷键</th><th>功能</th></tr>
+</thead>
+<tbody>
+<tr><td>Ctrl + O</td><td>选择输入文件</td></tr>
+<tr><td>Ctrl + Enter</td><td>开始转换</td></tr>
+<tr><td>Ctrl + Shift + C</td><td>复制当前命令</td></tr>
+<tr><td>Ctrl + L</td><td>清空过程记录</td></tr>
+<tr><td>Esc</td><td>取消正在进行的转换</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+<p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: MToolsService | 邮箱: <a href="mailto:kanlorone@163.com">kanlorone@163.com</a></p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+    "id": 0,
+    "name": "KanlorOne_ProductName",
+    "nameCn": "产品中文名称",
+    "icon": "📦",
+    "image": "products/KanlorOne_ProductName.png",
+    "version": "1.0.0",
+    "releaseDate": "2026-07-21",
+    "description": "产品简介描述",
+    "features": [
+        "核心特色1",
+        "核心特色2",
+        "核心特色3"
+    ],
+    "functions": [
+        "主要功能1",
+        "主要功能2",
+        "主要功能3"
+    ],
+    "updates": [
+        "v1.0.0 - 初始版本"
+    ],
+    "downloads": [
+        {
+            "platform": "Windows 64位",
+            "link": "https://example.com/download",
+            "size": "20 MB"
+        }
+    ]
+}

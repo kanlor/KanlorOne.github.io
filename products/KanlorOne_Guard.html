@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KanlorOne Guard — 使用说明 | KanlorOne</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); }
+.container { max-width: 960px; margin: 0 auto; padding: 30px 24px; }
+
+/* Header */
+.header-box { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.header-box img.logo { height: 60px; }
+.header-box img.wechat { height: 80px; }
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* Download */
+.download-links { background: #fff5f2; border: 1px solid #ffd9cc; border-radius: 8px; padding: 16px 20px; margin: 16px 0 24px; }
+.download-links h3 { font-size: 16px; color: var(--brand); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.download-links a { display: block; padding: 6px 0; color: var(--brand); text-decoration: none; }
+.download-links a:hover { text-decoration: underline; }
+.download-links code { background: #ffe6dd; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
+/* TOC */
+.toc { background: #fff; border-radius: 8px; padding: 16px 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.toc-title { font-weight: bold; margin-bottom: 8px; color: var(--ink); }
+.toc a { color: var(--brand); text-decoration: none; display: block; padding: 4px 0; }
+.toc a:hover { text-decoration: underline; }
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.screen { background: #ecfdf5; color: #059669; }
+.tag.todo { background: #fef3c7; color: #92400e; }
+.tag.clip { background: #ede9fe; color: #5b21b6; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Shortcut inline */
+.shortcut { display: inline-block; background: var(--brand); color: #fff; padding: 2px 10px; border-radius: 4px; font-size: 13px; font-family: Consolas, monospace; margin: 0 3px; font-weight: 600; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header：Logo + 微信二维码 + 主标题 -->
+<div class="header-box">
+    <img src="KanlorOne_Guard.png" alt="KanlorOne Guard" class="logo">
+    <img src="../assets/wechat.png" alt="微信二维码" class="wechat">
+</div>
+<h1>KanlorOne Guard — 桌面一体化助手（屏幕使用 · 待办提醒 · 剪贴工具）</h1>
+
+<!-- 下载地址区域 -->
+<section class="download-links">
+    <h3><i class="fas fa-download"></i> 下载地址</h3>
+    <p class="no-indent">① 微云下载：<a href="https://share.weiyun.com/d56f8rp2" target="_blank">https://share.weiyun.com/d56f8rp2</a></p>
+    <p class="no-indent">② 文件大小：17 MB（Windows 64位）</p>
+</section>
+
+<!-- 目录导航 -->
+<nav class="toc">
+    <p class="no-indent toc-title">目录</p>
+    <a href="#intro">一、产品简介</a>
+    <a href="#features">二、核心特色</a>
+    <a href="#guide">三、使用指南</a>
+    <a href="#functions">四、功能详解</a>
+    <a href="#download">五、下载安装</a>
+    <a href="#updates">六、更新日志</a>
+    <a href="#faq">七、常见问题</a>
+    <a href="#shortcuts">八、快捷键</a>
+</nav>
+
+<!-- ══════════════════ 一、产品简介 ══════════════════ -->
+<h2 id="intro">一、产品简介</h2>
+<p>KanlorOne Guard（乾御）是一款 <b>桌面一体化助手工具</b>，将屏幕使用管理、待办提醒、剪贴工具三大功能模块集成于同一托盘程序中，专为儿童护眼与时间控制以及成人专注工作两种场景设计。</p>
+<p>程序常驻系统托盘，右键菜单即可快速操作；所有数据本地存储在 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code>，不依赖云端，隐私安全有保障。试用期 30 天，结束后需注册授权才能继续使用。</p>
+
+<div class="tip">
+<b>三大模块</b>：屏幕使用管理（用屏统计、休息提醒、暂停恢复、1 分钟预警）、待办提醒（四象限 / 列表 / 日历三模式）、剪贴管理（剪贴板整理、目录结构读取、颜色识别与转换）。
+</div>
+
+<!-- ══════════════════ 二、核心特色 ══════════════════ -->
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title"><span class="tag screen">屏幕</span> 屏幕使用管理</div>
+<div class="card-desc">
+<ul>
+<li>每日总时长限制（工作日 / 节假日分别设置）</li>
+<li>单次使用时长到达自动休息，1 分钟预警浮窗可拖动</li>
+<li>最近 7 天使用时长柱状图，自动识别工作日 / 节假日</li>
+<li>休息内容管理（名言警句 / 古诗词 / 小贴士），支持 JSON 导入导出</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag todo">待办</span> 待办提醒</div>
+<div class="card-desc">
+<ul>
+<li>四象限 / 列表 / 日历三种视图模式，农历与节假日显示</li>
+<li>子任务、循环任务（每天 / 工作日 / 每周 / 每月）、拖拽排序</li>
+<li>智能识别文本生成待办，支持腾讯会议信息识别</li>
+<li>置顶任务可生成浮动窗口，应用启动时自动显示</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag clip">剪贴</span> 剪贴管理</div>
+<div class="card-desc">
+<ul>
+<li>剪贴板自动整理：文本 / 图片 / 文件 / 文件夹全覆盖</li>
+<li>目录结构读取与变换（去除前置符 / 目录 / 文件 / 路径）</li>
+<li>4 种颜色格式自动识别与 HEX / RGB 双向转换</li>
+<li>系统取色 + 49 种预设颜色</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✅ 核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>托盘常驻</b>：无主窗口，右键菜单快速操作，全局快捷键直达各模块</li>
+<li><b>隐私安全</b>：所有数据本地存储，不依赖云端，不收集用户信息</li>
+<li><b>双场景适配</b>：儿童用屏管理 + 成人专注工作两种场景一套工具搞定</li>
+<li><b>家长 PIN 保护</b>：暂停守护、进入系统设置需 PIN 码验证</li>
+</ul>
+</div>
+</div>
+
+<!-- ══════════════════ 三、使用指南 ══════════════════ -->
+<h2 id="guide">三、使用指南</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>启动程序</b>：双击桌面 <code>KanlorOne Guard</code> 图标启动。程序在系统托盘（任务栏右下角）显示彩色图标，无主窗口。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>呼出菜单</b>：右键托盘图标弹出完整菜单（菜单项后显示当前快捷键）；双击托盘图标打开默认界面（默认是待办提醒，可在设置中修改）。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>切换模块</b>：通过托盘菜单或全局快捷键 <span class="shortcut">Alt+1</span>（屏幕使用）、<span class="shortcut">Alt+2</span>（待办管理）、<span class="shortcut">Alt+3</span>（剪贴管理）切换各功能面板。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>设置 PIN</b>：首次使用请在「系统设置」（<span class="shortcut">Alt+0</span>）中设置家长 PIN 码（≥4 位），用于保护家长配置和暂停守护操作。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>配置限额</b>：在系统设置中配置单次使用时长、休息时长、暂停时长、工作日 / 节假日总限额。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>注册授权</b>：试用期 30 天结束后，在「关于」（<span class="shortcut">Alt+9</span>）界面查看机器码，联系作者获取授权码完成注册。</div>
+</div>
+
+<div class="tip">
+<b>托盘悬浮提示</b>：鼠标悬停在托盘图标上会显示当前状态详情（剩余时长、待办数量、注册状态）。
+</div>
+
+<!-- ══════════════════ 四、功能详解 ══════════════════ -->
+<h2 id="functions">四、功能详解</h2>
+
+<h3>🛡️ 屏幕使用管理</h3>
+<p class="no-indent">通过托盘菜单或快捷键 <span class="shortcut">Alt+1</span> 打开屏幕使用面板，包含概览页、统计页、休息内容页三大子页。</p>
+
+<div class="card">
+<div class="card-title">📊 概览页</div>
+<div class="card-desc">
+<ul>
+<li>四张状态卡片：当前状态、今日使用、本次会话、下次休息</li>
+<li>双进度条：今日使用进度（工作日 / 节假日分限额）、本次会话进度</li>
+<li>快捷操作：暂停 / 恢复、立即休息、设置（均带 PIN 验证）</li>
+<li>暂停横幅：守护暂停时显示倒计时，颜色醒目</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">📈 统计页</div>
+<div class="card-desc">
+<ul>
+<li>最近 7 天使用时长柱状图（自动识别工作日 / 节假日）</li>
+<li>每天使用量、限额参考线、最高值</li>
+<li>帮助用户直观了解一周使用趋势</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">📝 休息内容页</div>
+<div class="card-desc">
+<ul>
+<li>三大分类：名言警句 / 古诗词 / 小贴士</li>
+<li>支持新增 / 编辑 / 删除休息内容</li>
+<li>支持 JSON 导入 / 导出，一键备份或迁移</li>
+<li>休息触发时随机抽取一条显示</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">⚙️ 休息与预警</div>
+<div class="card-desc">
+<ul>
+<li><b>休息触发</b>：单次使用时长达到设定值时自动进入休息界面，显示随机休息内容</li>
+<li><b>休息倒计时</b>：支持配置倒计时秒数（默认 15 秒），屏锁前显示倒计时</li>
+<li><b>1 分钟预警</b>：屏幕锁定前 1 分钟弹出醒目浮窗预警，<b>浮窗可拖动</b>到任意位置避免遮挡</li>
+<li><b>手动开始</b>：可设置休息结束后需手动点击开始</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🛑 暂停守护</div>
+<div class="card-desc">
+<ul>
+<li>需输入家长 PIN 码</li>
+<li>暂停时长可在系统设置中配置（默认 10 分钟）</li>
+<li>暂停期间不计入使用时长，不触发休息</li>
+</ul>
+</div>
+</div>
+
+<div class="warn">
+<b>工作日 / 节假日判定</b>：程序根据当前星期自动判断（周一至周五为工作日，周六周日为节假日）。工作日与节假日使用不同的总限额。
+</div>
+
+<h3>📋 待办提醒</h3>
+<p class="no-indent">通过托盘菜单或快捷键 <span class="shortcut">Alt+2</span> 打开待办管理面板。</p>
+
+<div class="card">
+<div class="card-title">🔀 三种视图模式</div>
+<div class="card-desc">
+<table>
+<tr><th>模式</th><th>说明</th></tr>
+<tr><td>▦ 四象限</td><td>2×2 网格布局，按紧急 / 重要四象限分类任务，任务卡片横向占满</td></tr>
+<tr><td>☰ 列表</td><td>表格展示所有字段（选择 / 状态 / 象限 / 标题 / 截止 / 周期 / 置顶 / 操作），支持点击列头排序</td></tr>
+<tr><td>📅 日历</td><td>6×7 日历网格铺满界面，三种子视图：月 / 周 / 日，支持农历与节假日显示</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🎨 四象限颜色</div>
+<div class="card-desc">
+<table>
+<tr><th>象限</th><th>名称</th><th>标识色</th></tr>
+<tr><td>🔥</td><td>紧急且重要</td><td>红色 #D63031</td></tr>
+<tr><td>📚</td><td>不紧急但重要</td><td>蓝色 #0984E3</td></tr>
+<tr><td>⚡</td><td>紧急不重要</td><td>黄色 #FDCB6E</td></tr>
+<tr><td>💡</td><td>不紧急不重要</td><td>灰色 #636E72</td></tr>
+</table>
+<p class="no-indent">卡片底色：正常状态为浅绿，已完成为浅灰，过期为浅黄（#FFF3CD）。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✨ 核心功能</div>
+<div class="card-desc">
+<ul>
+<li><b>新建任务</b>：双击空白区域或工具栏 ➕ 按钮；新建窗口打开时光标默认聚焦标题框，可直接输入</li>
+<li><b>智能识别</b>：粘贴文本自动识别日期时间生成待办，支持腾讯会议信息识别（会议主题为标题，提前 5 分钟提醒）</li>
+<li><b>拖拽切换</b>：在四象限模式下，拖动任务卡片可在象限间切换</li>
+<li><b>右键菜单</b>：四象限和列表模式下，整行 / 整卡片右键可呼出快捷菜单（删除、置顶、完成、移动象限等）</li>
+<li><b>双击编辑</b>：列表模式任意非交互区域双击即可编辑</li>
+<li><b>浮动窗口</b>：置顶任务可生成浮动窗口，应用启动时自动显示</li>
+<li><b>子任务管理</b>：每个任务可添加子任务清单（完成进度 <code>完成数/总数</code>）</li>
+<li><b>文本样式</b>：支持 49 种颜色、粗体、斜体、字号自定义（任务卡片）</li>
+<li><b>Emoji</b>：新建任务随机分配 10 个待办相关彩色表情之一</li>
+<li><b>截止日期</b>：支持按次数或按日期设定截止</li>
+<li><b>循环任务</b>：支持每天 / 工作日 / 每周（可指定星期几）/ 每月（可指定几号），支持按次数或日期结束</li>
+<li><b>贪睡（Snooze）</b>：弹窗提醒时支持 5 / 10 / 30 分钟推迟</li>
+<li><b>导出 / 备份</b>：支持手动导出 / 导入 JSON，支持自动备份（可配置间隔与保留天数）</li>
+<li><b>撤销 / 重做</b>：<span class="shortcut">Ctrl+Z</span> 撤销 / <span class="shortcut">Ctrl+Y</span> 重做（最多 50 步）</li>
+<li><b>主题切换</b>：支持明色 / 暗色两种主题</li>
+<li><b>Shift+Enter</b>：新建 / 编辑任务窗口中按 <span class="shortcut">Shift+Enter</span> 快速保存</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🔔 提醒与声音</div>
+<div class="card-desc">
+<ul>
+<li>待办到期自动弹窗提醒（含任务标题、截止时间、备注、子任务）</li>
+<li>弹窗时可选择完成 / 推迟 / 关闭，关闭后下次重新弹出</li>
+<li>提醒声音：支持自定义 <code>WAV / WMA / MP3</code> 文件，短音频自动循环播放（最长 5 秒）</li>
+<li>默认声音文件：<code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\KanlorOne_Guard.wav</code>（放入即生效）</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">📅 日历视图进阶</div>
+<div class="card-desc">
+<ul>
+<li><b>三种子视图</b>：月（6×7 网格）/ 周（一周横向）/ 日（单日详情）</li>
+<li><b>农历显示</b>：可勾选显示农历日期，农历初一自动加粗标红</li>
+<li><b>节假日标记</b>：周末与法定节假日自动以浅红背景突出</li>
+<li><b>双击日期格</b>：快速新建当日任务</li>
+<li><b>今日高亮</b>：当前日期边框加粗强调</li>
+<li><b>任务徽标</b>：每天最多显示 5 条任务，超出显示 <code>+N</code></li>
+</ul>
+</div>
+</div>
+
+<div class="tip">
+<b>浮动窗口</b>：置顶任务的浮动窗口在应用启动时自动出现。关闭浮动窗口仅关闭窗口，不会取消置顶或标记完成。非置顶任务的浮动窗口在取消置顶、完成或删除时自动消失。
+</div>
+
+<div class="warn">
+<b>未注册受限</b>：未注册时日历模式、导出 / 备份、智能识别等功能按钮灰色不可点击。
+</div>
+
+<h3>📋 剪贴管理</h3>
+<p class="no-indent">通过托盘菜单或快捷键 <span class="shortcut">Alt+3</span> 打开剪贴管理面板。</p>
+
+<div class="card">
+<div class="card-title">📡 剪贴板整理</div>
+<div class="card-desc">
+<ul>
+<li><b>开启 / 关闭</b>：点击按钮开启自动监听剪贴板</li>
+<li><b>文本</b>：自动捕获剪贴板文本，显示到编辑框</li>
+<li><b>图片</b>：自动保存到 <code>桌面/KanlorOne/Clipboard_Images/</code>，显示路径</li>
+<li><b>文件 / 文件夹</b>：自动显示文件路径列表</li>
+<li><b>自动保存</b>：所有内容自动保存到 <code>桌面/KanlorOne/clipboard_auto_save.txt</code></li>
+<li><b>时间提示</b>：可切换是否保留时间戳和类型标签</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">📁 目录结构工具</div>
+<div class="card-desc">
+<ul>
+<li><b>读取目录</b>：选择文件夹，生成树形结构文本</li>
+<li><b>去除前置符</b>：移除 ├─、└─、│ 等树形符号</li>
+<li><b>去除目录</b>：只保留文件路径行（以 <code>/</code> 结尾的视为目录）</li>
+<li><b>去除文件</b>：只保留文件夹路径行</li>
+<li><b>去除路径</b>：只保留文件 / 文件夹名称</li>
+<li><b>恢复</b>：回退到上一步操作（最多 50 步历史）</li>
+<li><b>复制 / 导出</b>：一键复制到剪贴板或导出为 TXT</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🎨 颜色识别与转换</div>
+<div class="card-desc">
+<p class="no-indent">支持 4 种颜色格式的自动识别：</p>
+<table>
+<tr><th>格式</th><th>示例</th><th>说明</th></tr>
+<tr><td>HEX</td><td><code>#FF5733</code> 或 <code>#F53</code></td><td>6 位或 3 位十六进制</td></tr>
+<tr><td>RGB 带前缀</td><td><code>rgb(255,87,51)</code></td><td>支持中英文逗号和括号</td></tr>
+<tr><td>仅括号</td><td><code>(255,87,51)</code></td><td>支持中英文逗号和括号</td></tr>
+<tr><td>纯数字</td><td><code>255,87,51</code></td><td>三数组合，范围 0-255</td></tr>
+</table>
+<ul>
+<li><b>显示模式切换</b>：全部 / HEX / RGB 三种模式，HEX 与 RGB 自动双向转换显示</li>
+<li><b>识别颜色</b>：扫描编辑框文本，从上到下识别颜色，最多显示 12 个色块（有颜色时色块高度加倍突出）</li>
+<li><b>提取颜色</b>：一键提取所有颜色，按当前显示格式输出，去除非颜色文本</li>
+<li>点击色块可复制当前显示格式的颜色值</li>
+<li>色块区域支持水平滚动，避免色号文字被遮挡</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🔧 系统取色</div>
+<div class="card-desc">
+<p class="no-indent">从屏幕任意位置取色（待办编辑器中的颜色面板提供 49 种预设颜色）。</p>
+<div class="tip">
+<b>剪贴板整理 vs 颜色识别</b>：剪贴板整理开启时，颜色识别会自动进行，无需手动点击「识别颜色」按钮。
+</div>
+</div>
+</div>
+
+<h3>🔐 系统设置</h3>
+<p class="no-indent">通过托盘菜单「系统设置」（快捷键 <span class="shortcut">Alt+0</span>）进入，<b>需验证 PIN 码</b>。</p>
+
+<div class="card">
+<div class="card-title">📋 配置项一览</div>
+<div class="card-desc">
+<table>
+<tr><th>分类</th><th>配置项</th><th>说明</th></tr>
+<tr><td rowspan="4">安全</td><td>家长 PIN 码</td><td>≥4 位，进入设置与暂停守护时需验证</td></tr>
+<tr><td>申请码加密秘钥</td><td>用于生成申请码映射表</td></tr>
+<tr><td>单次使用时长</td><td>到达后触发休息（分钟）</td></tr>
+<tr><td>休息时长</td><td>休息持续时间（分钟）</td></tr>
+<tr><td rowspan="3">时长</td><td>暂停时长</td><td>暂停持续时间（分钟）</td></tr>
+<tr><td>工作日总限额</td><td>工作日累计上限（分钟）</td></tr>
+<tr><td>节假日总限额</td><td>节假日累计上限（分钟）</td></tr>
+<tr><td rowspan="2">工作模式</td><td>启用工作模式</td><td>免密延时加时</td></tr>
+<tr><td>每次加时 / 日限次数</td><td>工作模式下的加时配置</td></tr>
+<tr><td rowspan="4">休息与预警</td><td>休息后手动开始</td><td>休息结束后需手动点击</td></tr>
+<tr><td>显示倒计时</td><td>锁定前显示倒计时秒数（默认 15 秒）</td></tr>
+<tr><td>1 分钟提醒</td><td>最后 1 分钟弹出预警浮窗</td></tr>
+<tr><td>休息标题 / 消息</td><td>休息界面显示的标题与已用时长</td></tr>
+<tr><td rowspan="3">开关选项</td><td>开机自启</td><td>开机自动启动（通过启动文件夹快捷方式）</td></tr>
+<tr><td>启用待办提醒</td><td>开关待办功能</td></tr>
+<tr><td>启用待办声音提醒</td><td>是否在提醒时播放声音</td></tr>
+<tr><td>托盘</td><td>托盘双击默认打开</td><td>待办提醒 / 屏幕使用 / 剪贴管理</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🔑 快捷键设置</div>
+<div class="card-desc">
+<p class="no-indent">点击对应快捷键按钮后，直接按下组合键即可录入。支持：</p>
+<ul>
+<li>修饰键：<code>Ctrl / Alt / Shift / Win</code>（可多选）</li>
+<li>主键：<code>A-Z</code> / <code>0-9</code> / <code>F1-F12</code> / <code>Esc</code> / <code>Tab</code> / <code>Space</code></li>
+</ul>
+<div class="tip">
+<b>托盘菜单同步</b>：修改快捷键后，托盘菜单项后的快捷键提示自动更新。
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">💾 待办自动备份</div>
+<div class="card-desc">
+<ul>
+<li>可开启 / 关闭自动备份</li>
+<li>配置自动备份间隔天数（默认 7 天）</li>
+<li>配置备份文件保留天数（默认 30 天，过期自动清理）</li>
+<li>手动备份：随时点击「立即备份」</li>
+</ul>
+</div>
+</div>
+
+<h3>🔐 注册与授权</h3>
+
+<div class="card">
+<div class="card-title">📊 注册状态</div>
+<div class="card-desc">
+<ul>
+<li>窗口标题栏显示注册状态：<b>[未注册]</b> 或无标记（已注册）</li>
+<li>托盘悬浮提示也显示注册状态</li>
+<li>未注册时部分功能受限（按钮灰色不可点击）</li>
+<li>注册后所有功能自动解锁</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🔒 未注册时受限功能</div>
+<div class="card-desc">
+<table>
+<tr><th>功能模块</th><th>受限内容</th></tr>
+<tr><td>🎨 颜色工具</td><td>颜色识别、提取、格式转换</td></tr>
+<tr><td>📡 剪贴板监控</td><td>自动监控剪贴板、自动保存内容</td></tr>
+<tr><td>💾 待办导出</td><td>导出与备份、恢复备份</td></tr>
+<tr><td>📅 日历模式</td><td>日历视图模式切换</td></tr>
+<tr><td>🧠 智能识别</td><td>智能识别文本生成待办、腾讯会议识别</td></tr>
+<tr><td>📝 休息内容管理</td><td>新增、删除、JSON 导入导出（编辑不受限）</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🔑 注册方式</div>
+<div class="card-desc">
+<ol>
+<li>在「关于」界面查看机器码</li>
+<li>联系作者获取注册码 / 授权码</li>
+<li>输入授权码完成注册</li>
+</ol>
+</div>
+</div>
+
+<h3>📁 数据存储</h3>
+<p class="no-indent">所有用户数据统一存放在 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code>，<b>不依赖 exe 路径</b>。</p>
+
+<div class="card">
+<div class="card-desc">
+<table>
+<tr><th>类型</th><th>路径</th></tr>
+<tr><td>用户配置</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code></td></tr>
+<tr><td>待办数据</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\todos\</code></td></tr>
+<tr><td>待办备份</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\backups\</code></td></tr>
+<tr><td>休息内容</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\rest_contents.json</code></td></tr>
+<tr><td>默认提醒声音</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\KanlorOne_Guard.wav</code>（放入即生效）</td></tr>
+<tr><td>剪贴板自动保存</td><td><code>桌面\KanlorOne\clipboard_auto_save.txt</code></td></tr>
+<tr><td>剪贴板图片</td><td><code>桌面\KanlorOne\Clipboard_Images\</code></td></tr>
+<tr><td>日志</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\logs\</code></td></tr>
+</table>
+<div class="tip">
+<b>数据迁移</b>：更新应用后，旧版本数据会自动迁移到新目录。
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 五、下载安装 ══════════════════ -->
+<h2 id="download">五、下载安装</h2>
+
+<div class="card">
+<div class="card-title">系统要求</div>
+<div class="card-desc">
+<ul>
+<li>操作系统：Windows 7 及以上（64 位）</li>
+<li>磁盘空间：至少 50 MB 可用空间</li>
+<li>内存：建议 2 GB 及以上</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">安装步骤</div>
+<div class="card-desc">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text">从上方下载地址获取安装包（微云下载，17 MB）</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text">双击运行安装程序，按提示完成安装</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text">启动 KanlorOne Guard，程序自动在系统托盘显示图标</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text">右键托盘图标，进入「系统设置」配置家长 PIN 码与使用限额</div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 六、更新日志 ══════════════════ -->
+<h2 id="updates">六、更新日志</h2>
+
+<table>
+<thead>
+<tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
+</thead>
+<tbody>
+<tr><td>v2.8</td><td>新增待办及提醒管理</td><td>2026-07-12</td></tr>
+<tr><td>v2.7</td><td>优化开机启动</td><td>-</td></tr>
+</tbody>
+</table>
+
+<!-- ══════════════════ 七、常见问题 ══════════════════ -->
+<h2 id="faq">七、常见问题</h2>
+
+<div class="card">
+<div class="card-title">Q：为什么听不到待办提醒声音？</div>
+<div class="card-desc">
+<p class="no-indent">检查系统设置中「启用待办声音提醒」是否勾选；确认 <code>KanlorOne_Guard.wav</code> 文件存在于数据目录；或自定义声音路径指向有效 <code>WAV / WMA / MP3</code> 文件。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：开机自启设置了但没生效？</div>
+<div class="card-desc">
+<p class="no-indent">程序会在 <code>%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\</code> 创建快捷方式。如果打包后应用名称识别错误，检查快捷方式目标路径是否正确指向 <code>KanlorOne_Guard.exe</code>。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：新建任务窗口打开后可以直接输入吗？</div>
+<div class="card-desc">
+<p class="no-indent">可以。新建任务窗口打开时鼠标默认聚焦到标题输入框，可直接输入，<span class="shortcut">Shift+Enter</span> 快速保存。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：四象限视图任务卡片右侧有空白？</div>
+<div class="card-desc">
+<p class="no-indent">已优化：Canvas 内部 frame 宽度随 Canvas 同步自适应，任务卡片真正横向填满象限区域。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：试用期如何计算？</div>
+<div class="card-desc">
+<p class="no-indent">首次启动后 30 天为试用期。试用期内所有功能开放，试用期结束后未注册则功能受限。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：如何迁移数据到新电脑？</div>
+<div class="card-desc">
+<p class="no-indent">将 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code> 整个目录复制到新电脑相同位置即可。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：暂停守护后还会触发休息吗？</div>
+<div class="card-desc">
+<p class="no-indent">不会。暂停期间不计入使用时长，也不触发休息。暂停时长可在系统设置中配置（默认 10 分钟），需输入家长 PIN 码。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：未注册时哪些功能受限？</div>
+<div class="card-desc">
+<p class="no-indent">未注册时以下功能按钮灰色不可点击：颜色工具、剪贴板监控、待办导出、日历模式、智能识别、休息内容管理（新增 / 删除 / 导入导出，编辑不受限）。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 八、快捷键 ══════════════════ -->
+<h2 id="shortcuts">八、快捷键</h2>
+
+<div class="card">
+<div class="card-desc">
+<table>
+<thead>
+<tr><th>快捷键</th><th>功能</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><span class="shortcut">Alt+1</span></td><td>打开屏幕使用面板</td><td>全局快捷键（默认）</td></tr>
+<tr><td><span class="shortcut">Alt+2</span></td><td>打开待办管理面板</td><td>全局快捷键（默认）</td></tr>
+<tr><td><span class="shortcut">Alt+3</span></td><td>打开剪贴管理面板</td><td>全局快捷键（默认）</td></tr>
+<tr><td><span class="shortcut">Alt+9</span></td><td>关于软件</td><td>查看版本、机器码、注册信息</td></tr>
+<tr><td><span class="shortcut">Alt+0</span></td><td>系统设置</td><td>需验证 PIN 码</td></tr>
+<tr><td><span class="shortcut">Ctrl+Z</span></td><td>撤销</td><td>待办操作，最多 50 步</td></tr>
+<tr><td><span class="shortcut">Ctrl+Y</span></td><td>重做</td><td>待办操作，最多 50 步</td></tr>
+<tr><td><span class="shortcut">Shift+Enter</span></td><td>快速保存任务</td><td>新建 / 编辑任务窗口中</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tip">
+<b>自定义快捷键</b>：进入「系统设置」点击对应快捷键按钮，按下组合键即可录入。支持 <code>Ctrl/Alt/Shift/Win</code> + <code>A-Z/0-9/F1-F12/Esc/Tab/Space</code>。
+</div>
+
+<!-- Footer -->
+<div class="footer">
+<p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: MToolsService | 邮箱: <a href="mailto:kanlorone@163.com">kanlorone@163.com</a></p>
+</div>
+
+</div>
+</body>
+</html>
