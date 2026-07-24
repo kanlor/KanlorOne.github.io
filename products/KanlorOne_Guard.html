@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne Guard - 桌面一体化助手工具，集成屏幕使用管理、待办提醒、剪贴工具三大功能模块，专为儿童护眼与时间控制以及成人专注工作两种场景设计。">
+<meta name="keywords" content="KanlorOne Guard,屏幕时间管理,护眼,待办提醒,剪贴板,专注工作,儿童护眼">
+<meta property="og:title" content="KanlorOne Guard - 桌面一体化助手">
+<meta property="og:description" content="屏幕使用管理 · 待办提醒 · 剪贴工具三大模块">
+<meta property="og:type" content="article">
 <title>KanlorOne Guard — 使用说明 | KanlorOne</title>
-<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root {
@@ -15,31 +19,127 @@
     --bg: #f7f8fa;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); }
-.container { max-width: 960px; margin: 0 auto; padding: 30px 24px; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
 
-/* Header */
-.header-box { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.header-box img.logo { height: 60px; }
-.header-box img.wechat { height: 80px; }
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box img {
+    width: 140px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .tip {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
 h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
 
-/* Download */
-.download-links { background: #fff5f2; border: 1px solid #ffd9cc; border-radius: 8px; padding: 16px 20px; margin: 16px 0 24px; }
-.download-links h3 { font-size: 16px; color: var(--brand); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.download-links a { display: block; padding: 6px 0; color: var(--brand); text-decoration: none; }
-.download-links a:hover { text-decoration: underline; }
-.download-links code { background: #ffe6dd; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
 
-/* TOC */
-.toc { background: #fff; border-radius: 8px; padding: 16px 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-.toc-title { font-weight: bold; margin-bottom: 8px; color: var(--ink); }
-.toc a { color: var(--brand); text-decoration: none; display: block; padding: 4px 0; }
-.toc a:hover { text-decoration: underline; }
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
 
 /* Typography */
-h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; }
-h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; }
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
 p { margin-bottom: 10px; text-indent: 2em; }
 p.no-indent { text-indent: 0; }
 
@@ -55,6 +155,7 @@ p.no-indent { text-indent: 0; }
 .tag.screen { background: #ecfdf5; color: #059669; }
 .tag.todo { background: #fef3c7; color: #92400e; }
 .tag.clip { background: #ede9fe; color: #5b21b6; }
+.tag.work { background: #dbeafe; color: #1e40af; }
 .tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
 .tag.new { background: #ecfdf5; color: #059669; }
 .tag.free { background: #dbeafe; color: #1e40af; }
@@ -70,7 +171,7 @@ p.no-indent { text-indent: 0; }
 .step-text { flex: 1; }
 
 /* Table */
-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
 th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
 td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
 tr:nth-child(even) td { background: #f9fafb; }
@@ -88,45 +189,55 @@ li { margin-bottom: 4px; }
 
 code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
 b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
 </style>
 </head>
 <body>
-<div class="container">
 
-<!-- Header：Logo + 微信二维码 + 主标题 -->
-<div class="header-box">
-    <img src="KanlorOne_Guard.png" alt="KanlorOne Guard" class="logo">
-    <img src="../assets/wechat.png" alt="微信二维码" class="wechat">
-</div>
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_Guard.png" alt="KanlorOne Guard">
+        <div class="name">KanlorOne Guard</div>
+        <div class="nameCn">桌面一体化助手</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+        <a href="#shortcuts">八、快捷键</a>
+    </nav>
+    <div class="wechat-box">
+        <img src="../assets/wechat.png" alt="微信二维码">
+        <div class="tip">扫码添加微信</div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
 <h1>KanlorOne Guard — 桌面一体化助手（屏幕使用 · 待办提醒 · 剪贴工具）</h1>
-
-<!-- 下载地址区域 -->
-<section class="download-links">
-    <h3><i class="fas fa-download"></i> 下载地址</h3>
-    <p class="no-indent">① 微云下载：<a href="https://share.weiyun.com/d56f8rp2" target="_blank">https://share.weiyun.com/d56f8rp2</a></p>
-    <p class="no-indent">② 文件大小：17 MB（Windows 64位）</p>
-</section>
-
-<!-- 目录导航 -->
-<nav class="toc">
-    <p class="no-indent toc-title">目录</p>
-    <a href="#intro">一、产品简介</a>
-    <a href="#features">二、核心特色</a>
-    <a href="#guide">三、使用指南</a>
-    <a href="#functions">四、功能详解</a>
-    <a href="#download">五、下载安装</a>
-    <a href="#updates">六、更新日志</a>
-    <a href="#faq">七、常见问题</a>
-    <a href="#shortcuts">八、快捷键</a>
-</nav>
 
 <!-- ══════════════════ 一、产品简介 ══════════════════ -->
 <h2 id="intro">一、产品简介</h2>
+<img src="KanlorOne_Guard.png" alt="KanlorOne Guard 界面" class="product-image">
 <p>KanlorOne Guard（乾御）是一款 <b>桌面一体化助手工具</b>，将屏幕使用管理、待办提醒、剪贴工具三大功能模块集成于同一托盘程序中，专为儿童护眼与时间控制以及成人专注工作两种场景设计。</p>
 <p>程序常驻系统托盘，右键菜单即可快速操作；所有数据本地存储在 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code>，不依赖云端，隐私安全有保障。试用期 30 天，结束后需注册授权才能继续使用。</p>
 
 <div class="tip">
-<b>三大模块</b>：屏幕使用管理（用屏统计、休息提醒、暂停恢复、1 分钟预警）、待办提醒（四象限 / 列表 / 日历三模式）、剪贴管理（剪贴板整理、目录结构读取、颜色识别与转换）。
+<b>三大模块</b>：屏幕使用管理（用屏统计、休息提醒、工作模式、1 分钟预警）、待办提醒（四象限 / 列表 / 日历三模式、循环任务、智能识别）、剪贴管理（剪贴板整理、目录结构层级读取、颜色识别与转换）。
 </div>
 
 <!-- ══════════════════ 二、核心特色 ══════════════════ -->
@@ -140,6 +251,7 @@ b { color: var(--ink); }
 <li>单次使用时长到达自动休息，1 分钟预警浮窗可拖动</li>
 <li>最近 7 天使用时长柱状图，自动识别工作日 / 节假日</li>
 <li>休息内容管理（名言警句 / 古诗词 / 小贴士），支持 JSON 导入导出</li>
+<li><b>工作模式</b>：免密延时加时，按次数限制，替代暂停休息</li>
 </ul>
 </div>
 </div>
@@ -152,6 +264,7 @@ b { color: var(--ink); }
 <li>子任务、循环任务（每天 / 工作日 / 每周 / 每月）、拖拽排序</li>
 <li>智能识别文本生成待办，支持腾讯会议信息识别</li>
 <li>置顶任务可生成浮动窗口，应用启动时自动显示</li>
+<li>自动备份（可配置间隔与保留天数），明色 / 暗色主题切换</li>
 </ul>
 </div>
 </div>
@@ -162,8 +275,9 @@ b { color: var(--ink); }
 <ul>
 <li>剪贴板自动整理：文本 / 图片 / 文件 / 文件夹全覆盖</li>
 <li>目录结构读取与变换（去除前置符 / 目录 / 文件 / 路径）</li>
+<li><b>目录层级设置</b>：支持输入数字控制展开深度（0=全部，N=仅 N 层）</li>
 <li>4 种颜色格式自动识别与 HEX / RGB 双向转换</li>
-<li>系统取色 + 49 种预设颜色</li>
+<li>系统取色 + 49 种预设颜色，色块竖向居中显示</li>
 </ul>
 </div>
 </div>
@@ -205,7 +319,7 @@ b { color: var(--ink); }
 
 <div class="step">
 <div class="step-num">5</div>
-<div class="step-text"><b>配置限额</b>：在系统设置中配置单次使用时长、休息时长、暂停时长、工作日 / 节假日总限额。</div>
+<div class="step-text"><b>配置限额</b>：在系统设置中配置单次使用时长、休息时长、暂停时长、工作日 / 节假日总限额，以及工作模式（启用后到休息时间仅显示工作模式按钮）。</div>
 </div>
 
 <div class="step">
@@ -231,6 +345,7 @@ b { color: var(--ink); }
 <li>双进度条：今日使用进度（工作日 / 节假日分限额）、本次会话进度</li>
 <li>快捷操作：暂停 / 恢复、立即休息、设置（均带 PIN 验证）</li>
 <li>暂停横幅：守护暂停时显示倒计时，颜色醒目</li>
+<li><b>工作模式加时</b>：会话时长已用完后显示"本次会话 X / Y 分钟"（Y 包含加时）</li>
 </ul>
 </div>
 </div>
@@ -266,6 +381,20 @@ b { color: var(--ink); }
 <li><b>休息倒计时</b>：支持配置倒计时秒数（默认 15 秒），屏锁前显示倒计时</li>
 <li><b>1 分钟预警</b>：屏幕锁定前 1 分钟弹出醒目浮窗预警，<b>浮窗可拖动</b>到任意位置避免遮挡</li>
 <li><b>手动开始</b>：可设置休息结束后需手动点击开始</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag work">工作模式</span> 免密延时加时</div>
+<div class="card-desc">
+<ul>
+<li><b>启用条件</b>：在系统设置中启用工作模式，配置每次加时分钟数和每日次数上限</li>
+<li><b>触发时机</b>：单次会话时长用完时，进入休息界面</li>
+<li><b>按钮替换</b>：工作模式启用且有剩余次数时，休息界面仅显示"💼 工作模式加时 (已用/上限)"按钮，<b>不显示"切换模式"（暂停休息）按钮</b></li>
+<li><b>点击后效果</b>：状态切回 ACTIVE，本次会话从 0 开始重新计时，有效会话限制 = 基础限制 + 加时分钟</li>
+<li><b>次数用尽</b>：达到每日次数上限后，恢复"切换模式"按钮，可正常进入休息</li>
+<li><b>显示规则</b>：状态卡片显示"本次会话 X / Y 分钟"，Y 为基础限制 + 加时分钟数</li>
 </ul>
 </div>
 </div>
@@ -329,6 +458,7 @@ b { color: var(--ink); }
 <li><b>Emoji</b>：新建任务随机分配 10 个待办相关彩色表情之一</li>
 <li><b>截止日期</b>：支持按次数或按日期设定截止</li>
 <li><b>循环任务</b>：支持每天 / 工作日 / 每周（可指定星期几）/ 每月（可指定几号），支持按次数或日期结束</li>
+<li><b>周期任务推进</b>：点击"完成"仅完成本次轮次，自动推进到下一周期（日历视图按周期展开显示）</li>
 <li><b>贪睡（Snooze）</b>：弹窗提醒时支持 5 / 10 / 30 分钟推迟</li>
 <li><b>导出 / 备份</b>：支持手动导出 / 导入 JSON，支持自动备份（可配置间隔与保留天数）</li>
 <li><b>撤销 / 重做</b>：<span class="shortcut">Ctrl+Z</span> 撤销 / <span class="shortcut">Ctrl+Y</span> 重做（最多 50 步）</li>
@@ -344,6 +474,8 @@ b { color: var(--ink); }
 <ul>
 <li>待办到期自动弹窗提醒（含任务标题、截止时间、备注、子任务）</li>
 <li>弹窗时可选择完成 / 推迟 / 关闭，关闭后下次重新弹出</li>
+<li><b>声音同步</b>：开启声音提醒时，弹窗出现与音乐播放同步</li>
+<li><b>声音停止</b>：弹窗关闭（完成 / 推迟 / 关闭）时音乐立即停止</li>
 <li>提醒声音：支持自定义 <code>WAV / WMA / MP3</code> 文件，短音频自动循环播放（最长 5 秒）</li>
 <li>默认声音文件：<code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\KanlorOne_Guard.wav</code>（放入即生效）</li>
 </ul>
@@ -360,6 +492,7 @@ b { color: var(--ink); }
 <li><b>双击日期格</b>：快速新建当日任务</li>
 <li><b>今日高亮</b>：当前日期边框加粗强调</li>
 <li><b>任务徽标</b>：每天最多显示 5 条任务，超出显示 <code>+N</code></li>
+<li><b>周期任务展开</b>：循环任务在日历视图中按周期展开，已完成轮次显示 ✅，当前轮次显示 ⌛，未来轮次显示 ⏳</li>
 </ul>
 </div>
 </div>
@@ -393,8 +526,9 @@ b { color: var(--ink); }
 <div class="card-title">📁 目录结构工具</div>
 <div class="card-desc">
 <ul>
-<li><b>读取目录</b>：选择文件夹，生成树形结构文本</li>
-<li><b>去除前置符</b>：移除 ├─、└─、│ 等树形符号</li>
+<li><b>读取目录</b>：选择文件夹，生成标准 tree 格式树形结构（├── / └── / │）</li>
+<li><b>层级设置</b>：输入数字控制展开深度，<code>0</code> 或空 = 全部层级，<code>N</code> = 仅展开到第 N 层（1=根的直接子项，2=孙子项，以此类推）</li>
+<li><b>去除前置符</b>：移除 ├──、└──、│ 等树形符号</li>
 <li><b>去除目录</b>：只保留文件路径行（以 <code>/</code> 结尾的视为目录）</li>
 <li><b>去除文件</b>：只保留文件夹路径行</li>
 <li><b>去除路径</b>：只保留文件 / 文件夹名称</li>
@@ -419,6 +553,7 @@ b { color: var(--ink); }
 <li><b>显示模式切换</b>：全部 / HEX / RGB 三种模式，HEX 与 RGB 自动双向转换显示</li>
 <li><b>识别颜色</b>：扫描编辑框文本，从上到下识别颜色，最多显示 12 个色块（有颜色时色块高度加倍突出）</li>
 <li><b>提取颜色</b>：一键提取所有颜色，按当前显示格式输出，去除非颜色文本</li>
+<li><b>色块布局</b>：颜色识别区域色块和文字竖向居中显示，文字与色块中心对齐</li>
 <li>点击色块可复制当前显示格式的颜色值</li>
 <li>色块区域支持水平滚动，避免色号文字被遮挡</li>
 </ul>
@@ -450,15 +585,15 @@ b { color: var(--ink); }
 <tr><td rowspan="3">时长</td><td>暂停时长</td><td>暂停持续时间（分钟）</td></tr>
 <tr><td>工作日总限额</td><td>工作日累计上限（分钟）</td></tr>
 <tr><td>节假日总限额</td><td>节假日累计上限（分钟）</td></tr>
-<tr><td rowspan="2">工作模式</td><td>启用工作模式</td><td>免密延时加时</td></tr>
-<tr><td>每次加时 / 日限次数</td><td>工作模式下的加时配置</td></tr>
+<tr><td rowspan="2">工作模式</td><td>启用工作模式</td><td>免密延时加时（替代暂停休息）</td></tr>
+<tr><td>每次加时 / 日限次数</td><td>工作模式下的加时分钟数和每日次数上限</td></tr>
 <tr><td rowspan="4">休息与预警</td><td>休息后手动开始</td><td>休息结束后需手动点击</td></tr>
 <tr><td>显示倒计时</td><td>锁定前显示倒计时秒数（默认 15 秒）</td></tr>
 <tr><td>1 分钟提醒</td><td>最后 1 分钟弹出预警浮窗</td></tr>
 <tr><td>休息标题 / 消息</td><td>休息界面显示的标题与已用时长</td></tr>
 <tr><td rowspan="3">开关选项</td><td>开机自启</td><td>开机自动启动（通过启动文件夹快捷方式）</td></tr>
 <tr><td>启用待办提醒</td><td>开关待办功能</td></tr>
-<tr><td>启用待办声音提醒</td><td>是否在提醒时播放声音</td></tr>
+<tr><td>启用待办声音提醒</td><td>是否在提醒时播放声音（与弹窗同步）</td></tr>
 <tr><td>托盘</td><td>托盘双击默认打开</td><td>待办提醒 / 屏幕使用 / 剪贴管理</td></tr>
 </table>
 </div>
@@ -555,6 +690,11 @@ b { color: var(--ink); }
 <!-- ══════════════════ 五、下载安装 ══════════════════ -->
 <h2 id="download">五、下载安装</h2>
 
+<a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
+    <i class="fas fa-download"></i>
+    <span>下载 Windows 64位</span>
+</a>
+
 <div class="card">
 <div class="card-title">系统要求</div>
 <div class="card-desc">
@@ -571,7 +711,7 @@ b { color: var(--ink); }
 <div class="card-desc">
 <div class="step">
 <div class="step-num">1</div>
-<div class="step-text">从上方下载地址获取安装包（微云下载，17 MB）</div>
+<div class="step-text">点击上方下载按钮获取安装包（微云下载）</div>
 </div>
 <div class="step">
 <div class="step-num">2</div>
@@ -596,6 +736,8 @@ b { color: var(--ink); }
 <tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
 </thead>
 <tbody>
+<tr><td>v3.1</td><td>新增工作模式（免密延时加时，替代暂停休息）；新增目录层级设置；修复周期任务日期跳 2 天问题；优化色块竖向居中显示；优化工作模式时间显示（避免负值）</td><td>2026-07-21</td></tr>
+<tr><td>v3.0</td><td>待办提醒增强（日历视图、循环任务、智能识别、浮动窗口、自动备份）；剪贴管理增强（颜色识别、目录结构工具）；托盘图标修复；StartupApproved 注册表修复；声音同步播放与停止</td><td>2026-07-15</td></tr>
 <tr><td>v2.8</td><td>新增待办及提醒管理</td><td>2026-07-12</td></tr>
 <tr><td>v2.7</td><td>优化开机启动</td><td>-</td></tr>
 </tbody>
@@ -607,14 +749,14 @@ b { color: var(--ink); }
 <div class="card">
 <div class="card-title">Q：为什么听不到待办提醒声音？</div>
 <div class="card-desc">
-<p class="no-indent">检查系统设置中「启用待办声音提醒」是否勾选；确认 <code>KanlorOne_Guard.wav</code> 文件存在于数据目录；或自定义声音路径指向有效 <code>WAV / WMA / MP3</code> 文件。</p>
+<p class="no-indent">检查系统设置中「启用待办声音提醒」是否勾选；确认 <code>KanlorOne_Guard.wav</code> 文件存在于数据目录；或自定义声音路径指向有效 <code>WAV / WMA / MP3</code> 文件。弹窗关闭时音乐会立即停止。</p>
 </div>
 </div>
 
 <div class="card">
 <div class="card-title">Q：开机自启设置了但没生效？</div>
 <div class="card-desc">
-<p class="no-indent">程序会在 <code>%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\</code> 创建快捷方式。如果打包后应用名称识别错误，检查快捷方式目标路径是否正确指向 <code>KanlorOne_Guard.exe</code>。</p>
+<p class="no-indent">程序会在 <code>%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\</code> 创建快捷方式，并同步写入 <code>StartupApproved\StartupFolder</code> 注册表（12 字节，0x02=启用）。如果未出现在任务管理器启动项中，检查注册表是否被标记为 0x03（禁用）。</p>
 </div>
 </div>
 
@@ -629,6 +771,34 @@ b { color: var(--ink); }
 <div class="card-title">Q：四象限视图任务卡片右侧有空白？</div>
 <div class="card-desc">
 <p class="no-indent">已优化：Canvas 内部 frame 宽度随 Canvas 同步自适应，任务卡片真正横向填满象限区域。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：工作模式启用后为什么不自动加时？</div>
+<div class="card-desc">
+<p class="no-indent">工作模式启用后，到休息时间不会自动加时，<b>需手动点击</b>"💼 工作模式加时"按钮。此时休息界面仅显示工作模式按钮和退出按钮，<b>不显示"切换模式"（暂停休息）按钮</b>。加时次数用尽后才恢复"切换模式"按钮。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：工作模式加时后为什么显示"本次会话 X / Y 分钟"？</div>
+<div class="card-desc">
+<p class="no-indent">工作模式加时后，Y 会包含加时分钟数（如基础 30 分钟 + 加时 30 分钟 = 60 分钟），X 从 0 开始重新计时。这样可直观看到加时后的有效会话限制。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：周期任务点击"完成"后为什么日期跳了 2 天？</div>
+<div class="card-desc">
+<p class="no-indent">v3.1 已修复此问题。原因是 <code>get_due_todos()</code> 在任务到期时过早推进了 <code>due_time</code>，<code>complete_occurrence()</code> 又推进了一次，导致双重推进。现在推进逻辑统一由 <code>complete_occurrence()</code> 处理。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：日历视图中周期任务如何显示？</div>
+<div class="card-desc">
+<p class="no-indent">周期任务在日历视图中按周期展开显示：已完成轮次显示 ✅（灰色），当前轮次显示 ⌛（过期显示 ⚠️ 黄色），未来轮次显示 ⏳（绿色）。</p>
 </div>
 </div>
 

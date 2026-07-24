@@ -22,22 +22,25 @@ python -m http.server 8000
 ```
 KanlorOne.github.io/
 ├── index.html                          # 首页（产品列表、导航、联系我们）
-├── manage.html                         # 产品数据管理工具（增删改查、导入导出）
-├── deploy.bat                          # 一键部署脚本
+├── manage.html                         # 产品数据管理工具（增删改查、导入导出，本地工具不公开部署）
+├── deploy.bat                          # 一键部署脚本（含分支校验）
+├── .gitignore                          # Git 忽略规则
 ├── Kanlor_html.md                      # 网站架构与设计规范文档
 ├── KanlorOne_PRODUCT_TEMPLATE.json     # 产品数据模板
 ├── products/                           # 产品统一目录（数据、详情页、图片）
 │   ├── KanlorOne_WordSuite.json        # 产品数据
 │   ├── KanlorOne_WordSuite.html        # 详情页面
 │   ├── KanlorOne_WordSuite.png         # 产品图片
-│   ├── KanlorOne_ScreenGuard.*
-│   └── KanlorOne_PandocGUI.*
+│   ├── KanlorOne_PandocGUI.*
+│   ├── KanlorOne_Guard.*
+│   ├── KanlorOne_HtmlAccPass.*
+│   └── KanlorOne_ExcelKit.*
 ├── assets/
-│   ├── products.js                     # 产品数据（唯一数据源）
+│   ├── products.js                     # 产品数据（唯一数据源，首页与详情页共用）
 │   ├── logo.png                        # 网站Logo
 │   ├── favicon.ico                     # 网站图标
 │   └── wechat.png                      # 微信二维码
-└── .github/workflows/static.yml        # GitHub Pages 自动部署配置
+└── .github/workflows/static.yml        # GitHub Pages 自动部署配置（自动排除内部文件）
 ```
 
 ## 产品维护
@@ -129,10 +132,15 @@ KanlorOne.github.io/
 
 ### 一键部署
 
-双击 `deploy.bat`，脚本会自动执行：
-1. `git add -A`
-2. `git commit -m "部署更新 YYYY-MM-DD HH:MM"`
-3. `git push origin`
+双击 `deploy.bat`，脚本会自动执行（含分支校验，仅 main 分支可部署）：
+1. 校验当前分支是否为 main
+2. `git add -A`
+3. `git commit -m "Deploy update YYYY-MM-DD HH:MM:SS"`
+4. `git push origin main`
+
+部署时 GitHub Actions 会自动排除以下内部文件，不发布到公开站点：
+- `manage.html`（产品数据管理后台）
+- `deploy.bat`、`KanlorOne_PRODUCT_TEMPLATE.json`、`Kanlor_html.md`、`README.md`
 
 ## 相关文档
 

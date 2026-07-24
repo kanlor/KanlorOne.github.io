@@ -1,29 +1,142 @@
 // 产品信息唯一维护文件：首页与详情页共用。
 // 新增、删除或修改产品后，直接提交发布即可。
+// 数据顺序：按 releaseDate 倒序排列（最新在前）。
+// id 规范：简短数字，1-5 分别对应各产品。
 
 const productsData = [
     {
-        "id": 2,
-        "name": "KanlorOne Guard",
-        "nameCn": "桌面守候助手",
-        "icon": "🛡️",
-        "image": "products/KanlorOne_Guard.png",
-        "version": "2.8",
-        "releaseDate": "2026-07-12",
-        "description": "一款强大的屏幕时间管理工具，专为儿童护眼与时间控制以及成人专注工作两种场景设计",
+        "id": 5,
+        "name": "KanlorOne ExcelKit",
+        "nameCn": "表格浮动工具箱",
+        "icon": "📊",
+        "image": "products/KanlorOne_ExcelKit.png",
+        "version": "1.7",
+        "releaseDate": "2026-07-24",
+        "description": "Excel浮动工具箱，集成30+项批量处理功能，覆盖格式排版、数据清洗、结构转换全场景。悬浮模式不遮挡Excel操作区域，支持自动备份与撤回、实时进度与优雅停止，专为高频Excel用户设计。",
         "features": [
-            "每日总时长限制（工作日/节假日分别设置）",
-            "托盘常驻，右键菜单快速操作",
-            "屏幕使用管理 + 待办提醒 + 剪贴工具一体化",
-            "本地存储，隐私安全"
+            "悬浮模式：半透明浮窗不遮挡Excel，Alt+Q一键切换正常/悬浮模式",
+            "30+功能一键操作：格式排版、数据清洗、结构转换、批量文件处理全覆盖",
+            "自动备份+撤回：高危操作前自动备份，Ctrl+Z一键撤回，保留最近5份",
+            "实时进度+优雅停止：进度条/状态栏/标题栏三路同步，支持中途停止不损坏数据",
+            "COM多策略连接：GetActiveObject + ROT遍历 + Dispatch三重兜底，兼容残留进程"
         ],
         "functions": [
-            "儿童用屏管理",
-            "工作休息管理",
-            "待办提醒管理",
-            "时长时间管理"
+            "全局格式化（智能列宽+自动行高+对齐优化+边框+表头样式）",
+            "统一设置行高",
+            "按列合并单元格 / 拆分合并单元格",
+            "列条件行填色",
+            "表格视图缩放",
+            "文件合并表格 / 表格拆分文件 / 区域导出文件",
+            "生成数据透视表",
+            "空行一键清理",
+            "按列一键填充（智能填充）",
+            "数字文本互转",
+            "数据一键统计",
+            "日期时间标准化",
+            "数据列归一化",
+            "高亮重复/异常值",
+            "按首列展开表 / 按首列整合表",
+            "文本数据清洗",
+            "行文本序列化",
+            "WBS格式化",
+            "常用数据模板",
+            "正则批量替换",
+            "自动冻结表头",
+            "生成导航页",
+            "字段查找（跨表搜索）"
         ],
         "updates": [
+            "v1.7 - 三波全面优化：可靠性兜底（关闭检查+退出清理+备份失败提示）、体验提升（15个功能接入进度追踪与停止机制、_yield_ui全覆盖）、代码质量（SheetProtectionGuard推广、38处静默异常增加日志）；修复导航页残留表格对象导致上下两个表问题；修复取消自动列宽时行高计算列宽错位问题",
+            "v1.6 - 核心性能优化：按列合并批量COM调用减少50×、拆分合并SpecialCells+Union提速10×、列条件填色批量着色提速20×、正则替换预编译提速3×、高亮重复值批量Union提速2×；可靠性增强：ExcelPerformance异常恢复、SheetProtectionGuard上下文管理器、safe_excel_operation统一装饰器、loguru日志框架",
+            "v1.5 - 新增停止按钮（优雅停止不破坏数据）、撤回功能（Ctrl+Z/Ctrl+Shift+Z）、自动备份机制（6个高危功能、保留最近5份）；新增字段查找功能；UI进度条位置优化",
+            "v1.4 - 新增自动冻结表头功能、生成导航页功能；优化多线程执行与UI响应",
+            "v1.3 - 多线程执行框架、ProgressTracker进度追踪器；排除.xlsb文件兼容性处理",
+            "v1.2 - 悬浮模式优化，进度条与功能按钮布局调整",
+            "v1.1 - 功能扩展与稳定性提升",
+            "v1.0 - 初始版本上线，支持基础Excel批量处理功能"
+        ],
+        "downloads": [
+            {
+                "platform": "Windows 64位",
+                "link": "https://share.weiyun.com/d56f8rp2",
+                "size": "15 MB"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "KanlorOne HtmlAccPass",
+        "nameCn": "账号密码简易工具",
+        "icon": "🔐",
+        "image": "products/KanlorOne_HtmlAccPass.png",
+        "version": "2.6",
+        "releaseDate": "2026-07-23",
+        "description": "基于纯 HTML 的单文件离线账号密码管理工具，无需安装、无需联网、无需后端，双击即可在浏览器中运行，所有数据保存在本机浏览器本地，支持账号管理、网站收藏夹、加密备份、Excel 导入导出等功能。",
+        "features": [
+            "单文件零安装，双击 HTML 即可运行",
+            "纯前端离线使用，数据不上传服务器",
+            "Excel 导入导出 + JSON 加密备份",
+            "双触发自动备份，防止数据丢失",
+            "标签分类管理，支持网站收藏夹"
+        ],
+        "functions": [
+            "账号管理（新增/编辑/删除/双击编辑）",
+            "网站收藏夹（系统名称自动变链接）",
+            "搜索过滤高亮 + N/M 数据统计",
+            "一键复制 + 密码显隐切换",
+            "Excel 批量导入导出",
+            "JSON 加密备份与恢复",
+            "双触发自动备份（时间间隔 + 数据变更）",
+            "标签分类管理",
+            "列拖拽排序",
+            "配置中心（系统名称、图标、列名、颜色等）",
+            "浅色/深色主题切换",
+            "剪贴板自动清空（可配置，默认关闭）",
+            "FontAwesome 图标 Emoji 离线回退",
+            "XLSX 库内嵌，完全离线可用"
+        ],
+        "updates": [
+            "v2.6 - 完善使用说明与帮助系统，新增帮助按钮弹窗，按钮图标化适配移动端单行显示，新增数据统计 N/M 显示，支持标签分类，新增空状态引导页，扩展键盘快捷键，统一备份文件命名规范，剪贴板清空改为可配置默认关闭",
+            "v2.5 - 品牌信息更新为 KanlorOne_HtmlAccPass，邮箱更换为 kanlorone@163.com，微信更换为 MToolsService",
+            "v2.4 - 实现双触发备份机制：时间间隔备份 + 数据变更即时备份，xlsx 库双轨加载实现单文件便携性",
+            "v2.3 - 修复搜索无高亮、handleSearchChange 重复定义死代码、移动端 min-width 强制横向滚动等问题，补全 aria-label 等无障碍属性，替换原生 confirm 为自定义弹窗，恢复模态框 ESC/遮罩关闭，添加剪贴板自动清空与自动备份机制",
+            "v2.2 - 引入 Web Crypto API 加密存储（PBKDF2 + AES-GCM），修复 innerHTML 拼接导致的 XSS 漏洞，新增密码生成器、键盘快捷键、自动锁定功能，加密 .mtvault 备份格式",
+            "v2.1 - 基础账号密码管理功能上线，支持表格展示、搜索过滤、Excel 导入导出"
+        ],
+        "downloads": [
+            {
+                "platform": "HTML 单文件（Windows/Mac/Linux 通用）",
+                "link": "https://kanlorone-github-io.pages.dev/",
+                "size": "约 1.3 MB"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "KanlorOne Guard",
+        "nameCn": "乾御桌面助手",
+        "icon": "🛡️",
+        "image": "products/KanlorOne_Guard.png",
+        "version": "3.1",
+        "releaseDate": "2026-07-21",
+        "description": "一款桌面一体化助手工具，集成屏幕使用管理、待办提醒、剪贴工具三大功能模块，专为儿童护眼与时间控制以及成人专注工作两种场景设计。",
+        "features": [
+            "屏幕使用管理：每日总时长限制、单次使用自动休息、1分钟预警浮窗、7天使用统计、休息内容管理",
+            "待办提醒：四象限/列表/日历三模式、子任务、循环任务、智能识别、浮动窗口、自动备份",
+            "剪贴管理：剪贴板自动整理、目录结构读取（支持层级设置）、4种颜色格式识别与HEX/RGB互转",
+            "工作模式：免密延时加时，按次数限制，替代暂停休息",
+            "托盘常驻，全局快捷键直达各模块，所有数据本地存储，隐私安全"
+        ],
+        "functions": [
+            "屏幕使用管理（概览/统计/休息内容）",
+            "待办提醒（四象限/列表/日历）",
+            "剪贴管理（剪贴板整理/目录结构/颜色识别）",
+            "系统设置（PIN码保护/工作模式/快捷键自定义/自动备份）",
+            "注册授权（30天试用/机器码授权）"
+        ],
+        "updates": [
+            "v3.1 - 新增工作模式、目录层级设置、周期任务日期修复",
+            "v3.0 - 待办提醒增强（日历视图/循环任务/智能识别）、剪贴管理增强（颜色识别/目录结构）",
             "v2.8 - 新增待办及提醒管理",
             "v2.7 - 优化开机启动"
         ],
@@ -36,43 +149,13 @@ const productsData = [
         ]
     },
     {
-        "id": 3,
-        "name": "KanlorOne PandocGUI",
-        "nameCn": "万能文档转换工具",
-        "icon": "🔐",
-        "image": "products/KanlorOne_PandocGUI.png",
-        "version": "1.4",
-        "releaseDate": "2026-07-12",
-        "description": "万能文档转换工具Pandoc的图形化版本应用",
-        "features": [
-            "可视化操作，无需命令"
-        ],
-        "functions": [
-            "参数可视化",
-            "参数建议填充",
-            "更新检测",
-            "过程记录"
-        ],
-        "updates": [
-            "V1.4 - 全面优化界面及参数推荐",
-            "V1.3 - 解决md到docx乱码"
-        ],
-        "downloads": [
-            {
-                "platform": "Windows 64位",
-                "link": "https://share.weiyun.com/d56f8rp2",
-                "size": "9 MB"
-            }
-        ]
-    },
-    {
-        "id": 1784645865912,
+        "id": 1,
         "name": "KanlorOne WordSuite",
-        "nameCn": "Wrod文档一站式排版工具",
+        "nameCn": "Word 文档一站式排版工具",
         "icon": "📋",
-        "version": "1.9.3",
-        "releaseDate": "2026-07-11",
         "image": "products/KanlorOne_WordSuite.png",
+        "version": "1.9.4",
+        "releaseDate": "2026-07-13",
         "description": "专业级Word批量排版与自动化处理套件，深度集成VBA与AI能力，一键搞定长文档排版、格式批量统一、模板智能生成，大幅提升文档处理效率。",
         "features": [
             "批量格式一键统一",
@@ -87,6 +170,7 @@ const productsData = [
             "文档格式批量转换"
         ],
         "updates": [
+            "v1.9.4 - 字符清理新增项目符号(•)删除，公文/WBS编号仅对标题生效，修复自动打开文件被COM进程关闭问题，新增编号体系标准化说明",
             "v1.9.3 - 优化批量处理速度，修复WPS兼容问题",
             "v1.9.2 - 品牌正式更名KanlorOne WordSuite，新增.doc/.wps格式自动转换支持，优化默认参数与内置模板，修复多项已知问题",
             "v1.9.1 - 新增统一范围标识管理引擎，图片/表格样式适配横竖页面，优化公文标题识别，新增标题编号替换功能",
@@ -104,8 +188,45 @@ const productsData = [
         "downloads": [
             {
                 "platform": "Windows 64位",
-                "size": "20.09 MB",
-                "link": "https://share.weiyun.com/d56f8rp2"
+                "link": "https://share.weiyun.com/d56f8rp2",
+                "size": "20.09 MB"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "KanlorOne PandocGUI",
+        "nameCn": "PandocGUI 文档转换",
+        "icon": "📄",
+        "image": "products/KanlorOne_PandocGUI.png",
+        "version": "1.4",
+        "releaseDate": "2026-07-12",
+        "description": "Pandoc 文档转换工具的图形化版本，将被誉为「万能文档转换瑞士军刀」的 Pandoc 包装为可视化界面，支持 PDF/Docx/HTML/EPUB/PPTX/Markdown 等多种主流格式互转，完美支持中文。",
+        "features": [
+            "可视化操作：图形化界面替代命令行，参数勾选即可，无需记忆语法",
+            "参数建议填充：智能识别输入输出格式，自动推荐最佳参数组合",
+            "中文完美支持：内置 xelatex 引擎配置，PDF 输出无乱码",
+            "更新检测：自动检测 Pandoc 与程序自身版本，提醒更新",
+            "过程记录：完整记录每次转换的命令、参数、输出，方便复现"
+        ],
+        "functions": [
+            "参数可视化（输入输出、PDF引擎、代码高亮主题、目录章节等）",
+            "参数建议填充（按格式组合智能推荐）",
+            "PDF 输出推荐设置（xelatex 引擎 + 中文字体）",
+            "Docx 参考模板（统一字体样式页眉页脚）",
+            "更新检测（Pandoc 与程序自身）",
+            "过程记录（命令、参数、日志、耗时）",
+            "命令复制与自定义（一键复制 Pandoc 命令）"
+        ],
+        "updates": [
+            "v1.4 - 全面优化界面及参数推荐",
+            "v1.3 - 解决 md 到 docx 乱码问题"
+        ],
+        "downloads": [
+            {
+                "platform": "Windows 64位",
+                "link": "https://share.weiyun.com/d56f8rp2",
+                "size": "9 MB"
             }
         ]
     }

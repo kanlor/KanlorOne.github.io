@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne WordSuite - 专业级 Word 批量排版与自动化处理套件，集成 22 项排版功能，支持长文档自动化排版、格式批量统一、模板智能生成，深度集成 VBA 与 AI 能力。">
+<meta name="keywords" content="KanlorOne WordSuite,Word排版,批量排版,文档自动化,VBA,公文排版,科技文档">
+<meta property="og:title" content="KanlorOne WordSuite - Word 文档一站式排版工具">
+<meta property="og:description" content="22项排版功能，批量处理，样式优先，模板预设">
+<meta property="og:type" content="article">
 <title>KanlorOne WordSuite — 使用说明 | KanlorOne</title>
-<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root {
@@ -15,27 +19,123 @@
     --bg: #f7f8fa;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); }
-.container { max-width: 960px; margin: 0 auto; padding: 30px 24px; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
 
-/* Header */
-.header-box { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.header-box img.logo { height: 60px; }
-.header-box img.wechat { height: 80px; }
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box img {
+    width: 140px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .tip {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
 h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
 
-/* Download */
-.download-links { background: #fff5f2; border: 1px solid #ffd9cc; border-radius: 8px; padding: 16px 20px; margin: 16px 0 24px; }
-.download-links h3 { font-size: 16px; color: var(--brand); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.download-links a { display: block; padding: 6px 0; color: var(--brand); text-decoration: none; }
-.download-links a:hover { text-decoration: underline; }
-.download-links code { background: #ffe6dd; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
 
-/* TOC */
-.toc { background: #fff; border-radius: 8px; padding: 16px 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-.toc-title { font-weight: bold; margin-bottom: 8px; color: var(--ink); }
-.toc a { color: var(--brand); text-decoration: none; display: block; padding: 4px 0; }
-.toc a:hover { text-decoration: underline; }
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
 
 /* Typography */
 h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; }
@@ -69,7 +169,7 @@ p.no-indent { text-indent: 0; }
 .step-text { flex: 1; }
 
 /* Table */
-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
 th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
 td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
 tr:nth-child(even) td { background: #f9fafb; }
@@ -88,48 +188,58 @@ li { margin-bottom: 4px; }
 
 code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
 b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
 </style>
 </head>
 <body>
-<div class="container">
 
-<!-- Header：Logo + 微信二维码 + 主标题 -->
-<div class="header-box">
-    <img src="KanlorOne_WordSuite.png" alt="KanlorOne WordSuite" class="logo">
-    <img src="../assets/wechat.png" alt="微信二维码" class="wechat">
-</div>
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_WordSuite.png" alt="KanlorOne WordSuite">
+        <div class="name">KanlorOne WordSuite</div>
+        <div class="nameCn">Word 文档一站式排版工具</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南（6步搞定）</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#numbering">五、编号体系标准化说明</a>
+        <a href="#range">六、通用处理范围标识</a>
+        <a href="#templates">七、排版模板</a>
+        <a href="#download">八、下载安装</a>
+        <a href="#updates">九、更新日志</a>
+        <a href="#faq">十、常见问题</a>
+        <a href="#shortcuts">十一、快捷键</a>
+    </nav>
+    <div class="wechat-box">
+        <img src="../assets/wechat.png" alt="微信二维码">
+        <div class="tip">扫码添加微信</div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
 <h1>KanlorOne WordSuite — Word 文档一站式排版工具</h1>
-
-<!-- 下载地址区域 -->
-<section class="download-links">
-    <h3><i class="fas fa-download"></i> 下载地址</h3>
-    <p class="no-indent">① 微云下载：<a href="https://share.weiyun.com/d56f8rp2" target="_blank">https://share.weiyun.com/d56f8rp2</a></p>
-    <p class="no-indent">② 阿里云下载：<a href="https://www.alipan.com/s/HMbcHsbys5S" target="_blank">https://www.alipan.com/s/HMbcHsbys5S</a></p>
-    <p class="no-indent">③ Gitee 仓库：<a href="https://gitee.com/kanlor/KanlorOne_WordSuite" target="_blank">https://gitee.com/kanlor/KanlorOne_WordSuite</a></p>
-</section>
-
-<!-- 目录导航 -->
-<nav class="toc">
-    <p class="no-indent toc-title">目录</p>
-    <a href="#intro">一、产品简介</a>
-    <a href="#features">二、核心特色</a>
-    <a href="#guide">三、使用指南（6步搞定）</a>
-    <a href="#functions">四、功能详解</a>
-    <a href="#range">五、通用处理范围标识</a>
-    <a href="#templates">六、排版模板</a>
-    <a href="#download">七、下载安装</a>
-    <a href="#updates">八、更新日志</a>
-    <a href="#faq">九、常见问题</a>
-    <a href="#shortcuts">十、快捷键</a>
-</nav>
 
 <!-- ══════════════════ 一、产品简介 ══════════════════ -->
 <h2 id="intro">一、产品简介</h2>
+<img src="KanlorOne_WordSuite.png" alt="KanlorOne WordSuite 界面" class="product-image">
 <p>KanlorOne WordSuite 是一款 <b>Word 文档批量排版工具</b>。简单来说，你可以用它一次性处理几十上百个 Word 文档，自动完成排版工作，不用一个个手动调整格式。</p>
 <p>工具集成了 22 项常用排版功能，每一项都可以独立勾选、自由组合，执行顺序也能灵活调整。配置会自动保存，下次打开直接沿用上次设置。</p>
 
 <div class="tip">
-<b>最新更新</b>：标题识别支持指定层级、标题升降级支持转正文、新增标题编号删除功能、正文编号设置支持连续/间隔编号和编号删除、新增对结果进行处理（增量循环处理）、处理完毕后自动打开、输出文件命名优化（自定义后缀+版本号递增）、日志窗口支持一键跳转顶部/底部、序号输入框点击反馈和自动恢复。
+<b>最新更新</b>：字符清理新增项目符号删除、公文/WBS编号仅对标题有效（不影响正文）、自动打开文件修复（避免被COM进程关闭）、新增编号体系标准化说明。
 </div>
 
 <!-- ══════════════════ 二、核心特色 ══════════════════ -->
@@ -219,7 +329,7 @@ b { color: var(--ink); }
 <div class="card">
 <div class="card-title"><span class="tag num">3</span> <span class="tag reg">注册</span> 文档字符清理</div>
 <div class="card-desc">
-<p class="no-indent">清理制表符、不间断空格、零宽字符、控制字符等隐形垃圾。可替换手动换行符、清理多余空行、删除中英文之间和数字与字符间的多余空格。</p>
+<p class="no-indent">清理制表符、不间断空格、零宽字符、控制字符、项目符号（•）等隐形垃圾。可替换手动换行符、清理多余空行、删除中英文之间和数字与字符间的多余空格。</p>
 <p class="no-indent"><b>智能保护</b>：含图片的段落和 run 不会被误删。</p>
 </div>
 </div>
@@ -243,6 +353,7 @@ b { color: var(--ink); }
 <div class="card-title"><span class="tag num">6</span> <span class="tag reg">注册</span> 标题WBS编号</div>
 <div class="card-desc">
 <p class="no-indent">为标题自动生成层级编号（如"1 标题"、"1.1 子标题"），支持阿拉伯数字或中文数字样式。</p>
+<p class="no-indent"><b>仅对标题生效</b>：只处理具有大纲级别的段落，正文内容不受影响。</p>
 </div>
 </div>
 
@@ -308,6 +419,7 @@ b { color: var(--ink); }
 <div class="card-title"><span class="tag num">15</span> <span class="tag reg">注册</span> 标题公文编号</div>
 <div class="card-desc">
 <p class="no-indent">为公文标题添加编号：一级"一、""二、"、二级"（一）""（二）"、三级"1.""2."、四级"（1）""（2）"，按级别自动计数递增。</p>
+<p class="no-indent"><b>仅对标题生效</b>：只处理具有大纲级别的段落，正文内容不受影响。</p>
 </div>
 </div>
 
@@ -366,8 +478,133 @@ b { color: var(--ink); }
 </div>
 </div>
 
-<!-- ══════════════════ 五、通用处理范围标识 ══════════════════ -->
-<h2 id="range">五、通用处理范围标识</h2>
+<!-- ══════════════════ 五、编号体系标准化说明 ══════════════════ -->
+<h2 id="numbering">五、编号体系标准化说明</h2>
+
+<div class="card">
+<div class="card-title">编号体系概览</div>
+<div class="card-desc">
+<p class="no-indent">工具支持四种编号体系，各自独立运行，适用于不同场景：</p>
+<ul>
+<li><b>公文编号体系</b>：用于公文标题的层级编号，符合国家标准</li>
+<li><b>WBS 编号体系</b>：用于科技文档/项目管理文档的标题层级编号</li>
+<li><b>正文序列编号</b>：用于正文段落中的有序列表（如"1. xxx""2. xxx"）</li>
+<li><b>项目符号</b>：用于正文段落中的无序列表（如"• xxx""● xxx"）</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">公文编号体系</div>
+<div class="card-desc">
+<p class="no-indent">公文编号体系采用四级层级结构，符合国家公文格式标准：</p>
+<table>
+<tr><th style="width:15%">级别</th><th style="width:25%">格式</th><th style="width:20%">示例</th><th>说明</th></tr>
+<tr><td>一级</td><td><code>一、</code></td><td>一、总则</td><td>中文数字 + 顿号</td></tr>
+<tr><td>二级</td><td><code>（一）</code></td><td>（一）基本原则</td><td>全角括号 + 中文数字 + 全角括号</td></tr>
+<tr><td>三级</td><td><code>1.</code></td><td>1. 实施步骤</td><td>阿拉伯数字 + 英文点号 + 空格</td></tr>
+<tr><td>四级</td><td><code>（1）</code></td><td>（1）第一步</td><td>全角括号 + 阿拉伯数字 + 全角括号</td></tr>
+</table>
+<p class="no-indent"><b>应用范围</b>：仅对具有大纲级别的标题段落生效，正文段落不受影响。</p>
+<p class="no-indent"><b>编号规则</b>：按层级自动递增，遇到更高级别时下级归零重新计数。例如：</p>
+<div class="marker-demo">一、总则
+（一）目的
+（二）适用范围
+二、实施细则
+（一）基本原则
+1. 公平公正原则
+（1）公开透明
+（2）程序合规
+2. 效率原则
+（二）操作流程</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">WBS 编号体系</div>
+<div class="card-desc">
+<p class="no-indent">WBS（Work Breakdown Structure）编号体系采用阿拉伯数字层级结构，适用于科技文档、项目管理文档：</p>
+<table>
+<tr><th style="width:15%">级别</th><th style="width:25%">格式</th><th style="width:20%">示例</th><th>说明</th></tr>
+<tr><td>一级</td><td><code>1</code></td><td>1 项目概述</td><td>单个阿拉伯数字</td></tr>
+<tr><td>二级</td><td><code>1.1</code></td><td>1.1 研究背景</td><td>一级.二级</td></tr>
+<tr><td>三级</td><td><code>1.1.1</code></td><td>1.1.1 国内外现状</td><td>一级.二级.三级</td></tr>
+<tr><td>四级</td><td><code>1.1.1.1</code></td><td>1.1.1.1 技术路线</td><td>一级.二级.三级.四级</td></tr>
+<tr><td>五级及以上</td><td><code>1.1.1.1.1</code></td><td>1.1.1.1.1 步骤一</td><td>可扩展至九级</td></tr>
+</table>
+<p class="no-indent"><b>应用范围</b>：仅对具有大纲级别的标题段落生效，正文段落不受影响。</p>
+<p class="no-indent"><b>编号规则</b>：每个层级用英文点号分隔，按层级关系自动递增。示例：</p>
+<div class="marker-demo">1 项目概述
+1.1 研究背景
+1.1.1 国内外研究现状
+1.1.2 研究意义
+1.2 研究目标
+1.2.1 总体目标
+1.2.2 具体目标</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">正文序列编号</div>
+<div class="card-desc">
+<p class="no-indent">正文序列编号用于正文段落中的有序列表，与标题编号体系独立：</p>
+<p class="no-indent"><b>支持类型</b>：</p>
+<table>
+<tr><th style="width:20%">类型</th><th style="width:25%">格式</th><th>示例</th></tr>
+<tr><td>阿拉伯数字</td><td><code>1.</code></td><td>1. 第一点</td></tr>
+<tr><td>小写字母</td><td><code>a.</code></td><td>a. 第一点</td></tr>
+<tr><td>大写字母</td><td><code>A.</code></td><td>A. 第一点</td></tr>
+<tr><td>小写罗马数字</td><td><code>i.</code></td><td>i. 第一点</td></tr>
+<tr><td>大写罗马数字</td><td><code>I.</code></td><td>I. 第一点</td></tr>
+<tr><td>自定义格式</td><td>用户指定</td><td>如"(1)"、"①"等</td></tr>
+</table>
+<p class="no-indent"><b>编号模式</b>：</p>
+<ul>
+<li><b>连续编号</b>：整个有效范围内编号从头到尾连续，跨标题不中断</li>
+<li><b>间隔编号</b>：每个标题范围内编号从 1 开始，遇到新标题重新计数</li>
+<li><b>删除编号</b>：删除正文中所有编号文字，保留正文内容</li>
+</ul>
+<p class="no-indent"><b>应用范围</b>：仅对正文段落（无大纲级别）生效，标题段落不受影响。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">项目符号</div>
+<div class="card-desc">
+<p class="no-indent">项目符号用于正文段落中的无序列表，与标题编号体系独立：</p>
+<p class="no-indent"><b>支持类型</b>：</p>
+<table>
+<tr><th style="width:20%">类型</th><th style="width:25%">格式</th><th>示例</th></tr>
+<tr><td>标准圆点</td><td><code>•</code></td><td>• 第一点</td></tr>
+<tr><td>空心圆</td><td><code>○</code></td><td>○ 第一点</td></tr>
+<tr><td>实心方块</td><td><code>■</code></td><td>■ 第一点</td></tr>
+<tr><td>空心方块</td><td><code>□</code></td><td>□ 第一点</td></tr>
+<tr><td>自定义符号</td><td>用户指定</td><td>如"★"、"●"等</td></tr>
+</table>
+<p class="no-indent"><b>字符清理支持</b>：字符清理功能中新增「项目符号」删除选项，可批量删除文档中的项目符号字符（Unicode U+2022）。</p>
+<p class="no-indent"><b>应用范围</b>：仅对正文段落（无大纲级别）生效，标题段落不受影响。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">编号体系区分规则</div>
+<div class="card-desc">
+<p class="no-indent">四种编号体系严格区分，各司其职：</p>
+<table>
+<tr><th style="width:20%">体系</th><th style="width:25%">处理对象</th><th style="width:20%">处理功能</th><th>说明</th></tr>
+<tr><td>公文编号</td><td>有大纲级别（1-4级）的标题</td><td>标题公文编号、标题公文识别、标题编号删除</td><td>仅标题生效</td></tr>
+<tr><td>WBS 编号</td><td>有大纲级别（1-9级）的标题</td><td>标题WBS识别、标题WBS编号、标题编号删除</td><td>仅标题生效</td></tr>
+<tr><td>正文序列</td><td>无大纲级别的正文段落</td><td>正文编号设置</td><td>仅正文生效</td></tr>
+<tr><td>项目符号</td><td>无大纲级别的正文段落</td><td>正文编号设置、字符清理</td><td>仅正文生效</td></tr>
+</table>
+<div class="tip">
+<b>重要提示</b>：公文编号和 WBS 编号仅对具有大纲级别的标题段落生效，不会误修改正文内容；正文序列和项目符号仅对正文段落生效，不会影响标题。这种设计确保了标题和正文的编号体系完全隔离。
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ 六、通用处理范围标识 ══════════════════ -->
+<h2 id="range">六、通用处理范围标识</h2>
 
 <div class="card">
 <div class="card-title">什么是处理范围标识？</div>
@@ -436,8 +673,8 @@ b { color: var(--ink); }
 </div>
 </div>
 
-<!-- ══════════════════ 六、排版模板 ══════════════════ -->
-<h2 id="templates">六、排版模板</h2>
+<!-- ══════════════════ 七、排版模板 ══════════════════ -->
+<h2 id="templates">七、排版模板</h2>
 
 <div class="card">
 <div class="card-title">选择内置模板</div>
@@ -458,8 +695,13 @@ b { color: var(--ink); }
 </div>
 </div>
 
-<!-- ══════════════════ 七、下载安装 ══════════════════ -->
-<h2 id="download">七、下载安装</h2>
+<!-- ══════════════════ 八、下载安装 ══════════════════ -->
+<h2 id="download">八、下载安装</h2>
+
+<a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
+    <i class="fas fa-download"></i>
+    <span>下载 Windows 64位</span>
+</a>
 
 <div class="card">
 <div class="card-title">系统要求</div>
@@ -477,7 +719,7 @@ b { color: var(--ink); }
 <div class="card-desc">
 <div class="step">
 <div class="step-num">1</div>
-<div class="step-text">从上方下载地址获取安装包（微云/阿里云/Gitee 仓库）</div>
+<div class="step-text">点击上方下载按钮获取安装包（微云下载）</div>
 </div>
 <div class="step">
 <div class="step-num">2</div>
@@ -501,14 +743,15 @@ b { color: var(--ink); }
 </div>
 </div>
 
-<!-- ══════════════════ 八、更新日志 ══════════════════ -->
-<h2 id="updates">八、更新日志</h2>
+<!-- ══════════════════ 九、更新日志 ══════════════════ -->
+<h2 id="updates">九、更新日志</h2>
 
 <table>
 <thead>
 <tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
 </thead>
 <tbody>
+<tr><td>v1.9.4</td><td>字符清理新增项目符号(•)删除，公文/WBS编号仅对标题生效，修复自动打开文件被COM进程关闭问题，新增编号体系标准化说明</td><td>2026-07-13</td></tr>
 <tr><td>v1.9.3</td><td>优化批量处理速度，修复WPS兼容问题</td><td>2026-07-11</td></tr>
 <tr><td>v1.9.2</td><td>品牌正式更名KanlorOne WordSuite，新增.doc/.wps格式自动转换支持，优化默认参数与内置模板，修复多项已知问题</td><td>-</td></tr>
 <tr><td>v1.9.1</td><td>新增统一范围标识管理引擎，图片/表格样式适配横竖页面，优化公文标题识别，新增标题编号替换功能</td><td>-</td></tr>
@@ -525,8 +768,8 @@ b { color: var(--ink); }
 </tbody>
 </table>
 
-<!-- ══════════════════ 九、常见问题 ══════════════════ -->
-<h2 id="faq">九、常见问题</h2>
+<!-- ══════════════════ 十、常见问题 ══════════════════ -->
+<h2 id="faq">十、常见问题</h2>
 
 <div class="card">
 <div class="card-title">Q：执行后找不到输出文件？</div>
@@ -633,8 +876,8 @@ b { color: var(--ink); }
 </div>
 </div>
 
-<!-- ══════════════════ 十、快捷键 ══════════════════ -->
-<h2 id="shortcuts">十、快捷键</h2>
+<!-- ══════════════════ 十一、快捷键 ══════════════════ -->
+<h2 id="shortcuts">十一、快捷键</h2>
 
 <div class="card">
 <div class="card-desc">

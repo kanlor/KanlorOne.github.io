@@ -1,11 +1,11 @@
 {
     "id": 1,
     "name": "KanlorOne WordSuite",
-    "nameCn": "WordSuite 文档套件",
+    "nameCn": "Word 文档一站式排版工具",
     "icon": "📋",
     "image": "products/KanlorOne_WordSuite.png",
-    "version": "1.9.3",
-    "releaseDate": "2026-07-11",
+    "version": "1.9.4",
+    "releaseDate": "2026-07-13",
     "description": "专业级Word批量排版与自动化处理套件，深度集成VBA与AI能力，一键搞定长文档排版、格式批量统一、模板智能生成，大幅提升文档处理效率。",
     "features": [
         "批量格式一键统一",
@@ -20,6 +20,7 @@
         "文档格式批量转换"
     ],
     "updates": [
+        "v1.9.4 - 字符清理新增项目符号(•)删除，公文/WBS编号仅对标题生效，修复自动打开文件被COM进程关闭问题，新增编号体系标准化说明",
         "v1.9.3 - 优化批量处理速度，修复WPS兼容问题",
         "v1.9.2 - 品牌正式更名KanlorOne WordSuite，新增.doc/.wps格式自动转换支持，优化默认参数与内置模板，修复多项已知问题",
         "v1.9.1 - 新增统一范围标识管理引擎，图片/表格样式适配横竖页面，优化公文标题识别，新增标题编号替换功能",

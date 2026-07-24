@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne ExcelKit - Excel 浮动工具箱，集成 30+ 项批量处理功能，覆盖格式排版、数据清洗、结构转换全场景，悬浮模式不遮挡 Excel 操作区域，支持自动备份与撤回。">
+<meta name="keywords" content="KanlorOne ExcelKit,Excel工具,批量处理,浮动工具箱,数据清洗,格式排版,Excel插件">
+<meta property="og:title" content="KanlorOne ExcelKit - 表格浮动工具箱">
+<meta property="og:description" content="30+项批量处理功能，悬浮模式，自动备份与撤回">
+<meta property="og:type" content="article">
+<title>KanlorOne ExcelKit — 使用说明 | KanlorOne</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box img {
+    width: 140px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .tip {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
+
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.format { background: #dbeafe; color: #1e40af; }
+.tag.data { background: #ecfdf5; color: #059669; }
+.tag.online { background: #fff3c4; color: #92400e; }
+.tag.safe { background: #ede9fe; color: #5b21b6; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Shortcut inline */
+.shortcut { display: inline-block; background: var(--brand); color: #fff; padding: 2px 10px; border-radius: 4px; font-size: 13px; font-family: Consolas, monospace; margin: 0 3px; font-weight: 600; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_ExcelKit.png" alt="KanlorOne ExcelKit">
+        <div class="name">KanlorOne ExcelKit</div>
+        <div class="nameCn">表格浮动工具箱</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+        <a href="#shortcuts">八、快捷键</a>
+    </nav>
+    <div class="wechat-box">
+        <img src="../assets/wechat.png" alt="微信二维码">
+        <div class="tip">扫码添加微信</div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne ExcelKit — 表格浮动工具箱（30+功能 · 悬浮模式 · 自动备份）</h1>
+
+<!-- ══════════════════ 一、产品简介 ══════════════════ -->
+<h2 id="intro">一、产品简介</h2>
+<img src="KanlorOne_ExcelKit.png" alt="KanlorOne ExcelKit 界面" class="product-image">
+<p>KanlorOne ExcelKit 是一款 <b>Excel 浮动工具箱</b>，集成了 30+ 项批量处理功能，覆盖格式排版、数据清洗、结构转换、批量文件处理全场景。程序以悬浮窗口形式常驻桌面，不遮挡 Excel 操作区域，一键即可执行各类批量操作。</p>
+<p>工具采用 COM 自动化技术与 Excel 交互，通过多策略连接（GetActiveObject + ROT 遍历 + Dispatch）确保稳定连接。所有长耗时操作支持实时进度显示与优雅停止，高危操作前自动备份并支持一键撤回，内置帮助文档一键查阅，保障数据安全。</p>
+
+<div class="tip">
+<b>核心场景</b>：多工作表批量格式化、跨表数据清洗与合并、WBS 结构格式化、重复值高亮、空行清理、导航页生成等高频 Excel 批量处理任务。
+</div>
+
+<!-- ══════════════════ 二、核心特色 ══════════════════ -->
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title"><span class="tag format">悬浮</span> 悬浮模式 · 不遮挡 Excel</div>
+<div class="card-desc">
+<ul>
+<li><b>Alt+Q 一键切换</b>正常模式与悬浮模式</li>
+<li>悬浮模式下窗口半透明、可拖动、可缩放</li>
+<li>不遮挡 Excel 操作区域，边操作边使用</li>
+<li>自动记忆上次模式，下次启动恢复</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag format">功能</span> 30+ 功能一键操作</div>
+<div class="card-desc">
+<ul>
+<li><b>格式排版</b>：全局格式化、行高设置、合并/拆分单元格、条件填色、视图缩放</li>
+<li><b>数据处理</b>：空行清理、智能填充、数字文本互转、日期标准化、数据统计、列归一化、高亮重复值</li>
+<li><b>结构转换</b>：首列展开/整合表、文本序列化、WBS 格式化、数据模板</li>
+<li><b>批量文件</b>：文件合并、表格拆分、区域导出、数据透视表</li>
+<li><b>在线功能</b>：正则替换、冻结表头、导航页生成</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag safe">安全</span> 自动备份 + 一键撤回</div>
+<div class="card-desc">
+<ul>
+<li>6 个高危功能（全局格式化、合并/拆分单元格、条件填色、空行清理、高亮重复值）执行前自动备份</li>
+<li>备份文件存放在用户临时目录 <code>ExcelLiveBackups</code>，保留最近 5 份</li>
+<li><span class="shortcut">Ctrl+Z</span> 一键撤回，恢复到操作前状态</li>
+<li>备份失败时弹出警告，用户可选择继续或取消</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag online">进度</span> 实时进度 + 优雅停止</div>
+<div class="card-desc">
+<ul>
+<li><b>三路同步</b>：进度条 + 状态栏 + 标题栏实时显示当前进度</li>
+<li><b>停止按钮</b>：点击后弹出确认，优雅停止不破坏数据</li>
+<li>15 个长耗时功能均已接入进度追踪与停止机制</li>
+<li>执行过程中 UI 保持响应，窗口可拖动</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">COM 多策略连接</div>
+<div class="card-desc">
+<ul>
+<li><b>三重兜底</b>：GetActiveObject → ROT 遍历 → Dispatch 启动新实例</li>
+<li>兼容 Excel 残留进程，无需手动关闭已有 Excel</li>
+<li>支持温和关闭与强制关闭两种模式</li>
+<li>退出时自动恢复 Excel 状态（ScreenUpdating、EnableEvents 等）</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag new">帮助</span> 内置帮助文档</div>
+<div class="card-desc">
+<ul>
+<li>工具栏「帮助」按钮一键打开使用说明</li>
+<li>优先打开本地 HTML 文档（<code>help/KanlorOne_ExcelKit.html</code>）</li>
+<li>本地文件不存在时自动回退到在线文档</li>
+<li>无需联网即可查阅完整功能说明</li>
+</ul>
+</div>
+</div>
+
+<!-- ══════════════════ 三、使用指南 ══════════════════ -->
+<h2 id="guide">三、使用指南</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>启动程序</b>：双击 <code>KanlorOne_ExcelKit</code> 图标启动。程序自动尝试连接已运行的 Excel 实例。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>连接 Excel</b>：如果未自动连接，点击「连接」按钮。程序通过三重策略连接：先尝试获取已运行实例，再遍历 ROT 表，最后启动新实例。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>选择工作簿</b>：连接成功后，从下拉列表选择要操作的工作簿。程序自动列出所有打开的 Excel 文件。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>切换模式</b>：按 <span class="shortcut">Alt+Q</span> 切换正常模式与悬浮模式。悬浮模式下窗口半透明不遮挡 Excel，可随时拖动和缩放。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>执行功能</b>：点击功能按钮执行操作。执行时所有按钮自动禁用，标题栏显示「功能运行中」，进度条实时更新。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>停止/撤回</b>：如需中途停止，点击「停止」按钮并确认。如需撤回操作，点击工具栏「撤回」按钮或按 <span class="shortcut">Ctrl+Z</span>。</div>
+</div>
+
+<div class="step">
+<div class="step-num">7</div>
+<div class="step-text"><b>查看帮助</b>：点击工具栏「帮助」按钮，打开完整使用说明文档（本地优先，无则在线）。</div>
+</div>
+
+<div class="tip">
+<b>功能分组</b>：功能按钮按颜色分组 — <span class="tag format">蓝色</span>格式排版、<span class="tag data">绿色</span>数据处理、<span class="tag online">橙色</span>在线功能。
+</div>
+
+<!-- ══════════════════ 四、功能详解 ══════════════════ -->
+<h2 id="functions">四、功能详解</h2>
+
+<h3>格式排版（蓝色组）</h3>
+
+<div class="card">
+<div class="card-title">全局格式化</div>
+<div class="card-desc">
+<ul>
+<li>7 步流水线处理：智能列宽 → 自动行高 → 对齐方式 → 边框设置 → 表头样式 → 字体优化 → 格式微调</li>
+<li>支持自动列宽 / 固定总宽度 / 自定义模式</li>
+<li>行高根据内容长度和列宽智能计算换行数</li>
+<li>支持「应用到所有工作表」</li>
+<li><b>自动备份</b> + 停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">统一设置行高</div>
+<div class="card-desc">
+<ul>
+<li>批量设置所有工作表或当前工作表的行高</li>
+<li>支持自定义行高值</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">按列合并单元格</div>
+<div class="card-desc">
+<ul>
+<li>按指定列的相同值批量合并相邻单元格</li>
+<li>内存批量计算合并区间，减少 50× COM 调用</li>
+<li><b>自动备份</b> + 停止检查</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">拆分合并单元格</div>
+<div class="card-desc">
+<ul>
+<li>拆分选区中所有合并单元格，值填充到每个单元格</li>
+<li>使用 SpecialCells 定位 + Union 批量边框，提速 10×</li>
+<li><b>自动备份</b> + 停止检查</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">列条件行填色</div>
+<div class="card-desc">
+<ul>
+<li>按指定列的值分组，对整行着色</li>
+<li>按颜色分组 Union 批量着色，提速 20×</li>
+<li>支持自定义颜色配置</li>
+<li><b>自动备份</b> + 停止检查</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">表格视图缩放</div>
+<div class="card-desc">
+<ul>
+<li>快速调整 Excel 窗口缩放比例</li>
+<li>支持预设比例和自定义输入</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">文件合并表格</div>
+<div class="card-desc">
+<ul>
+<li>将多个 Excel 文件的工作表合并到当前工作簿</li>
+<li>支持选择文件夹批量导入</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">表格拆分文件</div>
+<div class="card-desc">
+<ul>
+<li>按指定列的值将工作表拆分为多个独立文件</li>
+<li>每个唯一值生成一个新文件</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">区域导出文件</div>
+<div class="card-desc">
+<ul>
+<li>将选中区域导出为独立 Excel 文件</li>
+<li>保留格式和公式</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">生成数据透视表</div>
+<div class="card-desc">
+<ul>
+<li>基于选中数据自动生成数据透视表</li>
+<li>支持自定义行、列、值字段</li>
+</ul>
+</div>
+</div>
+
+<h3>数据处理（绿色组）</h3>
+
+<div class="card">
+<div class="card-title">空行一键清理</div>
+<div class="card-desc">
+<ul>
+<li>删除整行空行（批量删除提速 100×）</li>
+<li>可选清理文字空行（仅含空格/换行）</li>
+<li><b>自动备份</b> + 停止检查</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">按列一键填充</div>
+<div class="card-desc">
+<ul>
+<li>智能识别空单元格，按列方向向下填充</li>
+<li>支持多列同时填充</li>
+<li>停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">数字文本互转</div>
+<div class="card-desc">
+<ul>
+<li>文本数字 → 数值（批量读写提速 20×）</li>
+<li>数值 → 文本格式（防止前导零丢失）</li>
+<li>停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">数据一键统计</div>
+<div class="card-desc">
+<ul>
+<li>对选中列进行求和、平均值、计数、最大/最小值统计</li>
+<li>结果以弹窗报告形式展示</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">日期时间标准化</div>
+<div class="card-desc">
+<ul>
+<li>将各种日期格式统一为标准格式</li>
+<li>支持自定义目标格式</li>
+<li>停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">数据列归一化</div>
+<div class="card-desc">
+<ul>
+<li>统一列名格式（去除空格、统一大小写等）</li>
+<li>支持自定义归一化规则</li>
+<li>停止检查</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">高亮重复/异常值</div>
+<div class="card-desc">
+<ul>
+<li>模式一：高亮重复值（同色标记相同数据）</li>
+<li>模式二：高亮异常值（偏离正常范围的数据）</li>
+<li>批量 Union 着色，提速 2×</li>
+<li><b>自动备份</b> + 停止检查</li>
+</ul>
+</div>
+</div>
+
+<h3>在线功能（橙色组）</h3>
+
+<div class="card">
+<div class="card-title">按首列展开表</div>
+<div class="card-desc">
+<ul>
+<li>将合并单元格的首列展开为多行明细</li>
+<li>停止检查 + 完成报告</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">按首列整合表</div>
+<div class="card-desc">
+<ul>
+<li>将多行明细按首列整合为合并单元格</li>
+<li>停止检查 + 完成报告</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">文本数据清洗</div>
+<div class="card-desc">
+<ul>
+<li>去除首尾空格、多余空格、不可见字符</li>
+<li>预编译正则提速 3×</li>
+<li>停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">行文本序列化</div>
+<div class="card-desc">
+<ul>
+<li>将多行文本转换为序列化格式</li>
+<li>停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">WBS 格式化</div>
+<div class="card-desc">
+<ul>
+<li>自动识别 WBS 层级编号并格式化</li>
+<li>O(N) 扫描 + 批量样式，提速 50×</li>
+<li>停止检查</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">常用数据模板</div>
+<div class="card-desc">
+<ul>
+<li>插入预设的数据模板到当前工作表</li>
+<li>支持自定义模板配置</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">正则批量替换</div>
+<div class="card-desc">
+<ul>
+<li>使用正则表达式批量替换单元格内容</li>
+<li>预编译正则提速 3×</li>
+<li>停止检查 + 完成报告</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">自动冻结表头</div>
+<div class="card-desc">
+<ul>
+<li>自动识别表头行（首个无合并单元格且数据完整的行）</li>
+<li>冻结表头并设置冻结窗格</li>
+<li>处理受保护工作表，进度报告</li>
+<li>停止检查</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">生成导航页</div>
+<div class="card-desc">
+<ul>
+<li>在工作簿最前方插入「导航」工作表</li>
+<li>自动列出所有工作表名称并添加超链接</li>
+<li>冻结首行、格式化表头、设置列宽</li>
+<li>更新时彻底清理旧内容（表格对象、形状、超链接）</li>
+</ul>
+</div>
+</div>
+
+<h3>安全与可靠性</h3>
+
+<div class="card">
+<div class="card-title">自动备份与撤回</div>
+<div class="card-desc">
+<ul>
+<li><b>6 个高危功能</b>执行前自动备份：全局格式化、按列合并、拆分合并、列条件填色、空行清理、高亮重复值</li>
+<li>备份文件存放：<code>%TEMP%\ExcelLiveBackups\</code>，保留最近 5 份</li>
+<li>备份失败时弹出警告，用户可选择继续或取消</li>
+<li><span class="shortcut">Ctrl+Z</span> 一键撤回：关闭当前工作簿 → 恢复备份 → 重新打开</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">关闭保护</div>
+<div class="card-desc">
+<ul>
+<li>功能运行中关闭窗口时弹出确认对话框</li>
+<li>提示"强制退出可能导致数据损坏"</li>
+<li>退出时自动恢复 Excel 状态（ScreenUpdating、EnableEvents、Calculation 等）</li>
+<li>释放 COM 引用，防止 Excel 进程残留</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Excel 进程管理</div>
+<div class="card-desc">
+<ul>
+<li>温和关闭：关闭本工具关联的 Excel 实例，不影响其他文件</li>
+<li>强制关闭：WMI 进程终止 + taskkill 兜底</li>
+<li>关闭前检查残留进程，区分"其他文件运行"与"温和关闭失败"两种场景</li>
+<li>强制关闭前弹出确认，提示数据丢失风险</li>
+</ul>
+</div>
+</div>
+
+<!-- ══════════════════ 五、下载安装 ══════════════════ -->
+<h2 id="download">五、下载安装</h2>
+
+<a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
+    <i class="fas fa-download"></i>
+    <span>下载 Windows 64位</span>
+</a>
+
+<div class="card">
+<div class="card-title">系统要求</div>
+<div class="card-desc">
+<ul>
+<li>操作系统：Windows 7 及以上（64 位）</li>
+<li>软件依赖：Microsoft Excel 2010 及以上（需已安装）</li>
+<li>磁盘空间：至少 30 MB 可用空间</li>
+<li>内存：建议 4 GB 及以上</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">安装步骤</div>
+<div class="card-desc">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text">点击上方下载按钮获取安装包（微云下载）</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text">解压到任意目录，双击 <code>KanlorOne_ExcelKit.exe</code> 启动</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text">程序自动尝试连接已运行的 Excel，或点击「连接」手动连接</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text">选择工作簿后即可使用各项功能</div>
+</div>
+</div>
+</div>
+
+<div class="warn">
+<b>注意</b>：使用前请确保 Excel 已安装且可正常启动。程序通过 COM 接口与 Excel 交互，不修改 Excel 安装文件。
+</div>
+
+<!-- ══════════════════ 六、更新日志 ══════════════════ -->
+<h2 id="updates">六、更新日志</h2>
+
+<table>
+<thead>
+<tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
+</thead>
+<tbody>
+<tr><td>v1.7</td><td>三波全面优化：可靠性兜底（关闭检查+退出清理+备份失败提示）、体验提升（15个功能接入进度追踪与停止机制、_yield_ui全覆盖）、代码质量（SheetProtectionGuard推广、38处静默异常增加日志）；修复导航页残留表格对象导致上下两个表问题；修复取消自动列宽时行高计算列宽错位问题；修复悬浮模式切换后进度条与停止按钮异常显示；新增帮助按钮（本地HTML/在线文档）；删除字段查找功能</td><td>2026-07-24</td></tr>
+<tr><td>v1.6</td><td>核心性能优化：按列合并批量COM调用减少50×、拆分合并提速10×、列条件填色提速20×、正则替换提速3×、高亮重复值提速2×；可靠性增强：ExcelPerformance异常恢复、SheetProtectionGuard、safe_excel_operation装饰器、loguru日志框架</td><td>-</td></tr>
+<tr><td>v1.5</td><td>新增停止按钮（优雅停止不破坏数据）、撤回功能（Ctrl+Z）、自动备份机制（6个高危功能）；UI进度条位置优化</td><td>-</td></tr>
+<tr><td>v1.4</td><td>新增自动冻结表头、生成导航页功能；优化多线程执行与UI响应</td><td>-</td></tr>
+<tr><td>v1.3</td><td>多线程执行框架、ProgressTracker进度追踪器；排除.xlsb文件兼容性处理</td><td>-</td></tr>
+<tr><td>v1.2</td><td>悬浮模式优化，进度条与功能按钮布局调整</td><td>-</td></tr>
+<tr><td>v1.1</td><td>功能扩展与稳定性提升</td><td>-</td></tr>
+<tr><td>v1.0</td><td>初始版本上线，支持基础Excel批量处理功能</td><td>-</td></tr>
+</tbody>
+</table>
+
+<!-- ══════════════════ 七、常见问题 ══════════════════ -->
+<h2 id="faq">七、常见问题</h2>
+
+<div class="card">
+<div class="card-title">Q：程序无法连接到 Excel？</div>
+<div class="card-desc">
+<p class="no-indent">请确保 Excel 已安装并至少启动过一次。程序通过三重策略连接：① GetActiveObject 获取已运行实例；② 遍历 ROT 表查找 Excel 工作簿；③ Dispatch 启动新实例。如果仍有残留进程，可点击「关闭」按钮清理后重试。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：执行功能时 UI 卡住了怎么办？</div>
+<div class="card-desc">
+<p class="no-indent">v1.7 已为所有长耗时功能添加 <code>_yield_ui()</code> 调用，执行过程中 UI 保持响应。如果仍有卡顿，可点击「停止」按钮优雅停止当前操作。停止后已处理的内容保留，未处理的部分跳过。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：全局格式化后行高不对，文字被遮挡？</div>
+<div class="card-desc">
+<p class="no-indent">v1.7 已修复此问题。原因是数据范围不从第1列开始时，列宽读取错位导致行高计算错误。现已根据数据范围实际起始列（<code>start_col</code>）正确读取列宽。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：导航页出现上下两个表怎么办？</div>
+<div class="card-desc">
+<p class="no-indent">v1.7 已修复。原因是旧导航页中存在 Excel 表格对象（ListObject），<code>Cells.Clear()</code> 无法清除。现已增加五级清理：清除 ListObject → 清除形状/图片 → 清除超链接 → 清除单元格 → 重置冻结窗格。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：悬浮模式切换后进度条和停止按钮异常显示？</div>
+<div class="card-desc">
+<p class="no-indent">v1.7 已修复。原因是切换悬浮模式时控件顺序调整代码无条件 pack 了进度条，覆盖了隐藏逻辑。现已改为仅在功能运行时显示进度条，未运行时保持隐藏。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：如何撤回误操作？</div>
+<div class="card-desc">
+<p class="no-indent">点击工具栏「撤回」按钮或按 <span class="shortcut">Ctrl+Z</span>。程序会关闭当前工作簿，恢复到最近的备份文件，然后重新打开。注意：只有高危功能（全局格式化、合并/拆分单元格等 6 个）才会自动备份。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：备份文件存在哪里？保留多久？</div>
+<div class="card-desc">
+<p class="no-indent">备份文件存放在系统临时目录 <code>%TEMP%\ExcelLiveBackups\</code> 下，保留最近 5 份。每次高危操作前自动创建新备份，超出 5 份时自动删除最旧的。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：关闭窗口时提示"有功能正在执行中"？</div>
+<div class="card-desc">
+<p class="no-indent">这是安全保护机制。功能运行中关闭窗口会弹出确认对话框，提示"强制退出可能导致数据损坏"。建议等待功能完成后再关闭，或点击「停止」按钮优雅停止后再关闭。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：悬浮模式和正常模式有什么区别？</div>
+<div class="card-desc">
+<p class="no-indent">正常模式显示完整界面（功能按钮 + 日志区 + 状态栏）；悬浮模式只显示功能按钮和进度条，窗口更紧凑、半透明，不遮挡 Excel 操作区域。按 <span class="shortcut">Alt+Q</span> 切换。程序会记忆上次使用的模式。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：帮助文档在哪里？</div>
+<div class="card-desc">
+<p class="no-indent">点击工具栏「帮助」按钮即可打开。程序优先打开本地 <code>help/KanlorOne_ExcelKit.html</code>，如果本地文件不存在则自动打开在线文档。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：.xlsb 文件为什么不显示？</div>
+<div class="card-desc">
+<p class="no-indent">.xlsb（Excel 二进制工作簿）格式兼容性较差，COM 操作容易出错，因此已从工作簿列表中排除。建议将 .xlsb 文件另存为 .xlsx 后再使用。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：试用期内有哪些限制？</div>
+<div class="card-desc">
+<p class="no-indent">试用期 30 天，期内所有功能开放。试用期结束后，部分高级功能按钮灰色不可点击，需注册授权后解锁。未注册用户的功能按钮直接置灰，无额外说明文字。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 八、快捷键 ══════════════════ -->
+<h2 id="shortcuts">八、快捷键</h2>
+
+<div class="card">
+<div class="card-desc">
+<table>
+<thead>
+<tr><th>快捷键</th><th>功能</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><span class="shortcut">Alt+Q</span></td><td>切换悬浮/正常模式</td><td>全局快捷键</td></tr>
+<tr><td><span class="shortcut">Ctrl+Z</span></td><td>撤回上次操作</td><td>恢复到最近的备份文件</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="tip">
+<b>停止按钮</b>：功能运行时进度条区域显示「停止」按钮，点击后弹出确认对话框（支持 ESC 取消），优雅停止当前功能，已处理内容保留，未处理部分跳过。
+</div>
+
+<div class="footer">
+<p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: MToolsService | 邮箱: <a href="mailto:kanlorone@163.com">kanlorone@163.com</a></p>
+</div>
+
+</div>
+</body>
+</html>

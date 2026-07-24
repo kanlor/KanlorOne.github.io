@@ -2,23 +2,30 @@
     "id": 3,
     "name": "KanlorOne PandocGUI",
     "nameCn": "PandocGUI 文档转换",
-    "icon": "🔐",
+    "icon": "📄",
     "image": "products/KanlorOne_PandocGUI.png",
     "version": "1.4",
     "releaseDate": "2026-07-12",
-    "description": "万能文档转换工具Pandoc的图形化版本应用",
+    "description": "Pandoc 文档转换工具的图形化版本，将被誉为「万能文档转换瑞士军刀」的 Pandoc 包装为可视化界面，支持 PDF/Docx/HTML/EPUB/PPTX/Markdown 等多种主流格式互转，完美支持中文。",
     "features": [
-        "可视化操作，无需命令"
+        "可视化操作：图形化界面替代命令行，参数勾选即可，无需记忆语法",
+        "参数建议填充：智能识别输入输出格式，自动推荐最佳参数组合",
+        "中文完美支持：内置 xelatex 引擎配置，PDF 输出无乱码",
+        "更新检测：自动检测 Pandoc 与程序自身版本，提醒更新",
+        "过程记录：完整记录每次转换的命令、参数、输出，方便复现"
     ],
     "functions": [
-        "参数可视化",
-        "参数建议填充",
-        "更新检测",
-        "过程记录"
+        "参数可视化（输入输出、PDF引擎、代码高亮主题、目录章节等）",
+        "参数建议填充（按格式组合智能推荐）",
+        "PDF 输出推荐设置（xelatex 引擎 + 中文字体）",
+        "Docx 参考模板（统一字体样式页眉页脚）",
+        "更新检测（Pandoc 与程序自身）",
+        "过程记录（命令、参数、日志、耗时）",
+        "命令复制与自定义（一键复制 Pandoc 命令）"
     ],
     "updates": [
-        "V1.4 - 全面优化界面及参数推荐",
-        "V1.3 - 解决md到docx乱码"
+        "v1.4 - 全面优化界面及参数推荐",
+        "v1.3 - 解决 md 到 docx 乱码问题"
     ],
     "downloads": [
         {

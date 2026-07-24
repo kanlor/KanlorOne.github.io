@@ -33,10 +33,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Remove internal-only files
+        run: |
+          rm -f manage.html
+          rm -f deploy.bat
+          rm -f KanlorOne_PRODUCT_TEMPLATE.json
+          rm -f Kanlor_html.md
+          rm -f README.md
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
+          # Upload entire repository (internal files removed in previous step)
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment

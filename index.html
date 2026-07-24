@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KanlorOne 专业软件产品中心 - 提供Word排版、文档转换、账号密码管理、桌面助手、Excel工具箱等高效办公软件">
+    <meta name="keywords" content="KanlorOne,WordSuite,PandocGUI,HtmlAccPass,Guard,ExcelKit,Word排版,文档转换,办公软件">
+    <meta property="og:title" content="KanlorOne - 专业软件产品中心">
+    <meta property="og:description" content="高效 · 安全 · 持续更新的专业办公软件">
+    <meta property="og:type" content="website">
     <title>KanlorOne - 专业软件产品中心</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
         body { font-family: 'Inter', system-ui, sans-serif; }
         .logo-font { font-family: 'Space Grotesk', sans-serif; }
-        
-        .hero-bg { 
-            background: linear-gradient(135deg, #FF3B00 0%, #E63900 100%); 
+
+        .hero-bg {
+            background: linear-gradient(135deg, #FF3B00 0%, #E63900 100%);
         }
-        
+
         .product-card {
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
@@ -24,18 +29,11 @@
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
-        .modal {
-            animation: modalPop 0.3s ease-out forwards;
-        }
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
+
         .accent-color { color: #FF3B00; }
         .accent-bg { background-color: #FF3B00; }
         .accent-border { border-color: #FF3B00; }
-        
+
         @media (max-width: 640px) {
             #products-grid {
                 grid-template-columns: 1fr !important;
@@ -50,7 +48,7 @@
             object-fit: contain;
             background: #f9fafb;
         }
-        
+
         .download-btn {
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
@@ -65,13 +63,6 @@
     <script src="assets/products.js"></script>
     <!-- ==================== 【集中维护区】 ==================== -->
     <script>
-        // ==================== 网站全局配置 ====================
-        const siteConfig = {
-            companyName: "KanlorOne",
-            heroTitle: "专业软件，<span class='text-orange-200'>驱动未来</span>",
-            heroSubtitle: "高效 · 安全 · 持续更新"
-        };
-
         // ==================== 首页介绍文字 ====================
         const heroIntro = {
             title: "沉淀办公经验，<span class='text-orange-200'>打造趁手工具</span>",
@@ -111,7 +102,7 @@
                 <a href="#products" class="hover:text-orange-600 transition-colors">产品</a>
                 <a href="#contact" class="hover:text-orange-600 transition-colors">联系我们</a>
             </nav>
-            <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-orange-600 transition-colors">
+            <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-orange-600 transition-colors" aria-label="切换菜单" aria-expanded="false" aria-controls="mobile-menu">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
@@ -135,7 +126,7 @@
     <section id="products" class="max-w-7xl mx-auto px-6 py-20">
         <div class="flex justify-between items-end mb-12">
             <h2 class="text-4xl font-semibold">我们的产品</h2>
-            <a href="https://share.weiyun.com/d56f8rp2" target="_blank" class="download-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+            <a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
                 <i class="fas fa-download"></i>
                 <span>下载 Windows 64位</span>
             </a>
@@ -176,9 +167,20 @@
         </div>
     </footer>
 
-    
+
 
     <script>
+        // HTML 转义，防止产品数据中的特殊字符导致 XSS
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         function renderHero() {
             document.getElementById('hero-title').innerHTML = heroIntro.title;
             document.getElementById('hero-subtitle').textContent = heroIntro.subtitle;
@@ -211,33 +213,44 @@
             productsData.forEach(product => {
                 const card = document.createElement('div');
                 card.className = "product-card bg-white rounded-3xl overflow-hidden border border-gray-100 group flex flex-col h-full cursor-pointer";
-                
+
+                const nameCn = escapeHtml(product.nameCn || product.name);
+                const name = escapeHtml(product.name);
+                const icon = escapeHtml(product.icon || '📦');
+                const version = escapeHtml(product.version);
+                const releaseDate = escapeHtml(product.releaseDate);
+                const image = encodeURI(product.image || '');
+                const description = escapeHtml(product.description);
+
                 card.innerHTML = `
                     <div class="p-6 pb-4">
                         <div class="flex items-start justify-between">
-                            <div>
-                                <h3 class="text-lg font-bold text-gray-900">${product.nameCn || product.name}</h3>
-                                <p class="text-sm text-gray-500 mt-0.5">${product.name}</p>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                    <span class="text-2xl">${icon}</span>
+                                    <span>${nameCn}</span>
+                                </h3>
+                                <p class="text-sm text-gray-500 mt-0.5 ml-9">${name}</p>
                             </div>
-                            <div class="text-right">
-                                <div class="text-sm font-semibold text-orange-600">v${product.version}</div>
-                                <div class="text-xs text-gray-400">${product.releaseDate}</div>
+                            <div class="text-right flex-shrink-0">
+                                <div class="text-sm font-semibold text-orange-600">v${version}</div>
+                                <div class="text-xs text-gray-400">${releaseDate}</div>
                             </div>
                         </div>
                     </div>
                     <div class="px-6">
                         <div class="bg-gray-50 rounded-2xl p-4">
-                            <img src="${product.image}" class="product-image rounded-xl transition-transform group-hover:scale-[1.02]" alt="${product.name}">
+                            <img src="${image}" class="product-image rounded-xl transition-transform group-hover:scale-[1.02]" alt="${name}" loading="lazy">
                         </div>
                     </div>
                     <div class="p-6 pt-4">
-                        <p class="text-gray-600 text-sm leading-relaxed">${product.description}</p>
+                        <p class="text-gray-600 text-sm leading-relaxed">${description}</p>
                     </div>
                 `;
-                
+
                 const detailUrl = `products/${product.name.replace(/\s+/g, '_')}.html`;
                 card.onclick = () => { window.location.href = detailUrl; };
-                
+
                 grid.appendChild(card);
             });
         }
@@ -245,35 +258,37 @@
         function initMobileMenu() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             if (mobileMenuBtn && mobileMenu) {
                 mobileMenuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
+                    const isHidden = mobileMenu.classList.toggle('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', String(!isHidden));
                     const icon = mobileMenuBtn.querySelector('i');
-                    if (mobileMenu.classList.contains('hidden')) {
+                    if (isHidden) {
                         icon.className = 'fas fa-bars text-2xl';
                     } else {
                         icon.className = 'fas fa-times text-2xl';
                     }
                 });
-                
+
                 mobileMenu.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', () => {
                         mobileMenu.classList.add('hidden');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
                         mobileMenuBtn.querySelector('i').className = 'fas fa-bars text-2xl';
                     });
                 });
             }
         }
 
-        // 初始化
-        window.onload = () => {
+        // 初始化（DOMContentLoaded 避免等待 CDN 阻塞首屏渲染）
+        document.addEventListener('DOMContentLoaded', () => {
             renderHero();
             renderContact();
             renderFooter();
             loadProducts();
             initMobileMenu();
-        };
+        });
     </script>
 </body>
 </html>

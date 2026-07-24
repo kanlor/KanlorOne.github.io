@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne PandocGUI - Pandoc 文档转换工具的图形化版本，支持 PDF/Docx/HTML/EPUB/PPTX/Markdown 等多种主流格式互转，可视化操作无需命令行，完美支持中文。">
+<meta name="keywords" content="KanlorOne PandocGUI,Pandoc,文档转换,Markdown转PDF,Word转Markdown,PDF转换">
+<meta property="og:title" content="KanlorOne PandocGUI - Pandoc 文档转换图形化工具">
+<meta property="og:description" content="可视化操作，参数建议填充，中文完美支持">
+<meta property="og:type" content="article">
 <title>KanlorOne PandocGUI — 使用说明 | KanlorOne</title>
-<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root {
@@ -15,31 +19,127 @@
     --bg: #f7f8fa;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); }
-.container { max-width: 960px; margin: 0 auto; padding: 30px 24px; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
 
-/* Header */
-.header-box { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.header-box img.logo { height: 60px; }
-.header-box img.wechat { height: 80px; }
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box img {
+    width: 140px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .tip {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
 h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
 
-/* Download */
-.download-links { background: #fff5f2; border: 1px solid #ffd9cc; border-radius: 8px; padding: 16px 20px; margin: 16px 0 24px; }
-.download-links h3 { font-size: 16px; color: var(--brand); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.download-links a { display: block; padding: 6px 0; color: var(--brand); text-decoration: none; }
-.download-links a:hover { text-decoration: underline; }
-.download-links code { background: #ffe6dd; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
 
-/* TOC */
-.toc { background: #fff; border-radius: 8px; padding: 16px 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-.toc-title { font-weight: bold; margin-bottom: 8px; color: var(--ink); }
-.toc a { color: var(--brand); text-decoration: none; display: block; padding: 4px 0; }
-.toc a:hover { text-decoration: underline; }
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
 
 /* Typography */
-h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; }
-h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; }
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
 p { margin-bottom: 10px; text-indent: 2em; }
 p.no-indent { text-indent: 0; }
 
@@ -68,7 +168,7 @@ p.no-indent { text-indent: 0; }
 .step-text { flex: 1; }
 
 /* Table */
-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
 th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
 td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
 tr:nth-child(even) td { background: #f9fafb; }
@@ -83,40 +183,50 @@ li { margin-bottom: 4px; }
 
 code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
 b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
 </style>
 </head>
 <body>
-<div class="container">
 
-<!-- Header：Logo + 微信二维码 + 主标题 -->
-<div class="header-box">
-    <img src="KanlorOne_PandocGUI.png" alt="KanlorOne PandocGUI" class="logo">
-    <img src="../assets/wechat.png" alt="微信二维码" class="wechat">
-</div>
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_PandocGUI.png" alt="KanlorOne PandocGUI">
+        <div class="name">KanlorOne PandocGUI</div>
+        <div class="nameCn">Pandoc 文档转换图形化工具</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+        <a href="#shortcuts">八、快捷键</a>
+    </nav>
+    <div class="wechat-box">
+        <img src="../assets/wechat.png" alt="微信二维码">
+        <div class="tip">扫码添加微信</div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
 <h1>KanlorOne PandocGUI — Pandoc 文档转换图形化工具</h1>
-
-<!-- 下载地址区域 -->
-<section class="download-links">
-    <h3><i class="fas fa-download"></i> 下载地址</h3>
-    <p class="no-indent">① 微云下载：<a href="https://share.weiyun.com/d56f8rp2" target="_blank">https://share.weiyun.com/d56f8rp2</a></p>
-    <p class="no-indent">② 文件大小：9 MB（Windows 64位）</p>
-</section>
-
-<!-- 目录导航 -->
-<nav class="toc">
-    <p class="no-indent toc-title">目录</p>
-    <a href="#intro">一、产品简介</a>
-    <a href="#features">二、核心特色</a>
-    <a href="#guide">三、使用指南</a>
-    <a href="#functions">四、功能详解</a>
-    <a href="#download">五、下载安装</a>
-    <a href="#updates">六、更新日志</a>
-    <a href="#faq">七、常见问题</a>
-    <a href="#shortcuts">八、快捷键</a>
-</nav>
 
 <!-- ══════════════════ 一、产品简介 ══════════════════ -->
 <h2 id="intro">一、产品简介</h2>
+<img src="KanlorOne_PandocGUI.png" alt="KanlorOne PandocGUI 界面" class="product-image">
 <p>KanlorOne PandocGUI 是一款 <b>Pandoc 文档转换工具的图形化版本</b>。Pandoc 是被誉为「万能文档转换瑞士军刀」的命令行工具，支持数十种文档格式互转，但需要记忆复杂的命令行参数。PandocGUI 将其包装为可视化界面，让用户无需命令即可完成文档转换。</p>
 <p>工具集成了参数可视化、参数建议填充、更新检测、过程记录四大核心能力，配置自动保存，下次打开无需重新设置。支持 PDF / Docx / HTML / EPUB / PPTX / Markdown 等多种主流格式互转，并完美支持中文。</p>
 
@@ -294,7 +404,7 @@ b { color: var(--ink); }
 <div class="card-desc">
 <div class="step">
 <div class="step-num">1</div>
-<div class="step-text">安装 Pandoc：从 <a href="https://pandoc.org/installing.html" target="_blank" style="color:var(--brand);">pandoc.org</a> 下载 Windows 安装包并安装</div>
+<div class="step-text">安装 Pandoc：从 <a href="https://pandoc.org/installing.html" target="_blank" rel="noopener noreferrer" style="color:var(--brand);">pandoc.org</a> 下载 Windows 安装包并安装</div>
 </div>
 <div class="step">
 <div class="step-num">2</div>
@@ -302,7 +412,7 @@ b { color: var(--ink); }
 </div>
 <div class="step">
 <div class="step-num">3</div>
-<div class="step-text">从上方下载地址获取 PandocGUI 安装包（微云下载，9 MB）</div>
+<div class="step-text">从下方下载地址获取 PandocGUI 安装包（微云下载，9 MB）</div>
 </div>
 <div class="step">
 <div class="step-num">4</div>
@@ -314,6 +424,11 @@ b { color: var(--ink); }
 </div>
 </div>
 </div>
+
+<a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
+    <i class="fas fa-download"></i>
+    <span>下载 Windows 64位</span>
+</a>
 
 <!-- ══════════════════ 六、更新日志 ══════════════════ -->
 <h2 id="updates">六、更新日志</h2>
@@ -341,7 +456,7 @@ b { color: var(--ink); }
 <div class="card">
 <div class="card-title">Q：提示「Pandoc 未找到」怎么办？</div>
 <div class="card-desc">
-<p class="no-indent">PandocGUI 是 Pandoc 的图形化前端，需要先安装 Pandoc 命令行工具。请从 <a href="https://pandoc.org/installing.html" target="_blank" style="color:var(--brand);">pandoc.org</a> 下载安装。安装后如仍未识别，点击「⚙️ 设置」手动指定 <code>pandoc.exe</code> 路径。</p>
+<p class="no-indent">PandocGUI 是 Pandoc 的图形化前端，需要先安装 Pandoc 命令行工具。请从 <a href="https://pandoc.org/installing.html" target="_blank" rel="noopener noreferrer" style="color:var(--brand);">pandoc.org</a> 下载安装。安装后如仍未识别，点击「⚙️ 设置」手动指定 <code>pandoc.exe</code> 路径。</p>
 </div>
 </div>
 

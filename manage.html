@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>KanlorOne - 产品数据管理</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,17 +14,34 @@
         .highlight { animation: highlight 1s; }
         @keyframes highlight { 0% { background-color: #fef3c7; } 100% { background-color: transparent; } }
         textarea { resize: vertical; }
+
+        /* Toast：右上角自动消失提示 */
+        .toast {
+            animation: toastIn 0.25s ease-out;
+        }
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* 自定义确认弹窗 */
+        .confirm-overlay { animation: fadeIn 0.15s ease-out; }
+        .confirm-box { animation: modalPop 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="bg-gray-50">
     <div class="min-h-screen">
-        <header class="bg-white border-b sticky top-0 z-50">
+        <header class="bg-white border-b sticky top-0 z-40">
             <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <i class="fas fa-cog text-2xl text-orange-600"></i>
                     <span class="text-xl font-semibold text-gray-900">KanlorOne 产品管理</span>
                 </div>
-                <div class="flex gap-4">
+                <div class="flex gap-4 items-center">
+                    <a href="index.html" class="px-4 py-2 text-gray-600 hover:text-orange-600 transition-colors flex items-center gap-2 text-sm">
+                        <i class="fas fa-home"></i> 返回首页
+                    </a>
                     <button onclick="refreshData()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
                         <i class="fas fa-sync-alt"></i> 刷新
                     </button>
@@ -72,13 +90,19 @@
                 </div>
             </div>
         </main>
+
+        <!-- 状态栏（低调提示） -->
+        <div id="status-bar" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-gray-200 text-sm px-6 py-2 text-center transition-opacity duration-300 opacity-0 pointer-events-none z-30">
+            <span id="status-text"></span>
+        </div>
     </div>
 
+    <!-- 产品编辑弹窗 -->
     <div id="modal-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
         <div id="modal" class="modal bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
             <div class="px-6 py-4 border-b flex items-center justify-between">
                 <h3 id="modal-title" class="text-lg font-semibold">新增产品</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600" aria-label="关闭">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -151,59 +175,106 @@
         </div>
     </div>
 
+    <!-- 自定义确认弹窗 -->
+    <div id="confirm-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4 confirm-overlay">
+        <div class="confirm-box bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl">
+            <div class="px-6 py-5">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-orange-600 text-lg"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 id="confirm-title" class="text-lg font-semibold text-gray-900 mb-2">确认操作</h3>
+                        <p id="confirm-message" class="text-sm text-gray-600 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 flex justify-end gap-3">
+                <button id="confirm-cancel" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">取消</button>
+                <button id="confirm-ok" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">确定</button>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/products.js"></script>
     <script>
         let products = [];
+        let confirmResolve = null;
 
         function init() {
             if (typeof productsData !== 'undefined') {
-                try {
-                    products = JSON.parse(JSON.stringify(productsData));
-                } catch (e) {
-                    products = productsData.map(p => ({ ...p }));
-                }
+                products = JSON.parse(JSON.stringify(productsData));
             }
             renderProducts();
             generateCode();
         }
 
+        // HTML 转义，防止 XSS
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         function renderProducts() {
             const container = document.getElementById('products-list');
             const emptyState = document.getElementById('empty-state');
-            
+
             container.innerHTML = '';
-            
+
             if (products.length === 0) {
                 emptyState.classList.remove('hidden');
                 return;
             }
-            
+
             emptyState.classList.add('hidden');
-            
+
             products.forEach((product, index) => {
                 const card = document.createElement('div');
                 card.className = 'border border-gray-200 rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition-shadow';
+
+                const icon = escapeHtml(product.icon || '📦');
+                const name = escapeHtml(product.name);
+                const nameCn = escapeHtml(product.nameCn || '');
+                const version = escapeHtml(product.version);
+                const releaseDate = escapeHtml(product.releaseDate);
+
                 card.innerHTML = `
                     <div class="flex items-center gap-4">
-                        <div class="text-3xl">${product.icon || '📦'}</div>
+                        <div class="text-3xl">${icon}</div>
                         <div>
-                            <div class="font-semibold text-gray-900">${product.name}</div>
-                            <div class="text-sm text-gray-500">${product.nameCn || ''} · v${product.version} · ${product.releaseDate}</div>
+                            <div class="font-semibold text-gray-900">${name}</div>
+                            <div class="text-sm text-gray-500">${nameCn} · v${version} · ${releaseDate}</div>
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="exportProduct(${index})" class="px-3 py-1.5 bg-green-100 text-green-600 rounded-lg text-sm hover:bg-green-200 transition-colors">
+                        <button data-action="export" data-index="${index}" class="px-3 py-1.5 bg-green-100 text-green-600 rounded-lg text-sm hover:bg-green-200 transition-colors">
                             <i class="fas fa-file-export"></i> 导出
                         </button>
-                        <button onclick="editProduct(${index})" class="px-3 py-1.5 bg-blue-100 text-blue-600 rounded-lg text-sm hover:bg-blue-200 transition-colors">
+                        <button data-action="edit" data-index="${index}" class="px-3 py-1.5 bg-blue-100 text-blue-600 rounded-lg text-sm hover:bg-blue-200 transition-colors">
                             <i class="fas fa-edit"></i> 编辑
                         </button>
-                        <button onclick="deleteProduct(${index})" class="px-3 py-1.5 bg-red-100 text-red-600 rounded-lg text-sm hover:bg-red-200 transition-colors">
+                        <button data-action="delete" data-index="${index}" class="px-3 py-1.5 bg-red-100 text-red-600 rounded-lg text-sm hover:bg-red-200 transition-colors">
                             <i class="fas fa-trash"></i> 删除
                         </button>
                     </div>
                 `;
                 container.appendChild(card);
+            });
+
+            // 事件委托，避免内联 onclick + escapeHtml
+            container.querySelectorAll('button[data-action]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const action = btn.getAttribute('data-action');
+                    const index = parseInt(btn.getAttribute('data-index'), 10);
+                    if (action === 'export') exportProduct(index);
+                    else if (action === 'edit') editProduct(index);
+                    else if (action === 'delete') deleteProduct(index);
+                });
             });
         }
 
@@ -211,7 +282,7 @@
             const overlay = document.getElementById('modal-overlay');
             const title = document.getElementById('modal-title');
             const form = document.getElementById('product-form');
-            
+
             form.reset();
             document.getElementById('downloads-container').innerHTML = `
                 <div class="download-item grid grid-cols-3 gap-3">
@@ -220,7 +291,7 @@
                     <input type="text" class="download-link px-3 py-2 border border-gray-200 rounded-lg" placeholder="下载链接">
                 </div>
             `;
-            
+
             if (productIndex >= 0) {
                 const product = products[productIndex];
                 title.textContent = '编辑产品';
@@ -235,16 +306,16 @@
                 document.getElementById('form-features').value = (product.features || []).join('\n');
                 document.getElementById('form-functions').value = (product.functions || []).join('\n');
                 document.getElementById('form-updates').value = (product.updates || []).join('\n');
-                
+
                 const downloadsContainer = document.getElementById('downloads-container');
                 downloadsContainer.innerHTML = '';
                 (product.downloads || []).forEach(dl => {
                     const row = document.createElement('div');
                     row.className = 'download-item grid grid-cols-3 gap-3';
                     row.innerHTML = `
-                        <input type="text" class="download-platform px-3 py-2 border border-gray-200 rounded-lg" value="${dl.platform}">
-                        <input type="text" class="download-size px-3 py-2 border border-gray-200 rounded-lg" value="${dl.size}">
-                        <input type="text" class="download-link px-3 py-2 border border-gray-200 rounded-lg" value="${dl.link}">
+                        <input type="text" class="download-platform px-3 py-2 border border-gray-200 rounded-lg" value="${escapeHtml(dl.platform)}">
+                        <input type="text" class="download-size px-3 py-2 border border-gray-200 rounded-lg" value="${escapeHtml(dl.size)}">
+                        <input type="text" class="download-link px-3 py-2 border border-gray-200 rounded-lg" value="${escapeHtml(dl.link)}">
                     `;
                     downloadsContainer.appendChild(row);
                 });
@@ -257,7 +328,7 @@
                 document.getElementById('form-icon').value = '📦';
                 document.getElementById('form-releaseDate').value = new Date().toISOString().split('T')[0];
             }
-            
+
             overlay.classList.remove('hidden');
         }
 
@@ -292,7 +363,7 @@
         }
 
         function saveProduct() {
-            const id = parseInt(document.getElementById('form-id').value);
+            const id = parseInt(document.getElementById('form-id').value, 10);
             const newProduct = {
                 id: id >= 0 ? products[id].id : Date.now(),
                 name: document.getElementById('form-name').value.trim(),
@@ -307,18 +378,23 @@
                 updates: document.getElementById('form-updates').value.split('\n').map(s => s.trim()).filter(s => s),
                 downloads: collectDownloads()
             };
-            
+
             if (!newProduct.name || !newProduct.version || !newProduct.releaseDate) {
-                alert('请填写必填字段：产品名称、版本号、发布日期');
+                showConfirmDialog({
+                    title: '信息不完整',
+                    message: '请填写必填字段：产品名称、版本号、发布日期',
+                    okText: '知道了',
+                    cancelText: null
+                });
                 return;
             }
-            
+
             if (id >= 0) {
                 products[id] = newProduct;
             } else {
                 products.push(newProduct);
             }
-            
+
             renderProducts();
             generateCode();
             closeModal();
@@ -328,28 +404,49 @@
             openModal(index);
         }
 
-        function deleteProduct(index) {
-            if (confirm(`确定删除产品「${products[index].name}」吗？`)) {
-                products.splice(index, 1);
-                renderProducts();
-                generateCode();
-            }
+        async function deleteProduct(index) {
+            const ok = await showConfirmDialog({
+                title: '删除产品',
+                message: `确定删除产品「${products[index].name}」吗？此操作不可撤销。`
+            });
+            if (!ok) return;
+            products.splice(index, 1);
+            renderProducts();
+            generateCode();
+            showStatus('产品已删除');
         }
 
         function generateCode() {
             const code = `// 产品信息唯一维护文件：首页与详情页共用。
 // 新增、删除或修改产品后，直接提交发布即可。
+// 数据顺序：按 releaseDate 倒序排列（最新在前）。
+// id 规范：简短数字，1-5 分别对应各产品。
 
 const productsData = ${JSON.stringify(products, null, 4)};`;
             document.getElementById('code-output').value = code;
-            showToast('代码已生成！', 'success');
+            showStatus('代码已生成');
         }
 
-        function copyCode() {
+        async function copyCode() {
             const textarea = document.getElementById('code-output');
-            textarea.select();
-            document.execCommand('copy');
-            showToast('代码已复制到剪贴板！', 'success');
+            const text = textarea.value;
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    textarea.select();
+                    document.execCommand('copy');
+                }
+                showStatus('代码已复制到剪贴板');
+            } catch (err) {
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showStatus('代码已复制到剪贴板');
+                } catch (e) {
+                    showStatus('复制失败，请手动选择复制');
+                }
+            }
         }
 
         function downloadCode() {
@@ -361,25 +458,71 @@ const productsData = ${JSON.stringify(products, null, 4)};`;
             a.download = 'products.js';
             a.click();
             URL.revokeObjectURL(url);
-            showToast('文件已下载！', 'success');
+            showStatus('文件已下载');
         }
 
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `fixed top-20 right-6 px-6 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 flex items-center gap-3 ${
-                type === 'success' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
-            }`;
-            toast.innerHTML = `
-                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
-                <span>${message}</span>
-            `;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(100%)';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+        // 状态栏：低调提示，自动消失
+        let statusTimer = null;
+        function showStatus(message) {
+            const bar = document.getElementById('status-bar');
+            const text = document.getElementById('status-text');
+            text.textContent = message;
+            bar.classList.remove('opacity-0');
+            bar.classList.add('opacity-100');
+            if (statusTimer) clearTimeout(statusTimer);
+            statusTimer = setTimeout(() => {
+                bar.classList.remove('opacity-100');
+                bar.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        // 自定义确认弹窗：支持 ESC 关闭、专用关闭按钮，不支持点击外部关闭
+        function showConfirmDialog({ title, message, okText = '确定', cancelText = '取消' }) {
+            return new Promise(resolve => {
+                const overlay = document.getElementById('confirm-overlay');
+                const titleEl = document.getElementById('confirm-title');
+                const messageEl = document.getElementById('confirm-message');
+                const okBtn = document.getElementById('confirm-ok');
+                const cancelBtn = document.getElementById('confirm-cancel');
+
+                titleEl.textContent = title || '确认操作';
+                messageEl.textContent = message || '';
+                okBtn.textContent = okText;
+                if (cancelText === null) {
+                    cancelBtn.style.display = 'none';
+                } else {
+                    cancelBtn.style.display = '';
+                    cancelBtn.textContent = cancelText;
+                }
+
+                overlay.classList.remove('hidden');
+                confirmResolve = resolve;
+
+                const cleanup = () => {
+                    overlay.classList.add('hidden');
+                    okBtn.onclick = null;
+                    cancelBtn.onclick = null;
+                    document.removeEventListener('keydown', onKey);
+                    confirmResolve = null;
+                };
+
+                const onKey = (e) => {
+                    if (e.key === 'Escape') {
+                        cleanup();
+                        resolve(false);
+                    } else if (e.key === 'Enter') {
+                        cleanup();
+                        resolve(true);
+                    }
+                };
+
+                okBtn.onclick = () => { cleanup(); resolve(true); };
+                cancelBtn.onclick = () => { cleanup(); resolve(false); };
+                document.addEventListener('keydown', onKey);
+
+                // 自动聚焦确定按钮
+                setTimeout(() => okBtn.focus(), 50);
+            });
         }
 
         function refreshData() {
@@ -412,6 +555,7 @@ const productsData = ${JSON.stringify(products, null, 4)};`;
             a.download = 'KanlorOne_PRODUCT_TEMPLATE.json';
             a.click();
             URL.revokeObjectURL(url);
+            showStatus('模板已下载');
         }
 
         function exportProduct(index) {
@@ -424,14 +568,15 @@ const productsData = ${JSON.stringify(products, null, 4)};`;
             a.download = fileName;
             a.click();
             URL.revokeObjectURL(url);
+            showStatus('产品已导出');
         }
 
-        function importProduct(input) {
+        async function importProduct(input) {
             const file = input.files[0];
             if (!file) return;
-            
+
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = async function(e) {
                 try {
                     const productData = JSON.parse(e.target.result);
                     if (validateProductData(productData)) {
@@ -439,12 +584,22 @@ const productsData = ${JSON.stringify(products, null, 4)};`;
                         products.push(productData);
                         renderProducts();
                         generateCode();
-                        alert('产品导入成功！');
+                        showStatus('产品导入成功');
                     } else {
-                        alert('产品数据格式不正确，请检查模板文件。');
+                        await showConfirmDialog({
+                            title: '导入失败',
+                            message: '产品数据格式不正确，请检查模板文件。',
+                            okText: '知道了',
+                            cancelText: null
+                        });
                     }
                 } catch (error) {
-                    alert('导入失败：JSON格式错误。');
+                    await showConfirmDialog({
+                        title: '导入失败',
+                        message: 'JSON 格式错误，无法解析。',
+                        okText: '知道了',
+                        cancelText: null
+                    });
                 }
             };
             reader.readAsText(file);
@@ -452,15 +607,25 @@ const productsData = ${JSON.stringify(products, null, 4)};`;
         }
 
         function validateProductData(data) {
-            return data && 
-                   typeof data.name === 'string' && 
-                   typeof data.version === 'string' && 
+            return data &&
+                   typeof data.name === 'string' &&
+                   typeof data.version === 'string' &&
                    typeof data.releaseDate === 'string';
         }
 
-        document.getElementById('modal-overlay').addEventListener('click', e => {
-            if (e.target === document.getElementById('modal-overlay')) closeModal();
+        // 全局键盘事件
+        document.addEventListener('keydown', (e) => {
+            // ESC 关闭编辑弹窗
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('modal-overlay');
+                if (!modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            }
         });
+
+        // 产品编辑弹窗：仅专用按钮或 ESC 关闭，不支持点击外部关闭
+        // （移除原有的点击遮罩关闭逻辑，符合用户偏好）
 
         window.onload = init;
     </script>
