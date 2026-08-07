@@ -82,15 +82,25 @@ pre { max-width: 100%; overflow-x: auto; }
     border-top: 1px solid var(--line);
     text-align: center;
 }
-.sidebar .wechat-box img {
-    width: 140px;
-    border-radius: 12px;
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.sidebar .wechat-box .tip {
-    font-size: 12px;
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 /* 右侧主内容区 */
@@ -215,8 +225,16 @@ b { color: var(--ink); }
         <a href="#shortcuts">八、快捷键</a>
     </nav>
     <div class="wechat-box">
-        <img src="../assets/wechat.png" alt="微信二维码">
-        <div class="tip">扫码添加微信</div>
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.jpg" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
     </div>
 </aside>
 

@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="KanlorOne ExcelKit - Excel 浮动工具箱，集成 30+ 项批量处理功能，覆盖格式排版、数据清洗、结构转换全场景，悬浮模式不遮挡 Excel 操作区域，支持自动备份与撤回。">
-<meta name="keywords" content="KanlorOne ExcelKit,Excel工具,批量处理,浮动工具箱,数据清洗,格式排版,Excel插件">
-<meta property="og:title" content="KanlorOne ExcelKit - 表格浮动工具箱">
-<meta property="og:description" content="30+项批量处理功能，悬浮模式，自动备份与撤回">
+<meta name="description" content="KanlorOne ExcelKit V2.0 - Excel 浮动工具箱，集成 28 项批量处理功能，基于 PySide6 重构，覆盖格式排版、数据清洗、结构转换全场景，悬浮模式不遮挡 Excel 操作区域，支持自动备份与撤回。">
+<meta name="keywords" content="KanlorOne ExcelKit,Excel工具,批量处理,浮动工具箱,数据清洗,格式排版,Excel插件,PySide6,超链接设置,删除形状图片">
+<meta property="og:title" content="KanlorOne ExcelKit V2.0 - 表格浮动工具箱">
+<meta property="og:description" content="28项批量处理功能，PySide6重构，悬浮模式，自动备份与撤回">
 <meta property="og:type" content="article">
 <title>KanlorOne ExcelKit — 使用说明 | KanlorOne</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -82,15 +82,25 @@ pre { max-width: 100%; overflow-x: auto; }
     border-top: 1px solid var(--line);
     text-align: center;
 }
-.sidebar .wechat-box img {
-    width: 140px;
-    border-radius: 12px;
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.sidebar .wechat-box .tip {
-    font-size: 12px;
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 /* 右侧主内容区 */
@@ -220,23 +230,31 @@ b { color: var(--ink); }
         <a href="#shortcuts">八、快捷键</a>
     </nav>
     <div class="wechat-box">
-        <img src="../assets/wechat.png" alt="微信二维码">
-        <div class="tip">扫码添加微信</div>
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.jpg" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
     </div>
 </aside>
 
 <!-- 右侧主内容 -->
 <div class="main-content">
-<h1>KanlorOne ExcelKit — 表格浮动工具箱（30+功能 · 悬浮模式 · 自动备份）</h1>
+<h1>KanlorOne ExcelKit V2.0 — 表格浮动工具箱（28功能 · PySide6重构 · 悬浮模式 · 自动备份）</h1>
 
 <!-- ══════════════════ 一、产品简介 ══════════════════ -->
 <h2 id="intro">一、产品简介</h2>
 <img src="KanlorOne_ExcelKit.png" alt="KanlorOne ExcelKit 界面" class="product-image">
-<p>KanlorOne ExcelKit 是一款 <b>Excel 浮动工具箱</b>，集成了 30+ 项批量处理功能，覆盖格式排版、数据清洗、结构转换、批量文件处理全场景。程序以悬浮窗口形式常驻桌面，不遮挡 Excel 操作区域，一键即可执行各类批量操作。</p>
+<p>KanlorOne ExcelKit 是一款 <b>Excel 浮动工具箱</b>，集成了 28 项批量处理功能，覆盖格式排版、数据清洗、结构转换、批量文件处理全场景。V2.0 基于 <b>PySide6</b> 全面重构界面，采用流式布局与 QSS 样式定制，界面更美观、交互更流畅。程序以悬浮窗口形式常驻桌面，不遮挡 Excel 操作区域，一键即可执行各类批量操作。</p>
 <p>工具采用 COM 自动化技术与 Excel 交互，通过多策略连接（GetActiveObject + ROT 遍历 + Dispatch）确保稳定连接。所有长耗时操作支持实时进度显示与优雅停止，高危操作前自动备份并支持一键撤回，内置帮助文档一键查阅，保障数据安全。</p>
 
 <div class="tip">
-<b>核心场景</b>：多工作表批量格式化、跨表数据清洗与合并、WBS 结构格式化、重复值高亮、空行清理、导航页生成等高频 Excel 批量处理任务。
+<b>核心场景</b>：多工作表批量格式化、跨表数据清洗与合并、WBS 结构格式化、重复值高亮、空行清理、导航页生成、超链接批量管理、形状图片清理等高频 Excel 批量处理任务。
 </div>
 
 <!-- ══════════════════ 二、核心特色 ══════════════════ -->
@@ -246,23 +264,23 @@ b { color: var(--ink); }
 <div class="card-title"><span class="tag format">悬浮</span> 悬浮模式 · 不遮挡 Excel</div>
 <div class="card-desc">
 <ul>
-<li><b>Alt+Q 一键切换</b>正常模式与悬浮模式</li>
-<li>悬浮模式下窗口半透明、可拖动、可缩放</li>
+<li><b>Alt+Q 全局一键切换</b>完整模式与悬浮模式</li>
+<li>悬浮模式下无边框、可拖动、边缘可缩放</li>
 <li>不遮挡 Excel 操作区域，边操作边使用</li>
-<li>自动记忆上次模式，下次启动恢复</li>
+<li>支持始终置顶、按分区集中显示、按频次排序</li>
+<li>悬浮窗口内 <span class="shortcut">Esc</span> 快速返回完整模式</li>
 </ul>
 </div>
 </div>
 
 <div class="card">
-<div class="card-title"><span class="tag format">功能</span> 30+ 功能一键操作</div>
+<div class="card-title"><span class="tag format">功能</span> 28 项功能一键操作</div>
 <div class="card-desc">
 <ul>
-<li><b>格式排版</b>：全局格式化、行高设置、合并/拆分单元格、条件填色、视图缩放</li>
-<li><b>数据处理</b>：空行清理、智能填充、数字文本互转、日期标准化、数据统计、列归一化、高亮重复值</li>
-<li><b>结构转换</b>：首列展开/整合表、文本序列化、WBS 格式化、数据模板</li>
+<li><b>基础表格格式化</b>：全局格式化、行高设置、合并/拆分单元格、条件填色、视图缩放、删除形状图片、超链接设置</li>
+<li><b>数据清洗预处理</b>：空行清理、智能填充、数字文本互转、日期标准化、数据统计、列归一化、高亮重复值</li>
+<li><b>高级数据处理</b>：首列展开/整合表、文本序列化、WBS 格式化、数据模板、正则替换、冻结表头、导航页生成</li>
 <li><b>批量文件</b>：文件合并、表格拆分、区域导出、数据透视表</li>
-<li><b>在线功能</b>：正则替换、冻结表头、导航页生成</li>
 </ul>
 </div>
 </div>
@@ -272,8 +290,8 @@ b { color: var(--ink); }
 <div class="card-desc">
 <ul>
 <li>6 个高危功能（全局格式化、合并/拆分单元格、条件填色、空行清理、高亮重复值）执行前自动备份</li>
-<li>备份文件存放在用户临时目录 <code>ExcelLiveBackups</code>，保留最近 5 份</li>
-<li><span class="shortcut">Ctrl+Z</span> 一键撤回，恢复到操作前状态</li>
+<li>备份路径可自定义，默认存放在用户临时目录 <code>ExcelLiveBackups</code>，保留份数可配置（默认 5 份）</li>
+<li><span class="shortcut">Ctrl+Z</span> 一键撤回（仅窗口激活时生效，不干扰其他应用）</li>
 <li>备份失败时弹出警告，用户可选择继续或取消</li>
 </ul>
 </div>
@@ -284,8 +302,8 @@ b { color: var(--ink); }
 <div class="card-desc">
 <ul>
 <li><b>三路同步</b>：进度条 + 状态栏 + 标题栏实时显示当前进度</li>
-<li><b>停止按钮</b>：点击后弹出确认，优雅停止不破坏数据</li>
-<li>15 个长耗时功能均已接入进度追踪与停止机制</li>
+<li><b>停止按钮</b>：点击后快速响应，优雅停止不破坏数据</li>
+<li>所有长耗时功能均已接入进度追踪与停止机制</li>
 <li>执行过程中 UI 保持响应，窗口可拖动</li>
 </ul>
 </div>
@@ -304,11 +322,24 @@ b { color: var(--ink); }
 </div>
 
 <div class="card">
+<div class="card-title"><span class="tag new">V2.0</span> PySide6 重构 + 智能搜索</div>
+<div class="card-desc">
+<ul>
+<li>基于 <b>PySide6</b> 全面重构，QSS 样式定制，界面更美观</li>
+<li><b>功能搜索</b>：完整模式下支持关键词搜索，实时过滤匹配功能</li>
+<li><b>注册状态优化</b>：启动时显示「验证中」，异步验证完成后更新真实状态</li>
+<li><b>快捷键分区</b>：全局热键（Alt+Q/Alt+W）与窗口级快捷键（Ctrl+Z）分离，避免冲突</li>
+<li><b>托盘恢复</b>：支持从托盘恢复到悬浮模式或完整模式</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
 <div class="card-title"><span class="tag new">帮助</span> 内置帮助文档</div>
 <div class="card-desc">
 <ul>
 <li>工具栏「帮助」按钮一键打开使用说明</li>
-<li>优先打开本地 HTML 文档（<code>help/KanlorOne_ExcelKit.html</code>）</li>
+<li>优先打开本地 HTML 文档（<code>config/KanlorOne_ExcelKit V2.0.html</code>）</li>
 <li>本地文件不存在时自动回退到在线文档</li>
 <li>无需联网即可查阅完整功能说明</li>
 </ul>
@@ -320,7 +351,7 @@ b { color: var(--ink); }
 
 <div class="step">
 <div class="step-num">1</div>
-<div class="step-text"><b>启动程序</b>：双击 <code>KanlorOne_ExcelKit</code> 图标启动。程序自动尝试连接已运行的 Excel 实例。</div>
+<div class="step-text"><b>启动程序</b>：双击 <code>KanlorOne_ExcelKit</code> 图标启动。程序自动尝试连接已运行的 Excel 实例，标题栏显示「验证中...」直到注册状态验证完成。</div>
 </div>
 
 <div class="step">
@@ -330,37 +361,42 @@ b { color: var(--ink); }
 
 <div class="step">
 <div class="step-num">3</div>
-<div class="step-text"><b>选择工作簿</b>：连接成功后，从下拉列表选择要操作的工作簿。程序自动列出所有打开的 Excel 文件。</div>
+<div class="step-text"><b>选择工作簿</b>：连接成功后，从工作簿列表选择要操作的工作簿。程序自动列出所有打开的 Excel 文件。</div>
 </div>
 
 <div class="step">
 <div class="step-num">4</div>
-<div class="step-text"><b>切换模式</b>：按 <span class="shortcut">Alt+Q</span> 切换正常模式与悬浮模式。悬浮模式下窗口半透明不遮挡 Excel，可随时拖动和缩放。</div>
+<div class="step-text"><b>搜索功能</b>：在搜索框输入关键词，实时过滤匹配功能（仅完整模式）。按 <span class="shortcut">Ctrl+F</span> 快速聚焦搜索框。</div>
 </div>
 
 <div class="step">
 <div class="step-num">5</div>
-<div class="step-text"><b>执行功能</b>：点击功能按钮执行操作。执行时所有按钮自动禁用，标题栏显示「功能运行中」，进度条实时更新。</div>
+<div class="step-text"><b>切换模式</b>：按 <span class="shortcut">Alt+Q</span> 全局切换完整模式与悬浮模式。悬浮模式下窗口无边框、可拖动、边缘可缩放，不遮挡 Excel。悬浮窗口内按 <span class="shortcut">Esc</span> 快速返回完整模式。</div>
 </div>
 
 <div class="step">
 <div class="step-num">6</div>
-<div class="step-text"><b>停止/撤回</b>：如需中途停止，点击「停止」按钮并确认。如需撤回操作，点击工具栏「撤回」按钮或按 <span class="shortcut">Ctrl+Z</span>。</div>
+<div class="step-text"><b>执行功能</b>：点击功能按钮执行操作。执行时进度条实时更新，状态栏显示当前进度。长耗时功能可点击「停止」按钮优雅停止。</div>
 </div>
 
 <div class="step">
 <div class="step-num">7</div>
+<div class="step-text"><b>撤回操作</b>：如需撤回操作，点击工具栏「撤回」按钮或按 <span class="shortcut">Ctrl+Z</span>（仅窗口激活时生效，不干扰其他应用的撤销操作）。</div>
+</div>
+
+<div class="step">
+<div class="step-num">8</div>
 <div class="step-text"><b>查看帮助</b>：点击工具栏「帮助」按钮，打开完整使用说明文档（本地优先，无则在线）。</div>
 </div>
 
 <div class="tip">
-<b>功能分组</b>：功能按钮按颜色分组 — <span class="tag format">蓝色</span>格式排版、<span class="tag data">绿色</span>数据处理、<span class="tag online">橙色</span>在线功能。
+<b>功能分组</b>：功能按钮按颜色分区 — <span class="tag format">蓝色</span>基础表格格式化、<span class="tag data">绿色</span>数据清洗预处理、<span class="tag online">橙色</span>高级数据处理。悬浮面板可在设置中开启「按分区集中显示」。
 </div>
 
 <!-- ══════════════════ 四、功能详解 ══════════════════ -->
 <h2 id="functions">四、功能详解</h2>
 
-<h3>格式排版（蓝色组）</h3>
+<h3>基础表格格式化（蓝色组）</h3>
 
 <div class="card">
 <div class="card-title">全局格式化</div>
@@ -469,7 +505,34 @@ b { color: var(--ink); }
 </div>
 </div>
 
-<h3>数据处理（绿色组）</h3>
+<div class="card">
+<div class="card-title"><span class="tag new">V2.0</span> 删除形状图片</div>
+<div class="card-desc">
+<ul>
+<li>批量删除工作表中的文本框、形状、图片三类对象</li>
+<li>形状类型自动排除文本框和图片，仅删除几何形状</li>
+<li>支持仅当前工作表或全部工作表执行</li>
+<li>倒序删除避免索引偏移，逐项统计删除数量</li>
+<li><b>自动备份</b> + 停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag new">V2.0</span> 超链接设置</div>
+<div class="card-desc">
+<ul>
+<li><b>删除所有超链接</b>：批量清除工作表中超链接，保留单元格内容</li>
+<li><b>设置超链接格式</b>：统一设置超链接的字号、字体颜色、背景颜色</li>
+<li>默认字体颜色蓝色（<code>#0563C1</code>）、背景白色（<code>#FFFFFF</code>）、字号 0（不修改）</li>
+<li>支持 RGB 颜色选择器，实时预览颜色效果</li>
+<li>范围：默认当前工作表，可选全部工作表</li>
+<li>停止检查 + 实时进度</li>
+</ul>
+</div>
+</div>
+
+<h3>数据清洗预处理（绿色组）</h3>
 
 <div class="card">
 <div class="card-title">空行一键清理</div>
@@ -548,7 +611,7 @@ b { color: var(--ink); }
 </div>
 </div>
 
-<h3>在线功能（橙色组）</h3>
+<h3>高级数据处理（橙色组）</h3>
 
 <div class="card">
 <div class="card-title">按首列展开表</div>
@@ -654,7 +717,7 @@ b { color: var(--ink); }
 <div class="card-desc">
 <ul>
 <li><b>6 个高危功能</b>执行前自动备份：全局格式化、按列合并、拆分合并、列条件填色、空行清理、高亮重复值</li>
-<li>备份文件存放：<code>%TEMP%\ExcelLiveBackups\</code>，保留最近 5 份</li>
+<li>备份文件存放：<code>%TEMP%\ExcelLiveBackups\</code>，保留最近 5 份（V2.0 支持自定义路径和份数）</li>
 <li>备份失败时弹出警告，用户可选择继续或取消</li>
 <li><span class="shortcut">Ctrl+Z</span> 一键撤回：关闭当前工作簿 → 恢复备份 → 重新打开</li>
 </ul>
@@ -739,8 +802,9 @@ b { color: var(--ink); }
 <tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
 </thead>
 <tbody>
+<tr><td>v2.0</td><td>基于 PySide6 全面重构界面架构，QSS 样式定制，FlowLayout 流式布局；新增「删除形状图片」功能（文本框/形状/图片三类对象，倒序删除，支持全部工作表）；新增「超链接设置」功能（删除超链接/格式设置，默认蓝色字体白色背景，字号0不修改）；撤回快捷键改为窗口级（仅激活时生效，不干扰其他应用）；注册状态异步验证，启动显示「验证中」避免误显示；新增功能搜索框（Ctrl+F 聚焦）；新增 Alt+W 托盘切换全局热键；新增 Esc 悬浮模式返回完整模式；修复悬浮窗口返回完整模式时缩小到托盘问题；备份路径和保留份数可自定义；配置文件迁移至用户数据目录 %APPDATA%</td><td>2026-07-28</td></tr>
 <tr><td>v1.7</td><td>三波全面优化：可靠性兜底（关闭检查+退出清理+备份失败提示）、体验提升（15个功能接入进度追踪与停止机制、_yield_ui全覆盖）、代码质量（SheetProtectionGuard推广、38处静默异常增加日志）；修复导航页残留表格对象导致上下两个表问题；修复取消自动列宽时行高计算列宽错位问题；修复悬浮模式切换后进度条与停止按钮异常显示；新增帮助按钮（本地HTML/在线文档）；删除字段查找功能</td><td>2026-07-24</td></tr>
-<tr><td>v1.6</td><td>核心性能优化：按列合并批量COM调用减少50×、拆分合并提速10×、列条件填色提速20×、正则替换提速3×、高亮重复值提速2×；可靠性增强：ExcelPerformance异常恢复、SheetProtectionGuard、safe_excel_operation装饰器、loguru日志框架</td><td>-</td></tr>
+<tr><td>v1.6</td><td>核心性能优化：按列合并批量COM调用减少50×、拆分合并SpecialCells+Union提速10×、列条件填色批量着色提速20×、正则替换预编译提速3×、高亮重复值批量Union提速2×；可靠性增强：ExcelPerformance异常恢复、SheetProtectionGuard、safe_excel_operation装饰器、loguru日志框架</td><td>-</td></tr>
 <tr><td>v1.5</td><td>新增停止按钮（优雅停止不破坏数据）、撤回功能（Ctrl+Z）、自动备份机制（6个高危功能）；UI进度条位置优化</td><td>-</td></tr>
 <tr><td>v1.4</td><td>新增自动冻结表头、生成导航页功能；优化多线程执行与UI响应</td><td>-</td></tr>
 <tr><td>v1.3</td><td>多线程执行框架、ProgressTracker进度追踪器；排除.xlsb文件兼容性处理</td><td>-</td></tr>
@@ -763,7 +827,7 @@ b { color: var(--ink); }
 <div class="card">
 <div class="card-title">Q：执行功能时 UI 卡住了怎么办？</div>
 <div class="card-desc">
-<p class="no-indent">v1.7 已为所有长耗时功能添加 <code>_yield_ui()</code> 调用，执行过程中 UI 保持响应。如果仍有卡顿，可点击「停止」按钮优雅停止当前操作。停止后已处理的内容保留，未处理的部分跳过。</p>
+<p class="no-indent">所有长耗时功能已添加 <code>_yield_ui()</code> 调用，执行过程中 UI 保持响应。如果仍有卡顿，可点击「停止」按钮优雅停止当前操作。停止后已处理的内容保留，未处理的部分跳过。</p>
 </div>
 </div>
 
@@ -791,14 +855,28 @@ b { color: var(--ink); }
 <div class="card">
 <div class="card-title">Q：如何撤回误操作？</div>
 <div class="card-desc">
-<p class="no-indent">点击工具栏「撤回」按钮或按 <span class="shortcut">Ctrl+Z</span>。程序会关闭当前工作簿，恢复到最近的备份文件，然后重新打开。注意：只有高危功能（全局格式化、合并/拆分单元格等 6 个）才会自动备份。</p>
+<p class="no-indent">点击工具栏「撤回」按钮或按 <span class="shortcut">Ctrl+Z</span>（仅窗口激活时生效）。程序会关闭当前工作簿，恢复到最近的备份文件，然后重新打开。注意：只有高危功能（全局格式化、合并/拆分单元格等 6 个）才会自动备份。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：Ctrl+Z 在其他应用中不生效了？</div>
+<div class="card-desc">
+<p class="no-indent">V2.0 已修复此问题。撤回快捷键（Ctrl+Z）从全局热键改为窗口级快捷键，仅当应用窗口处于激活状态时才拦截。应用最小化到托盘时不影响其他应用的 Ctrl+Z 操作（如 Excel 自身的撤销、Word、浏览器等）。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：标题栏显示「验证中...」是什么意思？</div>
+<div class="card-desc">
+<p class="no-indent">V2.0 优化了注册状态显示。程序启动时通过后台线程异步验证注册状态（WMI 获取机器码），验证完成前标题不显示注册状态，完成后更新为「[已注册]」或「[未注册]」。验证过程约 1-2 秒，不影响正常使用。</p>
 </div>
 </div>
 
 <div class="card">
 <div class="card-title">Q：备份文件存在哪里？保留多久？</div>
 <div class="card-desc">
-<p class="no-indent">备份文件存放在系统临时目录 <code>%TEMP%\ExcelLiveBackups\</code> 下，保留最近 5 份。每次高危操作前自动创建新备份，超出 5 份时自动删除最旧的。</p>
+<p class="no-indent">备份文件默认存放在系统临时目录 <code>%TEMP%\ExcelLiveBackups\</code> 下，保留最近 5 份。V2.0 支持在「设置 → 通用设置 → 备份设置」中自定义备份路径和保留份数（1-100 份）。每次高危操作前自动创建新备份，超出保留份数时自动删除最旧的。</p>
 </div>
 </div>
 
@@ -810,16 +888,16 @@ b { color: var(--ink); }
 </div>
 
 <div class="card">
-<div class="card-title">Q：悬浮模式和正常模式有什么区别？</div>
+<div class="card-title">Q：悬浮模式和完整模式有什么区别？</div>
 <div class="card-desc">
-<p class="no-indent">正常模式显示完整界面（功能按钮 + 日志区 + 状态栏）；悬浮模式只显示功能按钮和进度条，窗口更紧凑、半透明，不遮挡 Excel 操作区域。按 <span class="shortcut">Alt+Q</span> 切换。程序会记忆上次使用的模式。</p>
+<p class="no-indent">完整模式显示完整界面（顶部工具栏 + 工作簿列表 + 功能区 + 状态栏），支持功能搜索；悬浮模式只显示功能图标按钮，窗口更紧凑、无边框、可拖动和边缘缩放，不遮挡 Excel 操作区域。按 <span class="shortcut">Alt+Q</span> 全局切换，悬浮窗口内按 <span class="shortcut">Esc</span> 返回完整模式。从托盘恢复时可选择恢复到悬浮模式或完整模式。</p>
 </div>
 </div>
 
 <div class="card">
 <div class="card-title">Q：帮助文档在哪里？</div>
 <div class="card-desc">
-<p class="no-indent">点击工具栏「帮助」按钮即可打开。程序优先打开本地 <code>help/KanlorOne_ExcelKit.html</code>，如果本地文件不存在则自动打开在线文档。</p>
+<p class="no-indent">点击工具栏「帮助」按钮即可打开。程序优先打开本地 <code>config/KanlorOne_ExcelKit V2.0.html</code>，如果本地文件不存在则自动打开在线文档。</p>
 </div>
 </div>
 
@@ -844,18 +922,29 @@ b { color: var(--ink); }
 <div class="card-desc">
 <table>
 <thead>
-<tr><th>快捷键</th><th>功能</th><th>说明</th></tr>
+<tr><th>快捷键</th><th>功能</th><th>类型</th><th>说明</th></tr>
 </thead>
 <tbody>
-<tr><td><span class="shortcut">Alt+Q</span></td><td>切换悬浮/正常模式</td><td>全局快捷键</td></tr>
-<tr><td><span class="shortcut">Ctrl+Z</span></td><td>撤回上次操作</td><td>恢复到最近的备份文件</td></tr>
+<tr><td><span class="shortcut">Alt+Q</span></td><td>切换悬浮/完整模式</td><td>全局热键</td><td>任何状态下均有效，包括最小化到托盘</td></tr>
+<tr><td><span class="shortcut">Alt+W</span></td><td>显示/隐藏托盘</td><td>全局热键</td><td>快速切换窗口显示状态</td></tr>
+<tr><td><span class="shortcut">Ctrl+Z</span></td><td>撤回上次操作</td><td>窗口级</td><td>仅应用窗口激活时生效，不干扰其他应用</td></tr>
+<tr><td><span class="shortcut">Ctrl+F</span></td><td>聚焦搜索框</td><td>窗口级</td><td>仅完整模式下有效</td></tr>
+<tr><td><span class="shortcut">Esc</span></td><td>返回完整模式</td><td>窗口级</td><td>仅悬浮模式下有效</td></tr>
 </tbody>
 </table>
 </div>
 </div>
 
 <div class="tip">
-<b>停止按钮</b>：功能运行时进度条区域显示「停止」按钮，点击后弹出确认对话框（支持 ESC 取消），优雅停止当前功能，已处理内容保留，未处理部分跳过。
+<b>快捷键自定义</b>：在「设置 → 快捷键」中可自定义所有快捷键组合。点击输入框后按下按键组合即可设置，按 Backspace 清空，按 Esc 取消。
+</div>
+
+<div class="warn">
+<b>撤回快捷键说明</b>：V2.0 将 <span class="shortcut">Ctrl+Z</span> 从全局热键改为窗口级快捷键，仅当应用窗口处于激活状态时生效。这避免了应用最小化到托盘时拦截其他应用的 Ctrl+Z 操作（如 Excel 自身的撤销）。
+</div>
+
+<div class="tip">
+<b>停止按钮</b>：功能运行时进度条区域显示「停止」按钮，点击后快速响应停止当前功能，已处理内容保留，未处理部分跳过。
 </div>
 
 <div class="footer">

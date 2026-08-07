@@ -82,15 +82,25 @@ pre { max-width: 100%; overflow-x: auto; }
     border-top: 1px solid var(--line);
     text-align: center;
 }
-.sidebar .wechat-box img {
-    width: 140px;
-    border-radius: 12px;
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.sidebar .wechat-box .tip {
-    font-size: 12px;
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 /* 右侧主内容区 */
@@ -223,8 +233,16 @@ b { color: var(--ink); }
         <a href="#shortcuts">十一、快捷键</a>
     </nav>
     <div class="wechat-box">
-        <img src="../assets/wechat.png" alt="微信二维码">
-        <div class="tip">扫码添加微信</div>
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.jpg" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
     </div>
 </aside>
 
@@ -239,7 +257,7 @@ b { color: var(--ink); }
 <p>工具集成了 22 项常用排版功能，每一项都可以独立勾选、自由组合，执行顺序也能灵活调整。配置会自动保存，下次打开直接沿用上次设置。</p>
 
 <div class="tip">
-<b>最新更新</b>：字符清理新增项目符号删除、公文/WBS编号仅对标题有效（不影响正文）、自动打开文件修复（避免被COM进程关闭）、新增编号体系标准化说明。
+<b>最新更新（v1.9.5）</b>：表格样式新增文字颜色/表格样式/整体对齐，正则工具新增5种操作模式（删除/替换/前插/后插/格式化）与应用标题样式，修复COM异常连锁失败，新增Win7专用版本，统一Logo显示。
 </div>
 
 <!-- ══════════════════ 二、核心特色 ══════════════════ -->
@@ -369,6 +387,10 @@ b { color: var(--ink); }
 <div class="card-title"><span class="tag num">8</span> <span class="tag reg">注册</span> 表格样式设置</div>
 <div class="card-desc">
 <p class="no-indent">统一表格格式：宽度比例、字体字号、首行加粗底色、居中对齐、最小化行高、清除缩进。<span class="tag new">横竖页面自适应</span>：自动识别页面方向，按各自页面宽度计算表格实际宽度。</p>
+<p class="no-indent"><span class="tag new">新增文字颜色</span>：支持「不修改」「黑色」「自定义」三种模式，自定义色号通过取色器选择，放在字号后面。</p>
+<p class="no-indent"><span class="tag new">新增表格样式</span>：可选择 Word 设计表中的常用样式（如「网格型」），一键应用预设表格外观。</p>
+<p class="no-indent"><span class="tag new">新增整体对齐</span>：支持「居中」「左对齐」「右对齐」「不修改」四种模式，等同于在 Word 中选中整个表格后设置对齐方式，通过 OOXML 元素顺序修正确保对所有表格生效。</p>
+<p class="no-indent"><b>首行底色</b>：支持「浅灰」「浅绿」「自定义」三种预设，自定义色号与文字颜色同行布置。</p>
 </div>
 </div>
 
@@ -474,7 +496,17 @@ b { color: var(--ink); }
 <div class="card-title"><span class="tag num">22</span> <span class="tag reg">注册</span> 文档正则工具</div>
 <div class="card-desc">
 <p class="no-indent">使用正则表达式进行高级查找、替换和格式化操作，适合处理非标准格式的文档。</p>
-<p class="no-indent"><span class="tag new">替换文本留空=删除匹配内容</span>，同时支持 \1、\2 等捕获组引用。</p>
+<p class="no-indent"><span class="tag new">5种操作模式</span>：</p>
+<ul>
+<li><b>删除</b>：删除所有匹配内容，等同于替换文本留空</li>
+<li><b>替换</b>：将匹配内容替换为指定文本，支持 \1、\2 等捕获组引用</li>
+<li><b>前面插入</b>：在匹配内容前插入指定文本，保留原匹配内容</li>
+<li><b>后面插入</b>：在匹配内容后插入指定文本，保留原匹配内容</li>
+<li><b>格式化</b>：对匹配内容应用字体、字号、加粗、斜体、下划线、颜色、背景色等格式</li>
+</ul>
+<p class="no-indent"><span class="tag new">应用标题样式</span>：可将匹配内容应用标题1~9样式，适合从正文中识别条款、章节等结构化内容并提升为标题。</p>
+<p class="no-indent"><b>文本框联动</b>：选择「替换」「前面插入」「后面插入」模式时，文本框自动变为可编辑；选择「删除」「格式化」模式时，文本框置灰不可编辑。</p>
+<p class="no-indent"><b>正则测试弹窗</b>：点击「测试」按钮弹出测试窗口，仅显示包含匹配内容的行（而非全部内容），匹配部分高亮涂黄，行末追加捕获组信息，跨行匹配也能正确显示覆盖的所有行。</p>
 </div>
 </div>
 
@@ -700,17 +732,26 @@ b { color: var(--ink); }
 
 <a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
     <i class="fas fa-download"></i>
-    <span>下载 Windows 64位</span>
+    <span>下载 Windows 64位（Win10+）</span>
 </a>
 
 <div class="card">
-<div class="card-title">系统要求</div>
+<div class="card-title">系统要求与版本选择</div>
 <div class="card-desc">
+<p class="no-indent">工具提供 <b>Win10+</b> 和 <b>Win7</b> 两个专用版本，请根据操作系统选择对应版本下载：</p>
+<table>
+<tr><th style="width:20%">版本</th><th style="width:30%">适用系统</th><th>说明</th></tr>
+<tr><td><b>Win10+ 版本</b></td><td>Windows 10 / 11（64位）</td><td>基于 Python 3.11 构建，性能更优，推荐使用</td></tr>
+<tr><td><b>Win7 专用版本</b></td><td>Windows 7（64位）</td><td>基于 Python 3.8.10 构建，兼容 Win7 系统，同一微云链接内提供</td></tr>
+</table>
 <ul>
-<li>操作系统：Windows 7 及以上（64位）</li>
+<li>操作系统：Windows 7 及以上（64位），Win7 用户请下载专用版本</li>
 <li>可选：Microsoft Word（用于标题编号取消功能及 .doc/.wps 格式转换）</li>
 <li>磁盘空间：至少 50 MB 可用空间</li>
 </ul>
+<div class="tip">
+<b>Win7 用户注意</b>：Win7 不支持 Python 3.11，请务必下载微云链接内的 Win7 专用版本。两个版本功能完全一致，仅底层 Python 运行时不同。
+</div>
 </div>
 </div>
 
@@ -751,6 +792,7 @@ b { color: var(--ink); }
 <tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
 </thead>
 <tbody>
+<tr><td>v1.9.5</td><td>表格样式新增文字颜色/表格样式/整体对齐，正则工具新增5种操作模式(删除/替换/前插/后插/格式化)与应用标题样式，修复COM异常连锁失败，新增Win7专用版本，统一Logo显示</td><td>2026-08-07</td></tr>
 <tr><td>v1.9.4</td><td>字符清理新增项目符号(•)删除，公文/WBS编号仅对标题生效，修复自动打开文件被COM进程关闭问题，新增编号体系标准化说明</td><td>2026-07-13</td></tr>
 <tr><td>v1.9.3</td><td>优化批量处理速度，修复WPS兼容问题</td><td>2026-07-11</td></tr>
 <tr><td>v1.9.2</td><td>品牌正式更名KanlorOne WordSuite，新增.doc/.wps格式自动转换支持，优化默认参数与内置模板，修复多项已知问题</td><td>-</td></tr>

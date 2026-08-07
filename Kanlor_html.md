@@ -253,7 +253,7 @@ card.onclick = () => { window.location.href = detailUrl; };
 1. **返回首页按钮**：橙色背景，带左箭头图标
 2. **产品标识**：产品图片（56px 高）+ 英文名 + 中文名
 3. **目录导航**：所有章节锚点链接
-4. **微信二维码**：140px 宽，带「扫码添加微信」提示
+4. **二维码区**：微信个人二维码 + 微信公众号二维码并排显示（各 100px 宽，flex 布局），分别带「扫码添加微信」「关注公众号」提示
 
 ```html
 <aside class="sidebar">
@@ -277,8 +277,16 @@ card.onclick = () => { window.location.href = detailUrl; };
         <a href="#shortcuts">八、快捷键</a>
     </nav>
     <div class="wechat-box">
-        <img src="../assets/wechat.png" alt="微信二维码">
-        <div class="tip">扫码添加微信</div>
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.jpg" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
     </div>
 </aside>
 ```
@@ -436,15 +444,25 @@ pre { max-width: 100%; overflow-x: auto; }
     border-top: 1px solid var(--line);
     text-align: center;
 }
-.sidebar .wechat-box img {
-    width: 140px;
-    border-radius: 12px;
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.sidebar .wechat-box .tip {
-    font-size: 12px;
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 /* 右侧主内容区 */
@@ -641,7 +659,7 @@ b { color: var(--ink); }
 - [ ] 产品图片在「一、产品简介」章节内，使用 `.product-image` 类
 - [ ] 下载按钮在「五、下载安装」章节末尾，使用 `.download-btn` 类
 - [ ] 下载地址为 `https://share.weiyun.com/d56f8rp2`，且只有此一个下载链接
-- [ ] 微信二维码在左侧栏底部 `.wechat-box`
+- [ ] 微信个人二维码 + 微信公众号二维码并排在左侧栏底部 `.wechat-box`（使用 `.qr-row` + `.qr-item` flex 布局）
 - [ ] CSS 包含 `scroll-behavior: smooth`、`scroll-padding-top: 24px`、`scroll-margin-top: 24px`
 - [ ] CSS 包含 `body { overflow-x: hidden; }`，`.main-content` 使用 `word-wrap: break-word` 和 `overflow-x: hidden`（main-content 高度为 auto，overflow-x: hidden 安全）
 - [ ] 移动端媒体查询 `@media (max-width: 768px)` 隐藏侧边栏

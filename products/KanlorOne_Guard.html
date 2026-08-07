@@ -82,15 +82,25 @@ pre { max-width: 100%; overflow-x: auto; }
     border-top: 1px solid var(--line);
     text-align: center;
 }
-.sidebar .wechat-box img {
-    width: 140px;
-    border-radius: 12px;
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.sidebar .wechat-box .tip {
-    font-size: 12px;
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
     color: var(--muted);
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 /* 右侧主内容区 */
@@ -221,8 +231,16 @@ b { color: var(--ink); }
         <a href="#shortcuts">八、快捷键</a>
     </nav>
     <div class="wechat-box">
-        <img src="../assets/wechat.png" alt="微信二维码">
-        <div class="tip">扫码添加微信</div>
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.jpg" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
     </div>
 </aside>
 
@@ -237,7 +255,7 @@ b { color: var(--ink); }
 <p>程序常驻系统托盘，右键菜单即可快速操作；所有数据本地存储在 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code>，不依赖云端，隐私安全有保障。试用期 30 天，结束后需注册授权才能继续使用。</p>
 
 <div class="tip">
-<b>三大模块</b>：屏幕使用管理（用屏统计、休息提醒、工作模式、1 分钟预警）、待办提醒（四象限 / 列表 / 日历三模式、循环任务、智能识别）、剪贴管理（剪贴板整理、目录结构层级读取、颜色识别与转换）。
+<b>三大模块</b>：屏幕使用管理（用屏统计、休息提醒、工作模式、1 分钟预警）、待办提醒（四象限 / 列表 / 日历三模式、循环任务、智能识别、自动清理）、剪贴管理（剪贴板整理、目录结构读取与生成、文件夹过滤、后缀筛选、颜色识别与转换）。
 </div>
 
 <!-- ══════════════════ 二、核心特色 ══════════════════ -->
@@ -251,7 +269,7 @@ b { color: var(--ink); }
 <li>单次使用时长到达自动休息，1 分钟预警浮窗可拖动</li>
 <li>最近 7 天使用时长柱状图，自动识别工作日 / 节假日</li>
 <li>休息内容管理（名言警句 / 古诗词 / 小贴士），支持 JSON 导入导出</li>
-<li><b>工作模式</b>：免密延时加时，按次数限制，替代暂停休息</li>
+<li><b>工作模式</b>：免密延时加时，X 分钟后触发休息，按次数限制，替代暂停休息</li>
 </ul>
 </div>
 </div>
@@ -264,7 +282,7 @@ b { color: var(--ink); }
 <li>子任务、循环任务（每天 / 工作日 / 每周 / 每月）、拖拽排序</li>
 <li>智能识别文本生成待办，支持腾讯会议信息识别</li>
 <li>置顶任务可生成浮动窗口，应用启动时自动显示</li>
-<li>自动备份（可配置间隔与保留天数），明色 / 暗色主题切换</li>
+<li>自动备份（可配置间隔与保留天数），<b>自动清理已完成任务</b>，明色 / 暗色主题切换</li>
 </ul>
 </div>
 </div>
@@ -274,8 +292,11 @@ b { color: var(--ink); }
 <div class="card-desc">
 <ul>
 <li>剪贴板自动整理：文本 / 图片 / 文件 / 文件夹全覆盖</li>
-<li>目录结构读取与变换（去除前置符 / 目录 / 文件 / 路径）</li>
+<li>目录结构读取与变换（去除前置符 / 目录 / 文件 / 路径 / 临时文件 / 后缀）</li>
 <li><b>目录层级设置</b>：支持输入数字控制展开深度（0=全部，N=仅 N 层）</li>
+<li><b>文件夹过滤</b>：包含关键词的目录自动排除（含子目录）</li>
+<li><b>后缀筛选</b>：按扩展名过滤文件，未匹配的自动排除</li>
+<li><b>生成目录</b>：根据文本中的路径列表反向生成文件夹结构</li>
 <li>4 种颜色格式自动识别与 HEX / RGB 双向转换</li>
 <li>系统取色 + 49 种预设颜色，色块竖向居中显示</li>
 </ul>
@@ -345,7 +366,7 @@ b { color: var(--ink); }
 <li>双进度条：今日使用进度（工作日 / 节假日分限额）、本次会话进度</li>
 <li>快捷操作：暂停 / 恢复、立即休息、设置（均带 PIN 验证）</li>
 <li>暂停横幅：守护暂停时显示倒计时，颜色醒目</li>
-<li><b>工作模式加时</b>：会话时长已用完后显示"本次会话 X / Y 分钟"（Y 包含加时）</li>
+<li><b>工作模式加时</b>：启用后有效会话限制 = 加时分钟数（X 分钟后触发休息，不再叠加基础会话）</li>
 </ul>
 </div>
 </div>
@@ -391,10 +412,10 @@ b { color: var(--ink); }
 <ul>
 <li><b>启用条件</b>：在系统设置中启用工作模式，配置每次加时分钟数和每日次数上限</li>
 <li><b>触发时机</b>：单次会话时长用完时，进入休息界面</li>
-<li><b>按钮替换</b>：工作模式启用且有剩余次数时，休息界面仅显示"💼 工作模式加时 (已用/上限)"按钮，<b>不显示"切换模式"（暂停休息）按钮</b></li>
-<li><b>点击后效果</b>：状态切回 ACTIVE，本次会话从 0 开始重新计时，有效会话限制 = 基础限制 + 加时分钟</li>
+<li><b>按钮替换</b>：工作模式启用且有剩余次数时，休息界面仅显示"💼 工作模式加时 (已用/上限)"按钮与"🚪 退出运行"按钮，<b>不显示"切换模式"（暂停休息）按钮</b></li>
+<li><b>点击后效果</b>：状态切回 ACTIVE，本次会话从 0 开始重新计时，<b>有效会话限制 = 加时分钟数（X 分钟后触发休息，不再叠加基础会话）</b></li>
 <li><b>次数用尽</b>：达到每日次数上限后，恢复"切换模式"按钮，可正常进入休息</li>
-<li><b>显示规则</b>：状态卡片显示"本次会话 X / Y 分钟"，Y 为基础限制 + 加时分钟数</li>
+<li><b>显示规则</b>：状态卡片显示"本次会话 X / Y 分钟"，Y 为加时分钟数（不含基础限制）</li>
 </ul>
 </div>
 </div>
@@ -459,8 +480,9 @@ b { color: var(--ink); }
 <li><b>截止日期</b>：支持按次数或按日期设定截止</li>
 <li><b>循环任务</b>：支持每天 / 工作日 / 每周（可指定星期几）/ 每月（可指定几号），支持按次数或日期结束</li>
 <li><b>周期任务推进</b>：点击"完成"仅完成本次轮次，自动推进到下一周期（日历视图按周期展开显示）</li>
-<li><b>贪睡（Snooze）</b>：弹窗提醒时支持 5 / 10 / 30 分钟推迟</li>
+<li><b>贪睡（Snooze）</b>：弹窗提醒时支持 5 / 10 / 30 分钟推迟（<b>仅影响本次提醒，不改变周期任务的 due_time</b>，避免循环计划漂移）</li>
 <li><b>导出 / 备份</b>：支持手动导出 / 导入 JSON，支持自动备份（可配置间隔与保留天数）</li>
+<li><b>自动清理已完成任务</b>：可配置开关与保留天数（默认 5 天），每日自动清理过期已完成任务</li>
 <li><b>撤销 / 重做</b>：<span class="shortcut">Ctrl+Z</span> 撤销 / <span class="shortcut">Ctrl+Y</span> 重做（最多 50 步）</li>
 <li><b>主题切换</b>：支持明色 / 暗色两种主题</li>
 <li><b>Shift+Enter</b>：新建 / 编辑任务窗口中按 <span class="shortcut">Shift+Enter</span> 快速保存</li>
@@ -528,12 +550,19 @@ b { color: var(--ink); }
 <ul>
 <li><b>读取目录</b>：选择文件夹，生成标准 tree 格式树形结构（├── / └── / │）</li>
 <li><b>层级设置</b>：输入数字控制展开深度，<code>0</code> 或空 = 全部层级，<code>N</code> = 仅展开到第 N 层（1=根的直接子项，2=孙子项，以此类推）</li>
+<li><b>文件夹过滤</b>：输入关键词（逗号 / 空格分隔），包含任意关键词的目录及其子目录自动排除（不区分大小写）</li>
+<li><b>后缀筛选</b>：输入扩展名（逗号 / 空格分隔），未匹配的文件自动排除；无匹配文件的空目录一并排除</li>
+<li><b>路径显示</b>：勾选后显示完整路径，取消则仅显示名称</li>
+<li><b>生成目录</b>：根据文本中的路径列表反向生成文件夹结构（空文件创建，已存在文件跳过，执行前弹窗确认）</li>
 <li><b>去除前置符</b>：移除 ├──、└──、│ 等树形符号</li>
 <li><b>去除目录</b>：只保留文件路径行（以 <code>/</code> 结尾的视为目录）</li>
 <li><b>去除文件</b>：只保留文件夹路径行</li>
 <li><b>去除路径</b>：只保留文件 / 文件夹名称</li>
+<li><b>去除临时文件</b>：过滤 <code>~$</code>、<code>.tmp</code> 等临时文件</li>
+<li><b>去除后缀</b>：移除文件扩展名</li>
 <li><b>恢复</b>：回退到上一步操作（最多 50 步历史）</li>
 <li><b>复制 / 导出</b>：一键复制到剪贴板或导出为 TXT</li>
+<li><b>设置记忆</b>：目录路径、层级、后缀、文件夹过滤、路径显示状态自动记忆</li>
 </ul>
 </div>
 </div>
@@ -591,9 +620,10 @@ b { color: var(--ink); }
 <tr><td>显示倒计时</td><td>锁定前显示倒计时秒数（默认 15 秒）</td></tr>
 <tr><td>1 分钟提醒</td><td>最后 1 分钟弹出预警浮窗</td></tr>
 <tr><td>休息标题 / 消息</td><td>休息界面显示的标题与已用时长</td></tr>
-<tr><td rowspan="3">开关选项</td><td>开机自启</td><td>开机自动启动（通过启动文件夹快捷方式）</td></tr>
+<tr><td rowspan="4">开关选项</td><td>开机自启</td><td>开机自动启动（通过启动文件夹快捷方式）</td></tr>
 <tr><td>启用待办提醒</td><td>开关待办功能</td></tr>
 <tr><td>启用待办声音提醒</td><td>是否在提醒时播放声音（与弹窗同步）</td></tr>
+<tr><td>自动清理已完成任务</td><td>开关 + 保留天数（默认 5 天）</td></tr>
 <tr><td>托盘</td><td>托盘双击默认打开</td><td>待办提醒 / 屏幕使用 / 剪贴管理</td></tr>
 </table>
 </div>
@@ -736,6 +766,7 @@ b { color: var(--ink); }
 <tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
 </thead>
 <tbody>
+<tr><td>v3.2</td><td>工作模式优化（X 分钟后触发休息，不再叠加基础会话）；剪贴管理增强（文件夹过滤、后缀筛选、路径显示、生成目录、去除临时文件、去除后缀、按钮重命名）；待办自动清理已完成任务；周期任务延后只影响本次提醒；修复开机自启偶发 cmd 窗口弹出</td><td>2026-07-28</td></tr>
 <tr><td>v3.1</td><td>新增工作模式（免密延时加时，替代暂停休息）；新增目录层级设置；修复周期任务日期跳 2 天问题；优化色块竖向居中显示；优化工作模式时间显示（避免负值）</td><td>2026-07-21</td></tr>
 <tr><td>v3.0</td><td>待办提醒增强（日历视图、循环任务、智能识别、浮动窗口、自动备份）；剪贴管理增强（颜色识别、目录结构工具）；托盘图标修复；StartupApproved 注册表修复；声音同步播放与停止</td><td>2026-07-15</td></tr>
 <tr><td>v2.8</td><td>新增待办及提醒管理</td><td>2026-07-12</td></tr>
@@ -754,9 +785,9 @@ b { color: var(--ink); }
 </div>
 
 <div class="card">
-<div class="card-title">Q：开机自启设置了但没生效？</div>
+<div class="card-title">Q：开机自启设置了但没生效 / 偶发 cmd 窗口弹出？</div>
 <div class="card-desc">
-<p class="no-indent">程序会在 <code>%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\</code> 创建快捷方式，并同步写入 <code>StartupApproved\StartupFolder</code> 注册表（12 字节，0x02=启用）。如果未出现在任务管理器启动项中，检查注册表是否被标记为 0x03（禁用）。</p>
+<p class="no-indent">程序会在 <code>%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\</code> 创建快捷方式，并同步写入 <code>StartupApproved\StartupFolder</code> 注册表（12 字节，0x02=启用）。如果未出现在任务管理器启动项中，检查注册表是否被标记为 0x03（禁用）。v3.2 修复了开机自启偶发 cmd 窗口弹出问题（启动时先 <code>ShowWindow(SW_HIDE)</code> 再调用 <code>FreeConsole()</code> 彻底脱离控制台子系统）。</p>
 </div>
 </div>
 
@@ -782,9 +813,9 @@ b { color: var(--ink); }
 </div>
 
 <div class="card">
-<div class="card-title">Q：工作模式加时后为什么显示"本次会话 X / Y 分钟"？</div>
+<div class="card-title">Q：工作模式加时后会话时长为什么变成 X 分钟？</div>
 <div class="card-desc">
-<p class="no-indent">工作模式加时后，Y 会包含加时分钟数（如基础 30 分钟 + 加时 30 分钟 = 60 分钟），X 从 0 开始重新计时。这样可直观看到加时后的有效会话限制。</p>
+<p class="no-indent">v3.2 起工作模式优化：<b>启用工作模式后有效会话限制 = 加时分钟数</b>（不再叠加基础会话）。例如加时设置为 30 分钟，则点击加时后本次会话从 0 计时到 30 分钟触发休息。这样可避免工作时段被基础会话时长干扰，更符合"专注工作 X 分钟"的预期。</p>
 </div>
 </div>
 
