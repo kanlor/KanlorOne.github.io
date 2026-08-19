@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -252,7 +252,7 @@ b { color: var(--ink); }
 <h2 id="intro">一、产品简介</h2>
 <img src="KanlorOne_Guard.png" alt="KanlorOne Guard 界面" class="product-image">
 <p>KanlorOne Guard（乾御）是一款 <b>桌面一体化助手工具</b>，将屏幕使用管理、待办提醒、剪贴工具三大功能模块集成于同一托盘程序中，专为儿童护眼与时间控制以及成人专注工作两种场景设计。</p>
-<p>程序常驻系统托盘，右键菜单即可快速操作；所有数据本地存储在 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code>，不依赖云端，隐私安全有保障。试用期 30 天，结束后需注册授权才能继续使用。</p>
+<p>程序常驻系统托盘，右键菜单即可快速操作；所有数据本地存储在 <code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\</code>，不依赖云端，隐私安全有保障。试用期 30 天，结束后需注册授权才能继续使用。</p>
 
 <div class="tip">
 <b>三大模块</b>：屏幕使用管理（用屏统计、休息提醒、工作模式、1 分钟预警）、待办提醒（四象限 / 列表 / 日历三模式、循环任务、智能识别、自动清理）、剪贴管理（剪贴板整理、目录结构读取与生成、文件夹过滤、后缀筛选、颜色识别与转换）。
@@ -499,7 +499,7 @@ b { color: var(--ink); }
 <li><b>声音同步</b>：开启声音提醒时，弹窗出现与音乐播放同步</li>
 <li><b>声音停止</b>：弹窗关闭（完成 / 推迟 / 关闭）时音乐立即停止</li>
 <li>提醒声音：支持自定义 <code>WAV / WMA / MP3</code> 文件，短音频自动循环播放（最长 5 秒）</li>
-<li>默认声音文件：<code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\KanlorOne_Guard.wav</code>（放入即生效）</li>
+<li>默认声音文件：<code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\KanlorOne_Guard.wav</code>（放入即生效）</li>
 </ul>
 </div>
 </div>
@@ -696,20 +696,20 @@ b { color: var(--ink); }
 </div>
 
 <h3>📁 数据存储</h3>
-<p class="no-indent">所有用户数据统一存放在 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code>，<b>不依赖 exe 路径</b>。</p>
+<p class="no-indent">所有用户数据统一存放在 <code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\</code>，<b>不依赖 exe 路径</b>。</p>
 
 <div class="card">
 <div class="card-desc">
 <table>
 <tr><th>类型</th><th>路径</th></tr>
-<tr><td>用户配置</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code></td></tr>
-<tr><td>待办数据</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\todos\</code></td></tr>
-<tr><td>待办备份</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\backups\</code></td></tr>
-<tr><td>休息内容</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\rest_contents.json</code></td></tr>
-<tr><td>默认提醒声音</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\KanlorOne_Guard.wav</code>（放入即生效）</td></tr>
+<tr><td>用户配置</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\</code></td></tr>
+<tr><td>待办数据</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\todos\</code></td></tr>
+<tr><td>待办备份</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\backups\</code></td></tr>
+<tr><td>休息内容</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\rest_contents.json</code></td></tr>
+<tr><td>默认提醒声音</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\KanlorOne_Guard.wav</code>（放入即生效）</td></tr>
 <tr><td>剪贴板自动保存</td><td><code>桌面\KanlorOne\clipboard_auto_save.txt</code></td></tr>
 <tr><td>剪贴板图片</td><td><code>桌面\KanlorOne\Clipboard_Images\</code></td></tr>
-<tr><td>日志</td><td><code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\logs\</code></td></tr>
+<tr><td>日志</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\logs\</code></td></tr>
 </table>
 <div class="tip">
 <b>数据迁移</b>：更新应用后，旧版本数据会自动迁移到新目录。
@@ -843,7 +843,7 @@ b { color: var(--ink); }
 <div class="card">
 <div class="card-title">Q：如何迁移数据到新电脑？</div>
 <div class="card-desc">
-<p class="no-indent">将 <code>%LOCALAPPDATA%\KanlorAPP\KanlorOne_Guard\</code> 整个目录复制到新电脑相同位置即可。</p>
+<p class="no-indent">将 <code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_Guard\</code> 整个目录复制到新电脑相同位置即可。</p>
 </div>
 </div>
 

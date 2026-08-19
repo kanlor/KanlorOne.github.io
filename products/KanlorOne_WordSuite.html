@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="KanlorOne WordSuite - 专业级 Word 批量排版与自动化处理套件，集成 22 项排版功能，支持长文档自动化排版、格式批量统一、模板智能生成，深度集成 VBA 与 AI 能力。">
+<meta name="description" content="KanlorOne WordSuite - 专业级 Word 批量排版与自动化处理套件，集成 23 项排版功能，支持长文档自动化排版、格式批量统一、模板智能生成，深度集成 VBA 与 AI 能力。">
 <meta name="keywords" content="KanlorOne WordSuite,Word排版,批量排版,文档自动化,VBA,公文排版,科技文档">
 <meta property="og:title" content="KanlorOne WordSuite - Word 文档一站式排版工具">
-<meta property="og:description" content="22项排版功能，批量处理，样式优先，模板预设">
+<meta property="og:description" content="23项排版功能，批量处理，样式优先，模板预设">
 <meta property="og:type" content="article">
 <title>KanlorOne WordSuite — 使用说明 | KanlorOne</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -148,8 +148,8 @@ h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand)
 }
 
 /* Typography */
-h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; }
-h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; }
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
 p { margin-bottom: 10px; text-indent: 2em; }
 p.no-indent { text-indent: 0; }
 
@@ -254,10 +254,10 @@ b { color: var(--ink); }
 <h2 id="intro">一、产品简介</h2>
 <img src="KanlorOne_WordSuite.png" alt="KanlorOne WordSuite 界面" class="product-image">
 <p>KanlorOne WordSuite 是一款 <b>Word 文档批量排版工具</b>。简单来说，你可以用它一次性处理几十上百个 Word 文档，自动完成排版工作，不用一个个手动调整格式。</p>
-<p>工具集成了 22 项常用排版功能，每一项都可以独立勾选、自由组合，执行顺序也能灵活调整。配置会自动保存，下次打开直接沿用上次设置。</p>
+<p>工具集成了 23 项常用排版功能，每一项都可以独立勾选、自由组合，执行顺序也能灵活调整。配置会自动保存，下次打开直接沿用上次设置。</p>
 
 <div class="tip">
-<b>最新更新（v1.9.5）</b>：表格样式新增文字颜色/表格样式/整体对齐，正则工具新增5种操作模式（删除/替换/前插/后插/格式化）与应用标题样式，修复COM异常连锁失败，新增Win7专用版本，统一Logo显示。
+<b>最新更新（v1.9.6）</b>：新增「文档页眉页脚」功能（分节独立设置、页码 N/M｜第N页 共M页、页眉图片、总页数不含之前节页数）；表格样式新增自定义边框（线型/粗细/范围）；模板管理全面升级——多列表格展示并支持排序、修改名称与描述，修复创建模板失效问题；内置模板改为根目录 Template 自动加载，用户模板统一存入本地用户目录并自动迁移旧数据。
 </div>
 
 <!-- ══════════════════ 二、核心特色 ══════════════════ -->
@@ -282,8 +282,9 @@ b { color: var(--ink); }
 <li><b>批量处理</b>：一次操作完成所有文档的统一排版</li>
 <li><b>样式优先</b>：修改 Word 样式定义而非单个段落，彻底根治格式问题</li>
 <li><b>智能识别</b>：自动识别标题编号、公文标题，一键应用标题样式</li>
-<li><b>模板预设</b>：内置公文和科技文档两套模板，一键加载</li>
+<li><b>模板预设</b>：内置科技/公文/MD 排版模板，根目录 Template 自动加载，一键选用</li>
 <li><b>格式标准化</b>：表格、图片、题注统一格式，排版效果专业</li>
+<li><b>页眉页脚</b>：分节独立设置页眉页脚与页码格式，支持页眉图片、总页数统计</li>
 </ul>
 </div>
 </div>
@@ -303,7 +304,7 @@ b { color: var(--ink); }
 
 <div class="step">
 <div class="step-num">3</div>
-<div class="step-text"><b>选模板（可选）</b>：下拉框选择「公文文档排版-内置」或「科技文档排版-内置」，自动加载预设功能和参数。</div>
+<div class="step-text"><b>选模板（可选）</b>：下拉框选择「科技排版」「公文排版」「MD排版」等内置模板（自动加载根目录 Template 下的模板文件），按需选用预设功能和参数。</div>
 </div>
 
 <div class="step">
@@ -390,6 +391,7 @@ b { color: var(--ink); }
 <p class="no-indent"><span class="tag new">新增文字颜色</span>：支持「不修改」「黑色」「自定义」三种模式，自定义色号通过取色器选择，放在字号后面。</p>
 <p class="no-indent"><span class="tag new">新增表格样式</span>：可选择 Word 设计表中的常用样式（如「网格型」），一键应用预设表格外观。</p>
 <p class="no-indent"><span class="tag new">新增整体对齐</span>：支持「居中」「左对齐」「右对齐」「不修改」四种模式，等同于在 Word 中选中整个表格后设置对齐方式，通过 OOXML 元素顺序修正确保对所有表格生效。</p>
+<p class="no-indent"><span class="tag new">新增自定义边框</span>：线型（实线/虚线/点线/双线/点划线/双点划线）+ 粗细（0.25pt~2.0pt 六档）+ 应用范围（下/上/左/右框线、无框线、所有框线、外侧框线、内部框线、内部横框线、内部竖框线）。选择自定义边框时，表格样式仅应用底纹与字体颜色，边框完全由所选范围控制，避免互相覆盖。</p>
 <p class="no-indent"><b>首行底色</b>：支持「浅灰」「浅绿」「自定义」三种预设，自定义色号与文字颜色同行布置。</p>
 </div>
 </div>
@@ -509,6 +511,18 @@ b { color: var(--ink); }
 <p class="no-indent"><b>正则测试弹窗</b>：点击「测试」按钮弹出测试窗口，仅显示包含匹配内容的行（而非全部内容），匹配部分高亮涂黄，行末追加捕获组信息，跨行匹配也能正确显示覆盖的所有行。</p>
 </div>
 </div>
+
+<div class="card">
+<div class="card-title"><span class="tag num">23</span> <span class="tag new">新增</span> <span class="tag reg">注册</span> 文档页眉页脚</div>
+<div class="card-desc">
+<p class="no-indent">分节独立设置页眉页脚：自动读取文档分节数量，每节独立配置「独立不同/后续相同」（互斥单选，自动联动下一节「链接到前一节」）与「链接到前一节（是/否）」；首页不同强制开启（首页视作第1节），并去除奇偶页不同。</p>
+<p class="no-indent"><b>页眉</b>：支持插入图片（地址+高度+位置：图片在前/在后）、页眉文字+底部横线。</p>
+<p class="no-indent"><b>页码</b>：支持「单页码」「N/M」「第N页 共M页」「不插入页码」四种格式；数字格式支持阿拉伯数字/大小写罗马/大小写字母；支持起始页码。<span class="tag new">总页数不含之前节页数</span>：勾选后 M 仅统计本节及后续相同节的总页数（书签+公式域实现，打开文档自动重算）。</p>
+<p class="no-indent"><b>页脚文字</b>：支持页码前、页码后两侧文本。</p>
+<p class="no-indent"><b>格式与距离</b>：页眉/页脚格式独立设置（中文字体/英文字体/字号/对齐，全部节统一生效）；页眉顶端/页脚底端距边距离可调（默认 1.5cm）。支持「设置(添加/修改)」「仅设置格式」「删除页眉页脚」三种操作方式。</p>
+</div>
+</div>
+
 
 <!-- ══════════════════ 五、编号体系标准化说明 ══════════════════ -->
 <h2 id="numbering">五、编号体系标准化说明</h2>
@@ -711,10 +725,11 @@ b { color: var(--ink); }
 <div class="card">
 <div class="card-title">选择内置模板</div>
 <div class="card-desc">
-<p class="no-indent">功能面板顶部下拉框提供两个内置模板，选择后自动加载预设功能和参数：</p>
+<p class="no-indent">内置模板自动加载根目录 <code>Template</code> 文件夹下的 .mtpl 模板文件，功能面板顶部下拉框选择后即可加载预设功能和参数。当前提供：</p>
 <ul>
-<li><b>科技文档排版-内置</b>：适合报告/论文，按推荐顺序执行：标题编号取消 → 页面设置 → 字符清理 → 标题WBS识别 → 标题样式设置（黑体多级） → 标题WBS编号 → 正文样式设置（宋体小四） → 表格/图片/题注样式 → 样式清理 → 文档属性 → 数据统计</li>
-<li><b>公文文档排版-内置</b>：符合公文规范，按推荐顺序执行：标题编号取消 → 页面设置 → 字符清理 → 标题公文识别 → 标题样式设置（黑体/楷体/仿宋分级） → 标题公文编号 → 正文样式设置（仿宋三号） → 表格/图片样式 → 样式清理</li>
+<li><b>科技排版</b>：适合报告/论文，按推荐顺序执行：标题编号取消 → 页面设置 → 字符清理 → 标题WBS识别 → 标题样式设置（黑体多级） → 标题WBS编号 → 正文样式设置（宋体小四） → 表格/图片/题注样式 → 样式清理 → 文档属性 → 数据统计</li>
+<li><b>公文排版</b>：符合公文规范，按推荐顺序执行：标题编号取消 → 页面设置 → 字符清理 → 标题公文识别 → 标题样式设置（黑体/楷体/仿宋分级） → 标题公文编号 → 正文样式设置（仿宋三号） → 表格/图片样式 → 样式清理</li>
+<li><b>MD排版</b>：适用于 Markdown 类文档的快速排版</li>
 </ul>
 </div>
 </div>
@@ -723,7 +738,7 @@ b { color: var(--ink); }
 <div class="card-title">创建自己的模板</div>
 <div class="card-desc">
 <p class="no-indent"><b>三步搞定</b>：选择内置模板 → 按需微调功能勾选和参数 → 点击"从当前配置创建模板"命名保存。</p>
-<p class="no-indent">点击"模板管理"可管理所有模板：创建、重命名、导入/导出、删除。内置模板不可删除。</p>
+<p class="no-indent">用户自定义模板统一存入本地用户目录，自动检测加载。点击"模板管理"可管理所有模板：创建、修改名称/描述、导入/导出、删除。内置模板不可修改和删除。</p>
 </div>
 </div>
 
@@ -732,7 +747,7 @@ b { color: var(--ink); }
 
 <a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
     <i class="fas fa-download"></i>
-    <span>下载 Windows 64位（Win10+）</span>
+    <span>下载 Windows 64位</span>
 </a>
 
 <div class="card">
@@ -792,6 +807,7 @@ b { color: var(--ink); }
 <tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
 </thead>
 <tbody>
+<tr><td>v1.9.6</td><td>新增文档页眉页脚功能（分节独立/链接到前一节/首页不同/页眉图片/页码N/M|第N页 共M页/总页数不含之前节页数/页脚文字）；表格样式新增自定义边框（线型/粗细/范围）；模板管理全面升级：多列表格展示并支持排序、修改名称与描述，修复创建模板失效问题；内置模板改为根目录Template自动加载，用户模板统一存入本地用户目录并自动迁移旧数据</td><td>2026-08-19</td></tr>
 <tr><td>v1.9.5</td><td>表格样式新增文字颜色/表格样式/整体对齐，正则工具新增5种操作模式(删除/替换/前插/后插/格式化)与应用标题样式，修复COM异常连锁失败，新增Win7专用版本，统一Logo显示</td><td>2026-08-07</td></tr>
 <tr><td>v1.9.4</td><td>字符清理新增项目符号(•)删除，公文/WBS编号仅对标题生效，修复自动打开文件被COM进程关闭问题，新增编号体系标准化说明</td><td>2026-07-13</td></tr>
 <tr><td>v1.9.3</td><td>优化批量处理速度，修复WPS兼容问题</td><td>2026-07-11</td></tr>
