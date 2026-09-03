@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne DMLens - 侧重阅读的 Markdown 轻量超级助手，Tauri 打造的完全离线本地阅读器与编辑器。支持章节大纲、代码高亮、Mermaid 图表、KaTeX 公式、所见即所得实时编辑与一键导出 HTML/Word/PDF。">
+<meta name="keywords" content="KanlorOne DMLens,Markdown阅读器,Markdown编辑器,MD阅读,大纲导航,公式渲染,Mermaid,文档导出">
+<meta property="og:title" content="KanlorOne DMLens - Markdown 阅读与编辑助手">
+<meta property="og:description" content="章节大纲 · 代码高亮 · 公式图表 · 实时编辑 · 一键导出">
+<meta property="og:type" content="article">
+<title>KanlorOne DMLens — 使用说明 | KanlorOne</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; border-radius: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
+
+/* 下载按钮（统一样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+.tag.new { background: #ecfdf5; color: #059669; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Shortcut inline */
+.shortcut { display: inline-block; background: var(--brand); color: #fff; padding: 2px 10px; border-radius: 4px; font-size: 13px; font-family: Consolas, monospace; margin: 0 3px; font-weight: 600; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_DMLens.png" alt="KanlorOne DMLens">
+        <div class="name">KanlorOne DMLens</div>
+        <div class="nameCn">Markdown 阅读与编辑助手</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#shortcuts">七、快捷键</a>
+        <a href="#faq">八、常见问题</a>
+    </nav>
+    <div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne DMLens — Markdown 轻量阅读与编辑助手</h1>
+
+<!-- ══════════════════ 一、产品简介 ══════════════════ -->
+<h2 id="intro">一、产品简介</h2>
+<img src="KanlorOne_DMLens.png" alt="KanlorOne DMLens 界面" class="product-image">
+<p>KanlorOne DMLens 是一款<b>侧重阅读的 Markdown 轻量超级助手</b>，用 Tauri v2 打造的阅读器与简单编辑器。双击任意 <code>.md</code> 文件即可瞬间开启、漂亮渲染——内建可导航的章节大纲、代码语法高亮、Mermaid 图表、KaTeX 公式、可即时预览的实时编辑，以及多种一键导出。</p>
+<p>它<b>完全离线、全部本地化</b>：没有云端、没有遥测，数据与文件都在你的本机，隐私安全有保障。</p>
+
+<div class="tip">
+<b>最新更新（v1.7.4）</b>：源码模式新增矩形块选（Alt 拖拽列选，逐字符像素精确识别）、实时模式多选一键序列、自动化工具新增删除空行内容与序列强调加粗等。
+</div>
+
+<!-- ══════════════════ 二、核心特色 ══════════════════ -->
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title">✅ KanlorOne DMLens 的核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>三种显示模式</b>：阅读 / 实时（所见即所得）/ 源码，循环切换，以顶部内容为锚点精准对应、不跳转</li>
+<li><b>完整 GFM 渲染</b>：表格、任务清单、删除线、脚注、<code>==高亮==</code>、代码语法高亮（highlight.js）</li>
+<li><b>公式与图表</b>：KaTeX 公式（离线可用），Mermaid 图表按需加载（仅含 <code>mermaid</code> 区块才加载）</li>
+<li><b>表格实时编辑</b>：整行整列悬停高亮、增删行列、合并拆分、上移下移、边界插入</li>
+<li><b>一键导出</b>：HTML / Word(DOCX) / PDF 免费导出；渲染后 HTML 经 DOMPurify 清理 + 严格 CSP，打开不可信文件不执行恶意脚本</li>
+</ul>
+</div>
+</div>
+
+<!-- ══════════════════ 三、使用指南 ══════════════════ -->
+<h2 id="guide">三、使用指南</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>打开文件</b>：双击任意 <code>.md</code> / <code>.markdown</code> / <code>.txt</code> 文件，或按 <span class="shortcut">Ctrl+O</span>，或从启动页「打开文件 / 打开目录 / 新建文档」进入。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>选择模式</b>：工具栏「阅读 / 实时 / 源码」循环切换（<span class="shortcut">Ctrl+E</span>）。阅读模式只读浏览；实时模式所见即所得编辑，预览随输入即时更新；源码模式直接编辑 Markdown 源码并支持矩形块选。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>大纲导航</b>：左侧章节大纲（TOC）根据标题自动建立，点击即可跳转并高亮当前章节，<span class="shortcut">Ctrl+\</span> 可折叠。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>编辑内容</b>：实时模式下按 <span class="shortcut">Ctrl+S</span> 存回磁盘；用 <span class="shortcut">Ctrl+Z</span> / <span class="shortcut">Ctrl+Y</span> 撤销 / 恢复；<span class="shortcut">Ctrl+F</span> 查找替换。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>导出结果</b>：工具栏选择导出 HTML / Word / PDF（免费），长图 PNG 与图片 / 表格 / 代码 / 链接附件需注册。</div>
+</div>
+
+<div class="tip">
+<b>推荐流程</b>：双击打开 → 阅读模式浏览大纲 → Ctrl+E 进实时编辑 → Ctrl+S 存盘 → 导出目标格式。
+</div>
+
+<!-- ══════════════════ 四、功能详解 ══════════════════ -->
+<h2 id="functions">四、功能详解</h2>
+
+<div class="card">
+<div class="card-title"><span class="tag">1</span> 三种显示模式</div>
+<div class="card-desc">
+<p class="no-indent">阅读 / 实时（所见即所得）/ 源码三种模式，循环切换；切换时以切换前顶部内容为锚点，精准对应、不跳转。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">2</span> GFM 渲染与脚注</div>
+<div class="card-desc">
+<p class="no-indent">支持表格、任务清单、删除线，<code>[^1]</code> 脚注正确渲染上标引用与底部定义区，双向点击跳转并高亮；<code>==高亮==</code> 渲染为黄色荧光标记，明暗主题自动适配。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">3</span> 公式与图表</div>
+<div class="card-desc">
+<p class="no-indent">基于 KaTeX（离线可用），支持行内公式与块级公式；Mermaid 图表按需加载，仅当文件含 <code>mermaid</code> 区块时才加载，导出同步保留。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">4</span> 表格实时编辑</div>
+<div class="card-desc">
+<p class="no-indent">阅读 / 实时模式下整行整列悬停高亮、增删行列、上移下移、左右移动、合并拆分；角落聚合菜单手柄与四边带方向箭头的边界插入条，吸附网格线一键插入行 / 列。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">5</span> 章节大纲与文件浏览器</div>
+<div class="card-desc">
+<p class="no-indent">大纲 / TOC 侧栏根据标题自动建立、滚动时高亮当前章节（<span class="shortcut">Ctrl+\</span> 折叠）；文件浏览器（<span class="shortcut">Ctrl+B</span>）支持目录浏览、路径栏跳转、「仅MD/TXT」筛选、最近打开（可清空）、切换目录。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">6</span> 多标签页与撤销恢复</div>
+<div class="card-desc">
+<p class="no-indent">同时打开多个文档、标签管理与切换；撤销 / 恢复最多 10 步向前与向后，覆盖所有编辑入口。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">7</span> 源码模式矩形块选（列块选）</div>
+<div class="card-desc">
+<p class="no-indent">按住 <code>Alt</code> 拖拽在源码中选择任意 1~N 列矩形区域，按逐字符像素精确识别与高亮选中字符（CJK 汉字、制表符不错位），支持复制 / 剪切 / 删除 / 输入替换 / 粘贴，均可撤销。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">8</span> 语义内容上色 <span class="tag reg">注册</span></div>
+<div class="card-desc">
+<p class="no-indent">对白、数字、英文、自定义词库分类着色，可一键开关；仅作用于显示层，绝不修改 Markdown 源码。大文件仅对自定义词库着色以保性能。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">9</span> 自动化工具 <span class="tag reg">注册</span></div>
+<div class="card-desc">
+<p class="no-indent">标题自动编号、标题级别上升 / 下降（每次 1 级）、序列强调加粗、删除空行内容；作用于工作缓冲区，不直接写盘。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">10</span> 查找替换与多编码兼容</div>
+<div class="card-desc">
+<p class="no-indent"><span class="shortcut">Ctrl+F</span> 文档内查找 / 替换，全部匹配高亮 + 当前项强调、N/M 计数、单个 / 全部替换；自动识别 UTF-8 / GBK / Big5 / Shift_JIS / EUC-KR 等编码；本机相对路径图片与 Windows 盘符绝对路径图片均正确显示。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">11</span> 导出矩阵</div>
+<div class="card-desc">
+<table>
+<tr><th>导出类型</th><th>是否免费</th></tr>
+<tr><td>HTML（自包含，内联着色 CSS）</td><td><span class="tag free">免费</span></td></tr>
+<tr><td>PDF（矢量 A4，先插大纲页）</td><td><span class="tag free">免费</span></td></tr>
+<tr><td>Word（DOCX，内嵌本地图片）</td><td><span class="tag free">免费</span></td></tr>
+<tr><td>长图 PNG</td><td><span class="tag reg">注册</span></td></tr>
+<tr><td>图片 / 表格(xlsx) / 代码 / 链接附件</td><td><span class="tag reg">注册</span></td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag">12</span> 安全与隐私</div>
+<div class="card-desc">
+<p class="no-indent">渲染后 HTML 经 DOMPurify 清理并套用严格 CSP，打开不可信文件也不执行恶意脚本；深色 / 浅色主题跟随系统；外部链接以默认浏览器打开；在线检查更新（关于 → 更新）。</p>
+</div>
+</div>
+
+<!-- ══════════════════ 五、下载安装 ══════════════════ -->
+<h2 id="download">五、下载安装</h2>
+
+<div class="card">
+<div class="card-title">系统要求</div>
+<div class="card-desc">
+<ul>
+<li>操作系统：Windows 10 / 11（64 位）</li>
+<li>运行环境：基于 Tauri 构建，使用系统内建 WebView（WebView2）</li>
+<li>磁盘空间：至少 50 MB 可用空间</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">安装步骤</div>
+<div class="card-desc">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text">点击下方「下载 Windows 64位」按钮获取安装包。</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text">运行安装程序，安装版会自动注册 <code>.md</code> / <code>.markdown</code> / <code>.txt</code> 文件关联（双击即可打开）。</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text">启动软件，双击任意的 <code>.md</code> 文件即可快速阅读与编辑。</div>
+</div>
+</div>
+</div>
+
+<div class="warn">
+<b>安全提示</b>：本软件为开源作品，exe 尚未经过代码签名，Windows Defender 或 SmartScreen 偶尔会误报为「潜在不需要的程序（PUA）」。这是误报而非恶意程序，推荐优先下载安装版，误报几率通常更低。
+</div>
+
+<a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
+    <i class="fas fa-download"></i>
+    <span>下载 Windows 64位</span>
+</a>
+
+<!-- ══════════════════ 六、更新日志 ══════════════════ -->
+<h2 id="updates">六、更新日志</h2>
+<table>
+<thead><tr><th>版本</th><th>更新内容</th></tr></thead>
+<tbody>
+<tr><td>v1.7.4</td><td>新增源码模式矩形块选（Alt 拖拽列选，逐字符像素精确捕获）；实时模式多选一键序列；自动化工具新增删除空行内容与序列强调加粗；修复源码模式内容跳动与源码不可见；标题栏实时显示当前文档名；新增在线更新机制</td></tr>
+<tr><td>v1.7.3</td><td>启动页全新设计；新增 ==高亮== 语法；文件浏览器「仅MD/TXT」筛选与切换目录；实时模式点击公式/链接/图片弹出编辑面板；支持代码文件只读打开；工具栏全彩 emoji 升级；关于对话框在线检查更新</td></tr>
+<tr><td>v1.7.2</td><td>实时模式表格编辑强化（角落聚合菜单 + 四边边界插入条）；修复脚注渲染错位；新增 KaTeX 公式渲染；新增导出附件功能；设置新增保存导出默认目录</td></tr>
+<tr><td>v1.7.1</td><td>新增导出 Word（DOCX）与 PDF；三种模式切换以顶部内容为锚点不跳转；标题级别调整拆分为上升/下降</td></tr>
+<tr><td>v1.7.0</td><td>双击打开大文件显著提速；多标签页对所有用户开放；内置手写字体免费可用；注册内容收敛为内容上色与自动化工具两项</td></tr>
+<tr><td>v1.6.0</td><td>自动编号/标题级别调整可选是否纳入文档标题；未注册用户可查看文档标签栏</td></tr>
+<tr><td>v1.5.0</td><td>新增内置手写字体；关于弹窗内帮助/更新；新建空白 Markdown 文档；内容上色支持每类独立开关</td></tr>
+<tr><td>v1.0.0</td><td>首个正式版本：Markdown 阅读、编辑、三模式切换、大纲导航、导出自包含 HTML、快捷键与多语言界面</td></tr>
+</tbody>
+</table>
+
+<!-- ══════════════════ 七、快捷键 ══════════════════ -->
+<h2 id="shortcuts">七、快捷键</h2>
+<table>
+<thead><tr><th>快捷键</th><th>功能</th></tr></thead>
+<tbody>
+<tr><td>Ctrl+O</td><td>打开文件</td></tr>
+<tr><td>Ctrl+S</td><td>保存</td></tr>
+<tr><td>Ctrl+F</td><td>文档内查找 / 替换</td></tr>
+<tr><td>Ctrl+B</td><td>切换文件浏览器</td></tr>
+<tr><td>Ctrl+\</td><td>切换大纲侧栏</td></tr>
+<tr><td>Ctrl+E</td><td>切换 阅读 / 实时 模式</td></tr>
+<tr><td>Ctrl+Z / Ctrl+Y</td><td>撤销 / 恢复</td></tr>
+<tr><td>Ctrl++ / Ctrl+-</td><td>字体放大 / 缩小</td></tr>
+<tr><td>Alt+= / Alt+Shift+=</td><td>插入行内 / 块级公式</td></tr>
+<tr><td>Alt 拖拽（源码模式）</td><td>矩形块选（列块选）</td></tr>
+<tr><td>Esc</td><td>关闭弹窗</td></tr>
+</tbody>
+</table>
+
+<!-- ══════════════════ 八、常见问题 ══════════════════ -->
+<h2 id="faq">八、常见问题</h2>
+
+<div class="card">
+<div class="card-title">Q：需要联网才能使用吗？</div>
+<div class="card-desc">A：完全不需要。DMLens 全部离线运行，无云端、无遥测，文件与数据都在本机。</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：杀毒软件误报怎么办？</div>
+<div class="card-desc">A：本软件为开源作品，exe 未经过代码签名，Windows Defender 或 SmartScreen 偶尔会将其误判为「潜在不需要的程序」。可在通知中按「允许 / 还原」，或到「Windows 安全中心 → 病毒与威胁防护 → 保护历史记录」还原。推荐优先使用安装版，误报几率更低。</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：双击 .md 文件没有直接打开？</div>
+<div class="card-desc">A：请使用「安装版」安装，它会自动注册 <code>.md</code> / <code>.markdown</code> / <code>.txt</code> 文件关联；若为绿色版，请先手动打开文件或右键「打开方式」选择本程序。</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：哪些功能需要注册？</div>
+<div class="card-desc">A：HTML / PDF / DOCX 导出免费。内容上色、自动化工具、长图 PNG、图片 / 表格 / 代码 / 链接附件导出需注册。</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：支持哪些编码和图片路径？</div>
+<div class="card-desc">A：自动识别 UTF-8 / GBK / Big5 / Shift_JIS / EUC-KR 等编码；支持 <code>![](images/x.png)</code> 相对路径和 Windows 盘符绝对路径图片，均正确显示。</div>
+</div>
+
+<div class="card">
+<div class="card-title">Q：能不能打开代码文件？</div>
+<div class="card-desc">A：在「设置 → 文件支持」开启后，可直接以语法高亮代码块只读打开 <code>.py/.js/.ts/.java/.c/.cpp/.go/.rs/.sql/.json/.yaml/.html/.css/.sh</code> 等文件，源文件不被修改。</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+<p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: MToolsService | 邮箱: <a href="mailto:kanlorone@163.com">kanlorone@163.com</a></p>
+</div>
+</div>
+
+</body>
+</html>
