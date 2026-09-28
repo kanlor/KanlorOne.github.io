@@ -1,203 +1,215 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="千洛智一 KanlorOne 注册方法：注册入口、离线激活、在线激活、两台在线授权、授权升级的办理步骤与常见问题。">
-<meta name="keywords" content="千洛智一,KanlorOne,注册方法,离线激活,在线激活,两台在线授权,授权升级">
-<meta property="og:title" content="注册方法 | 千洛智一 KanlorOne">
-<meta property="og:description" content="离线激活 / 在线激活 / 两台在线授权 / 授权升级的办理步骤">
-<meta property="og:type" content="website">
-<title>注册方法 | 千洛智一 KanlorOne</title>
-<link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-:root {
-    --brand: #ff3b00;
-    --ink: #20242a;
-    --muted: #667085;
-    --line: #e8eaed;
-    --bg: #f7f8fa;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 24px; }
-body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; }
-img { max-width: 100%; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="千洛智一 KanlorOne 注册方法：注册入口、离线激活、在线激活、两台在线授权、授权升级的办理步骤与常见问题。">
+    <meta name="keywords" content="千洛智一,KanlorOne,注册方法,离线激活,在线激活,两台在线授权,授权升级">
+    <meta property="og:title" content="注册方法 | 千洛智一 KanlorOne">
+    <meta property="og:description" content="离线激活 / 在线激活 / 两台在线授权 / 授权升级的办理步骤">
+    <meta property="og:type" content="website">
+    <title>注册方法 | 千洛智一 KanlorOne</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
 
-/* 左侧固定栏 */
-.sidebar {
-    position: fixed; left: 0; top: 0; bottom: 0;
-    width: 280px;
-    background: #fff;
-    border-right: 1px solid var(--line);
-    overflow-y: auto;
-    padding: 24px 20px;
-    z-index: 10;
-}
-.sidebar .back-home {
-    display: flex; align-items: center; gap: 8px;
-    padding: 10px 14px;
-    background: var(--brand); color: #fff;
-    border-radius: 10px; text-decoration: none;
-    margin-bottom: 20px;
-    font-size: 14px; font-weight: 500;
-    transition: background 0.2s;
-}
-.sidebar .back-home:hover { background: #cc3000; }
-.sidebar .page-identity {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--line);
-}
-.sidebar .page-identity .mark { font-size: 34px; line-height: 1; }
-.sidebar .page-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 6px; }
-.sidebar .page-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
-.sidebar .toc-title {
-    font-size: 12px; font-weight: bold;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-}
-.sidebar nav.toc a {
-    display: block;
-    padding: 7px 10px;
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 14px;
-    border-radius: 6px;
-    transition: all 0.15s;
-}
-.sidebar nav.toc a:hover { background: #fff5f2; color: var(--brand); }
-.sidebar .wechat-box {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line);
-    text-align: center;
-}
-.sidebar .wechat-box .qr-row { display: flex; justify-content: center; gap: 12px; }
-.sidebar .wechat-box .qr-item { flex: 1; min-width: 0; }
-.sidebar .wechat-box .qr-item img { width: 100%; max-width: 100px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-.sidebar .wechat-box .qr-item .tip { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; }
+        .logo-font { font-family: 'Space Grotesk', sans-serif; }
+        .hero-bg { background: linear-gradient(135deg, #FF3B00 0%, #E63900 100%); }
+        .accent-color { color: #FF3B00; }
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 
-/* 右侧主内容区 */
-.main-content {
-    margin-left: 280px;
-    max-width: 1060px;
-    padding: 30px 32px 60px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 20px; font-weight: 700; }
-h2 { font-size: 20px; margin: 34px 0 14px; padding-left: 12px; border-left: 4px solid var(--brand); }
-h3 { font-size: 16px; margin: 22px 0 8px; padding-left: 10px; border-left: 3px solid #ffb9a3; }
-p { margin: 10px 0; }
-ul, ol { padding-left: 24px; margin: 8px 0; }
-li { margin: 5px 0; }
-b { color: #111; }
-code { background: #f1f2f6; padding: 2px 6px; border-radius: 4px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: #d63031; }
+        /* ===== 正文卡片流（与首页同一套圆角 / 边框 / 色系）===== */
+        .doc-card {
+            background: #fff;
+            border: 1px solid #f3f4f6;
+            border-radius: 24px;
+            padding: 32px 34px;
+            margin-bottom: 26px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .doc h2 {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 21px; font-weight: 600; color: #111827;
+            margin: 0 0 18px;
+        }
+        .doc h2 .idx {
+            flex: 0 0 auto; width: 30px; height: 30px; border-radius: 9px;
+            background: #FF3B00; color: #fff;
+            font-size: 13px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .doc h3 {
+            font-size: 16px; font-weight: 600; color: #1f2937;
+            margin: 26px 0 10px; padding-left: 10px;
+            border-left: 3px solid #ffb9a3;
+        }
+        .doc h3:first-child { margin-top: 6px; }
+        .doc p { margin: 10px 0; color: #374151; }
+        .doc ul, .doc ol { margin: 10px 0; padding-left: 22px; color: #374151; }
+        .doc ul { list-style: disc; }
+        .doc ol { list-style: decimal; }
+        .doc li { margin: 6px 0; }
+        .doc li::marker { color: #ffb9a3; }
+        .doc b { color: #111827; font-weight: 600; }
+        .doc code {
+            background: #f3f4f6; padding: 2px 6px; border-radius: 4px;
+            font-family: Consolas, Monaco, monospace; font-size: 13px; color: #d63031;
+        }
+        .doc a.link { color: #FF3B00; text-decoration: none; }
+        .doc a.link:hover { text-decoration: underline; }
+        .doc .lead { font-size: 15px; color: #6b7280; }
 
-.lead { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
-.stamp {
-    display: inline-block; margin: 6px 0 4px;
-    background: #fff5f2; color: var(--brand);
-    border: 1px solid #ffd9cc; border-radius: 20px;
-    padding: 3px 12px; font-size: 13px;
-}
+        /* 目录卡 */
+        .toc-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px; border-radius: 12px;
+            background: #f9fafb; border: 1px solid #f3f4f6;
+            font-size: 14px; color: #374151;
+            text-decoration: none; transition: all 0.15s;
+        }
+        .toc-item:hover { background: #fff5f2; border-color: #ffd9cc; color: #FF3B00; }
+        .toc-num {
+            flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+            background: #fff; border: 1px solid #e5e7eb; color: #9ca3af;
+            font-size: 11px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .toc-item:hover .toc-num { border-color: #ffd9cc; color: #FF3B00; }
+        .toc-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* 表格 */
-.table-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
-table.price { width: 100%; border-collapse: collapse; font-size: 14px; }
-table.price th, table.price td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
-table.price thead th { background: var(--brand); color: #fff; font-weight: 600; border-bottom: none; }
-table.price thead th:first-child { border-top-left-radius: 11px; }
-table.price thead th:last-child { border-top-right-radius: 11px; }
-table.price tbody tr:nth-child(even) { background: #fcfcfd; }
-table.price tbody tr:hover { background: #fff7f4; }
-table.price tbody tr:last-child td { border-bottom: none; }
+        /* 表格 */
+        .table-wrap {
+            overflow-x: auto; margin: 18px 0;
+            border: 1px solid #e8eaed; border-radius: 12px; background: #fff;
+        }
+        table.price { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table.price th, table.price td {
+            padding: 12px 14px; text-align: left;
+            border-bottom: 1px solid #e8eaed;
+        }
+        table.price.wide { min-width: 860px; }
+        table.price.wide th, table.price.wide td { white-space: nowrap; }
+        table.price thead th { background: #FF3B00; color: #fff; font-weight: 600; border-bottom: none; }
+        table.price thead th:first-child { border-top-left-radius: 11px; }
+        table.price thead th:last-child { border-top-right-radius: 11px; }
+        table.price tbody tr:nth-child(even) { background: #fcfcfd; }
+        table.price tbody tr:hover { background: #fff7f4; }
+        table.price tbody tr:last-child td { border-bottom: none; }
+        table.price td.num { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+        table.price td.pid { font-family: Consolas, Monaco, monospace; font-size: 12.5px; color: #6b7280; }
+        table.price td.pname a { color: #20242a; text-decoration: none; border-bottom: 1px dashed #c9ced6; }
+        table.price td.pname a:hover { color: #FF3B00; border-bottom-color: #FF3B00; }
+        table.price td.na { text-align: right; color: #b0b6be; font-weight: 500; }
+        .unit { font-size: 13px; color: #6b7280; }
 
-.tip, .note, .warn {
-    padding: 12px 16px; border-radius: 8px; margin: 14px 0;
-    font-size: 14px; line-height: 1.75;
-}
-.tip { background: #E8F5E9; border-left: 4px solid #00B894; }
-.note { background: #FFF8E1; border-left: 4px solid #FDCB6E; }
-.warn { background: #FFF3E0; border-left: 4px solid #E17055; }
-.badge {
-    display: inline-block; padding: 2px 9px; border-radius: 10px;
-    font-size: 12px; font-weight: 600; white-space: nowrap;
-}
-.badge-info { background: #D1ECF1; color: #0C5460; }
-.badge-purple { background: #E2D6F5; color: #5B2C8E; }
-.badge-gray { background: #E9ECEF; color: #495057; }
-a.link { color: var(--brand); text-decoration: none; }
-a.link:hover { text-decoration: underline; }
+        /* 提示块 */
+        .tip, .note, .warn {
+            padding: 14px 18px; border-radius: 12px; margin: 16px 0;
+            font-size: 14px; line-height: 1.75;
+        }
+        .tip { background: #E8F5E9; border-left: 4px solid #00B894; }
+        .note { background: #FFF8E1; border-left: 4px solid #FDCB6E; }
+        .warn { background: #FFF3E0; border-left: 4px solid #E17055; }
 
-/* 步骤列表 */
-ol.steps { padding-left: 22px; }
-ol.steps > li { margin: 9px 0; }
+        /* 标签 */
+        .badge {
+            display: inline-block; padding: 2px 9px; border-radius: 10px;
+            font-size: 12px; font-weight: 600; white-space: nowrap;
+        }
+        .badge-info { background: #D1ECF1; color: #0C5460; }
+        .badge-purple { background: #E2D6F5; color: #5B2C8E; }
+        .badge-gray { background: #E9ECEF; color: #495057; }
 
-.page-footer {
-    margin-left: 280px;
-    max-width: 1060px;
-    padding: 0 32px 50px;
-    color: var(--muted);
-    font-size: 13px;
-}
+        .stamp {
+            display: inline-block; margin: 0;
+            background: #fff5f2; color: #FF3B00;
+            border: 1px solid #ffd9cc; border-radius: 20px;
+            padding: 3px 12px; font-size: 13px;
+        }
 
-@media (max-width: 900px) {
-    .sidebar { position: static; width: auto; border-right: none; border-bottom: 1px solid var(--line); }
-    .main-content, .page-footer { margin-left: 0; max-width: none; padding: 20px 16px 40px; }
-    h1 { font-size: 22px; }
-}
-</style>
+        @media (max-width: 640px) {
+            .doc-card { padding: 22px 18px; border-radius: 18px; }
+            .doc h2 { font-size: 19px; }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
-<!-- 左侧固定栏 -->
-<aside class="sidebar">
-    <a href="../index.html" class="back-home" title="返回首页">
-        <i class="fas fa-arrow-left"></i> 返回首页
-    </a>
-    <div class="page-identity">
-        <div class="mark">🔑</div>
-        <div class="name">注册方法</div>
-        <div class="nameCn">注册入口 · 办理步骤 · 常见问题</div>
-    </div>
-    <div class="toc-title">目录</div>
-    <nav class="toc">
-        <a href="#where">一、注册入口在哪</a>
-        <a href="#offline">二、离线激活</a>
-        <a href="#online">三、在线激活</a>
-        <a href="#family">四、两台在线授权</a>
-        <a href="#upgrade">五、授权升级</a>
-        <a href="#faq">六、常见问题</a>
-        <a href="#contact">七、联系方式</a>
-    </nav>
-    <div class="wechat-box">
-        <div class="qr-row">
-            <div class="qr-item">
-                <img src="../assets/wechat.png" alt="微信二维码">
-                <div class="tip">扫码添加微信</div>
-            </div>
-            <div class="qr-item">
-                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
-                <div class="tip">关注公众号</div>
+    <!-- ==================== Header（与首页同款）==================== -->
+    <header id="top" class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-3 group" title="返回首页">
+                <img src="../assets/logo.png" alt="千洛智一 KanlorOne" class="h-10 w-auto">
+                <span class="logo-font text-3xl font-semibold tracking-tighter text-gray-900 group-hover:text-orange-600 transition-colors">KanlorOne</span>
+                <span class="text-lg font-semibold text-gray-400 tracking-wide border-l border-gray-200 pl-3">千洛智一</span>
+            </a>
+            <nav class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="../index.html" class="hover:text-orange-600 transition-colors">首页</a>
+                <a href="../index.html#products" class="hover:text-orange-600 transition-colors">产品</a>
+                <a href="../price.html" class="hover:text-orange-600 transition-colors">价格</a>
+                <a href="../index.html#help" class="text-orange-600">帮助</a>
+                <a href="../index.html#contact" class="hover:text-orange-600 transition-colors">联系我们</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-orange-600 transition-colors" aria-label="切换菜单" aria-expanded="false" aria-controls="mobile-menu">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <nav id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4 space-y-4">
+            <a href="../index.html" class="block text-sm font-medium hover:text-orange-600 transition-colors">首页</a>
+            <a href="../index.html#products" class="block text-sm font-medium hover:text-orange-600 transition-colors">产品</a>
+            <a href="../price.html" class="block text-sm font-medium hover:text-orange-600 transition-colors">价格</a>
+            <a href="../index.html#help" class="block text-sm font-medium text-orange-600">帮助</a>
+            <a href="../index.html#contact" class="block text-sm font-medium hover:text-orange-600 transition-colors">联系我们</a>
+        </nav>
+    </header>
+
+    <!-- ==================== 页头 ==================== -->
+    <section class="hero-bg text-white py-12 md:py-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <nav class="text-sm text-orange-100 mb-5 flex items-center gap-2 flex-wrap" aria-label="当前位置">
+                <a href="../index.html" class="hover:text-white transition-colors"><i class="fas fa-home mr-1"></i>首页</a>
+                <i class="fas fa-angle-right text-xs" style="opacity:.7"></i>
+                <span class="text-white">注册方法</span>
+            </nav>
+            <h1 class="text-4xl md:text-5xl font-semibold tracking-tighter mb-4">注册方法</h1>
+            <p class="text-lg text-orange-50 max-w-3xl leading-relaxed">离线激活 / 在线激活 / 两台在线授权 / 授权升级的办理步骤。软件内不再内嵌本说明，一律以本页为准。</p>
+            <div class="mt-7 flex flex-wrap gap-3">
+                <a href="../price.html" class="px-6 py-3 rounded-xl bg-white/15 border border-white/40 text-white font-medium hover:bg-white/25 transition-colors">价格表 <i class="fas fa-angle-right ml-1 text-xs"></i></a>
+                <a href="benefits.html" class="px-6 py-3 rounded-xl bg-white/15 border border-white/40 text-white font-medium hover:bg-white/25 transition-colors">权益说明 <i class="fas fa-angle-right ml-1 text-xs"></i></a>
+                <a href="../index.html" class="px-6 py-3 rounded-xl bg-white text-orange-600 font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105">返回首页</a>
             </div>
         </div>
-    </div>
-</aside>
+    </section>
 
-<!-- 右侧主内容 -->
-<div class="main-content">
-<h1>注册方法</h1>
-<p class="lead">离线激活 / 在线激活 / 两台在线授权 / 授权升级的办理步骤。软件内不再内嵌本说明，一律以本页为准。</p>
+    <!-- ==================== 正文 ==================== -->
+    <main class="max-w-5xl mx-auto px-6 py-12 md:py-16 doc">
 
-<!-- ══════════════════ 一、注册入口在哪 ══════════════════ -->
-<h2 id="where">一、注册入口在哪</h2>
-<p>主窗口右上角点<b>「注册」</b>（开始试用或注册完成后，该入口显示为<b>「关于」</b>），即可打开注册 / 关于窗口。</p>
+        <!-- 本页目录 -->
+        <nav class="doc-card" aria-label="本页目录">
+            <div class="flex items-center justify-between gap-4 mb-5 flex-wrap">
+                <span class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                    <i class="fas fa-list-ul accent-color"></i> 本页目录
+                </span>
+                
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                    <a href="#where" class="toc-item"><span class="toc-num">一</span><span class="toc-text">注册入口在哪</span></a>
+                    <a href="#offline" class="toc-item"><span class="toc-num">二</span><span class="toc-text">离线激活（单机注册）</span></a>
+                    <a href="#online" class="toc-item"><span class="toc-num">三</span><span class="toc-text">在线激活（单机注册）</span></a>
+                    <a href="#family" class="toc-item"><span class="toc-num">四</span><span class="toc-text">两台在线授权（2 台终身）</span></a>
+                    <a href="#upgrade" class="toc-item"><span class="toc-num">五</span><span class="toc-text">授权升级（老授权 → 现行 2 台终身）</span></a>
+                    <a href="#faq" class="toc-item"><span class="toc-num">六</span><span class="toc-text">常见问题</span></a>
+                    <a href="#contact" class="toc-item"><span class="toc-num">七</span><span class="toc-text">联系方式</span></a>
+            </div>
+        </nav>
+
+        <section id="where" class="doc-card">
+            <h2><span class="idx">一</span>注册入口在哪</h2>
+            <p>主窗口右上角点<b>「注册」</b>（开始试用或注册完成后，该入口显示为<b>「关于」</b>），即可打开注册 / 关于窗口。</p>
 <p>窗口内分三个页签，并在底部提供一排通用入口：</p>
 <ul>
     <li><b>单台离线/在线激活</b>：办理单机注册的两种方式都在这一页</li>
@@ -211,8 +223,11 @@ ol.steps > li { margin: 9px 0; }
 </div>
 
 <!-- ══════════════════ 二、离线激活 ══════════════════ -->
-<h2 id="offline">二、离线激活（单机注册）</h2>
-<p>适合不想联网、或想直接把申请码发给客服办理的用户。全程不需要登录账号。</p>
+        </section>
+
+        <section id="offline" class="doc-card">
+            <h2><span class="idx">二</span>离线激活（单机注册）</h2>
+            <p>适合不想联网、或想直接把申请码发给客服办理的用户。全程不需要登录账号。</p>
 <ol class="steps">
     <li>在「单台离线/在线激活」页签点<b>「复制申请信息」</b>，申请码（本机设备身份）与联系方式会整串复制到剪贴板，供填单时直接粘贴。</li>
     <li><b>某宝下单付款</b>后，用手机扫「购买须知/官方信息」页的<b>离线申请</b>码，打开收集单填单：订单号 ＋ 邮箱 ＋ 本机设备身份（复制申请信息后直接粘贴）。</li>
@@ -228,8 +243,11 @@ ol.steps > li { margin: 9px 0; }
 <span class="badge badge-info">单机已注册</span>。</p>
 
 <!-- ══════════════════ 三、在线激活 ══════════════════ -->
-<h2 id="online">三、在线激活（单机注册）</h2>
-<p>同样办单机注册，但免去扫码填单：<b>某宝下单付款</b>后直接在软件内提交订单号即可。</p>
+        </section>
+
+        <section id="online" class="doc-card">
+            <h2><span class="idx">三</span>在线激活（单机注册）</h2>
+            <p>同样办单机注册，但免去扫码填单：<b>某宝下单付款</b>后直接在软件内提交订单号即可。</p>
 <ol class="steps">
     <li><b>某宝下单付款</b>，复制订单号（从某宝 App「我的订单」详情里复制）。</li>
     <li>在「单台离线/在线激活」页签点<b>「单台在线激活申请」</b>，填入订单号与接收授权码的邮箱，提交。</li>
@@ -250,8 +268,11 @@ ol.steps > li { margin: 9px 0; }
 </div>
 
 <!-- ══════════════════ 四、两台在线授权 ══════════════════ -->
-<h2 id="family">四、两台在线授权（2 台终身）</h2>
-<p>适合要在两台电脑上使用、或需要换机的用户。以账号为中心，一次办理、多机可用。</p>
+        </section>
+
+        <section id="family" class="doc-card">
+            <h2><span class="idx">四</span>两台在线授权（2 台终身）</h2>
+            <p>适合要在两台电脑上使用、或需要换机的用户。以账号为中心，一次办理、多机可用。</p>
 <ol class="steps">
     <li>在「两台在线授权/升级」页签用<b>邮箱验证码登录</b>（首次登录自动注册账号）。</li>
     <li>登录后软件会自动登记本机并尝试拉取授权；已付款的也可先点<b>「两台在线授权申请」</b>提交订单号。</li>
@@ -271,8 +292,11 @@ ol.steps > li { margin: 9px 0; }
 </div>
 
 <!-- ══════════════════ 五、授权升级 ══════════════════ -->
-<h2 id="upgrade">五、授权升级（老授权 → 现行 2 台终身）</h2>
-<p>已经办理过授权的用户，都可按自己的情况<b>补差价升级到现行 2 台终身在线授权</b>
+        </section>
+
+        <section id="upgrade" class="doc-card">
+            <h2><span class="idx">五</span>授权升级（老授权 → 现行 2 台终身）</h2>
+            <p>已经办理过授权的用户，都可按自己的情况<b>补差价升级到现行 2 台终身在线授权</b>
 权益（2 台、终身、可换机）。按当初办理的档位分两种情形，<b>走的是同一个入口、同一套流程</b>。</p>
 
 <div class="table-wrap">
@@ -317,9 +341,11 @@ ol.steps > li { margin: 9px 0; }
 </div>
 
 <!-- ══════════════════ 六、常见问题 ══════════════════ -->
-<h2 id="faq">六、常见问题</h2>
+        </section>
 
-<h3>换电脑后原来的授权还能用吗？</h3>
+        <section id="faq" class="doc-card">
+            <h2><span class="idx">六</span>常见问题</h2>
+            <h3>换电脑后原来的授权还能用吗？</h3>
 <ul>
     <li>单机注册：不能，授权码绑定原机硬件信息。新机需重新办理，或按「授权升级」升到在线授权获得可换机能力。</li>
     <li>在线授权：可以，新机登录同一账号、解绑旧机、拉取授权即可。</li>
@@ -344,18 +370,68 @@ ol.steps > li { margin: 9px 0; }
 <p>不会。软件数据保存在本机用户目录，试用到期只是把专业版功能暂时置灰，注册后立即恢复。</p>
 
 <!-- ══════════════════ 七、联系方式 ══════════════════ -->
-<h2 id="contact">七、联系方式</h2>
-<ul>
+        </section>
+
+        <section id="contact" class="doc-card">
+            <h2><span class="idx">七</span>联系方式</h2>
+            <ul>
     <li>客服微信：MToolsService</li>
     <li>客服邮箱：kanlorone@163.com</li>
     <li>官网：<a class="link" href="../index.html">kanlorone.com</a>（价格、下载、更新说明均在此）</li>
 </ul>
 <p>相关文档：《<a class="link" href="benefits.html">权益说明</a>》—— 本文档《注册方法》。</p>
-</div>
+        </section>
 
-<div class="page-footer">
-    注册方法 · &copy; 2026 千洛智一 KanlorOne. All Rights Reserved.
-</div>
+        <!-- 页尾导航 -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mt-10 pt-8 border-t border-gray-200">
+            <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-orange-600 transition-colors">
+                <i class="fas fa-arrow-left text-xs"></i> 返回首页
+            </a>
+            <div class="flex items-center gap-6 text-sm">
+                <a href="../price.html" class="text-gray-600 hover:text-orange-600 transition-colors">价格表</a>
+                <a href="../help/benefits.html" class="text-gray-600 hover:text-orange-600 transition-colors">权益说明</a>
+                <a href="../help/register_guide.html" class="text-gray-600 hover:text-orange-600 transition-colors">注册方法</a>
+                <a href="#top" class="text-gray-400 hover:text-orange-600 transition-colors"><i class="fas fa-arrow-up text-xs mr-1"></i>回到顶部</a>
+            </div>
+        </div>
 
+    </main>
+
+    <!-- ==================== Footer（与首页同款）==================== -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <a href="../index.html" class="flex items-center gap-3" title="返回首页">
+                    <img src="../assets/logo.png" alt="千洛智一 KanlorOne" class="h-8 w-auto brightness-75">
+                    <span class="logo-font text-2xl font-semibold tracking-tighter text-white">KanlorOne</span>
+                    <span class="text-base text-gray-400">千洛智一</span>
+                </a>
+                <div class="flex flex-wrap justify-center gap-6 text-sm">
+                    <a href="../index.html" class="hover:text-white transition-colors">首页</a>
+                    <a href="../price.html" class="hover:text-white transition-colors">价格表</a>
+                    <a href="../help/benefits.html" class="hover:text-white transition-colors">权益说明</a>
+                    <a href="../help/register_guide.html" class="hover:text-white transition-colors">注册方法</a>
+                </div>
+                <div class="text-sm">&copy; 2026 千洛智一 KanlorOne. All Rights Reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            var menu = document.getElementById('mobile-menu');
+            var isHidden = menu.classList.toggle('hidden');
+            this.setAttribute('aria-expanded', String(!isHidden));
+            this.querySelector('i').className = isHidden ? 'fas fa-bars text-2xl' : 'fas fa-times text-2xl';
+        });
+        document.querySelectorAll('#mobile-menu a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                document.getElementById('mobile-menu').classList.add('hidden');
+                var btn = document.getElementById('mobile-menu-btn');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.querySelector('i').className = 'fas fa-bars text-2xl';
+            });
+        });
+    </script>
 </body>
 </html>
