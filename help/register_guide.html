@@ -3,291 +3,358 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>注册方法</title>
+<meta name="description" content="千洛智一 KanlorOne 注册方法：注册入口、离线激活、在线激活、两台在线授权、授权升级的办理步骤与常见问题。">
+<meta name="keywords" content="千洛智一,KanlorOne,注册方法,离线激活,在线激活,两台在线授权,授权升级">
+<meta property="og:title" content="注册方法 | 千洛智一 KanlorOne">
+<meta property="og:description" content="离线激活 / 在线激活 / 两台在线授权 / 授权升级的办理步骤">
+<meta property="og:type" content="website">
+<title>注册方法 | 千洛智一 KanlorOne</title>
+<link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-    :root {
-        --primary: #0984E3;
-        --success: #00B894;
-        --warning: #FDCB6E;
-        --danger: #D63031;
-        --purple: #6C5CE7;
-        --orange: #E17055;
-        --bg: #F5F6FA;
-        --card: #FFFFFF;
-        --text: #2D3436;
-        --muted: #636E72;
-        --muted-2: #999999;
-        --border: #DFE6E9;
-        --code-bg: #F1F2F6;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-        font-family: "Microsoft YaHei", "Segoe UI", -apple-system, sans-serif;
-        background: var(--bg); color: var(--text); line-height: 1.8;
-    }
-    .header {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--success) 100%);
-        color: #fff; padding: 44px 20px; text-align: center;
-        box-shadow: 0 4px 20px rgba(9, 132, 227, .25);
-    }
-    .header h1 { font-size: 32px; letter-spacing: 1px; margin-bottom: 8px; }
-    .header .version {
-        display: inline-block; background: rgba(255,255,255,.2);
-        padding: 4px 14px; border-radius: 20px; font-size: 13px; margin-top: 4px;
-    }
-    .header .tagline { font-size: 15px; margin-top: 14px; opacity: .95; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
-    .toc {
-        background: var(--card); border-radius: 12px; padding: 18px 24px;
-        margin-bottom: 22px; border: 1px solid var(--border);
-        box-shadow: 0 2px 12px rgba(0,0,0,.05);
-    }
-    .toc h3 { border: none; padding: 0; margin-bottom: 10px; color: var(--primary); font-size: 15px; }
-    .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
-    .toc a {
-        color: var(--muted); text-decoration: none; padding: 6px 10px;
-        border-radius: 4px; display: block; font-size: 13px; transition: all .2s;
-    }
-    .toc a:hover { background: var(--bg); color: var(--primary); padding-left: 14px; }
-    .section {
-        background: var(--card); border-radius: 12px; padding: 28px;
-        margin-bottom: 22px; border: 1px solid var(--border);
-        box-shadow: 0 2px 12px rgba(0,0,0,.05);
-    }
-    .section h2 {
-        font-size: 20px; color: var(--primary); border-bottom: 2px solid var(--border);
-        padding-bottom: 12px; margin-bottom: 18px;
-    }
-    .section h3 {
-        font-size: 16px; color: var(--text); margin: 20px 0 10px;
-        padding-left: 10px; border-left: 3px solid var(--primary);
-    }
-    .section h3:first-of-type { margin-top: 4px; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
-    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-    th { background: var(--bg); font-weight: 600; }
-    tr:hover td { background: #FAFBFC; }
-    code {
-        background: var(--code-bg); padding: 2px 7px; border-radius: 4px;
-        font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--danger);
-    }
-    .note, .tip, .warn {
-        padding: 12px 16px; border-radius: 6px; margin: 12px 0;
-        font-size: 14px; line-height: 1.75;
-    }
-    .note { background: #FFF8E1; border-left: 4px solid var(--warning); }
-    .tip { background: #E8F5E9; border-left: 4px solid var(--success); }
-    .warn { background: #FFF3E0; border-left: 4px solid var(--orange); }
-    ul, ol { padding-left: 24px; margin: 8px 0; }
-    li { margin: 5px 0; }
-    .steps { padding-left: 22px; }
-    .steps > li { margin: 9px 0; }
-    .badge {
-        display: inline-block; padding: 2px 8px; border-radius: 10px;
-        font-size: 12px; font-weight: 600; margin: 0 2px; white-space: nowrap;
-    }
-    .badge-info { background: #D1ECF1; color: #0C5460; }
-    .badge-purple { background: #E2D6F5; color: #5B2C8E; }
-    .kv { font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--primary); }
-    a.link { color: var(--primary); text-decoration: none; }
-    a.link:hover { text-decoration: underline; }
-    .footer { text-align: center; padding: 28px 20px; color: var(--muted-2); font-size: 13px; }
-    @media (max-width: 640px) {
-        .header h1 { font-size: 23px; }
-        .section { padding: 18px; }
-        .container { padding: 14px; }
-        th, td { padding: 8px; font-size: 13px; }
-    }
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; }
+img { max-width: 100%; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .page-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .page-identity .mark { font-size: 34px; line-height: 1; }
+.sidebar .page-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 6px; }
+.sidebar .page-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover { background: #fff5f2; color: var(--brand); }
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row { display: flex; justify-content: center; gap: 12px; }
+.sidebar .wechat-box .qr-item { flex: 1; min-width: 0; }
+.sidebar .wechat-box .qr-item img { width: 100%; max-width: 100px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.sidebar .wechat-box .qr-item .tip { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 1060px;
+    padding: 30px 32px 60px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 20px; font-weight: 700; }
+h2 { font-size: 20px; margin: 34px 0 14px; padding-left: 12px; border-left: 4px solid var(--brand); }
+h3 { font-size: 16px; margin: 22px 0 8px; padding-left: 10px; border-left: 3px solid #ffb9a3; }
+p { margin: 10px 0; }
+ul, ol { padding-left: 24px; margin: 8px 0; }
+li { margin: 5px 0; }
+b { color: #111; }
+code { background: #f1f2f6; padding: 2px 6px; border-radius: 4px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: #d63031; }
+
+.lead { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
+.stamp {
+    display: inline-block; margin: 6px 0 4px;
+    background: #fff5f2; color: var(--brand);
+    border: 1px solid #ffd9cc; border-radius: 20px;
+    padding: 3px 12px; font-size: 13px;
+}
+
+/* 表格 */
+.table-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+table.price { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.price th, table.price td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.price thead th { background: var(--brand); color: #fff; font-weight: 600; border-bottom: none; }
+table.price thead th:first-child { border-top-left-radius: 11px; }
+table.price thead th:last-child { border-top-right-radius: 11px; }
+table.price tbody tr:nth-child(even) { background: #fcfcfd; }
+table.price tbody tr:hover { background: #fff7f4; }
+table.price tbody tr:last-child td { border-bottom: none; }
+
+.tip, .note, .warn {
+    padding: 12px 16px; border-radius: 8px; margin: 14px 0;
+    font-size: 14px; line-height: 1.75;
+}
+.tip { background: #E8F5E9; border-left: 4px solid #00B894; }
+.note { background: #FFF8E1; border-left: 4px solid #FDCB6E; }
+.warn { background: #FFF3E0; border-left: 4px solid #E17055; }
+.badge {
+    display: inline-block; padding: 2px 9px; border-radius: 10px;
+    font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.badge-info { background: #D1ECF1; color: #0C5460; }
+.badge-purple { background: #E2D6F5; color: #5B2C8E; }
+.badge-gray { background: #E9ECEF; color: #495057; }
+a.link { color: var(--brand); text-decoration: none; }
+a.link:hover { text-decoration: underline; }
+
+/* 步骤列表 */
+ol.steps { padding-left: 22px; }
+ol.steps > li { margin: 9px 0; }
+
+.page-footer {
+    margin-left: 280px;
+    max-width: 1060px;
+    padding: 0 32px 50px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .sidebar { position: static; width: auto; border-right: none; border-bottom: 1px solid var(--line); }
+    .main-content, .page-footer { margin-left: 0; max-width: none; padding: 20px 16px 40px; }
+    h1 { font-size: 22px; }
+}
 </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>注册方法</h1>
-    <div class="version">注册与激活办理指引 &copy; 2026 Kanlor</div>
-    <div class="tagline">注册入口 &middot; 各方式办理步骤 &middot; 常见问题</div>
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="page-identity">
+        <div class="mark">🔑</div>
+        <div class="name">注册方法</div>
+        <div class="nameCn">注册入口 · 办理步骤 · 常见问题</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#where">一、注册入口在哪</a>
+        <a href="#offline">二、离线激活</a>
+        <a href="#online">三、在线激活</a>
+        <a href="#family">四、两台在线授权</a>
+        <a href="#upgrade">五、授权升级</a>
+        <a href="#faq">六、常见问题</a>
+        <a href="#contact">七、联系方式</a>
+    </nav>
+    <div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>注册方法</h1>
+<p class="lead">离线激活 / 在线激活 / 两台在线授权 / 授权升级的办理步骤。软件内不再内嵌本说明，一律以本页为准。</p>
+
+<!-- ══════════════════ 一、注册入口在哪 ══════════════════ -->
+<h2 id="where">一、注册入口在哪</h2>
+<p>主窗口右上角点<b>「注册」</b>（开始试用或注册完成后，该入口显示为<b>「关于」</b>），即可打开注册 / 关于窗口。</p>
+<p>窗口内分三个页签，并在底部提供一排通用入口：</p>
+<ul>
+    <li><b>单台离线/在线激活</b>：办理单机注册的两种方式都在这一页</li>
+    <li><b>两台在线授权/升级</b>：办理 2 台终身在线授权与授权升级</li>
+    <li><b>购买须知/官方信息</b>：购买、申请、反馈、客服、官网五个二维码</li>
+    <li><b>窗口底部</b>：查看价格、权益说明、注册方法三个入口</li>
+</ul>
+<div class="note">
+本窗口只负责「办理与激活」，不摆放说明书。价格在<a class="link" href="../price.html">官网价格表</a>查看，
+权益与办理方法即《<a class="link" href="benefits.html">权益说明</a>》与本文档，由窗口底部按钮一键打开。
 </div>
 
-<div class="container">
+<!-- ══════════════════ 二、离线激活 ══════════════════ -->
+<h2 id="offline">二、离线激活（单机注册）</h2>
+<p>适合不想联网、或想直接把申请码发给客服办理的用户。全程不需要登录账号。</p>
+<ol class="steps">
+    <li>在「单台离线/在线激活」页签点<b>「复制申请信息」</b>，申请码（本机设备身份）与联系方式会整串复制到剪贴板，供填单时直接粘贴。</li>
+    <li><b>某宝下单付款</b>后，用手机扫「购买须知/官方信息」页的<b>离线申请</b>码，打开收集单填单：订单号 ＋ 邮箱 ＋ 本机设备身份（复制申请信息后直接粘贴）。</li>
+    <li>卖家核对订单后，授权码发送到你填写的邮箱。</li>
+    <li>回到「单台离线/在线激活」页签，把授权码粘贴到输入框，点<b>「激活」</b>。</li>
+</ol>
+<div class="warn">
+<b>申请码请复制后直接粘贴，不要手抄。</b>它由本机硬件信息生成，换机器会变化；
+先点「复制申请信息」把整串申请码放进剪贴板，手机填单时先发到自己的
+微信（文件传输助手）再粘贴。手抄容易断行或改错字符，会导致签出的授权码在本机激活不通过。
+</div>
+<p>激活成功后全部功能即时解锁，<b>无需重启软件</b>，状态显示为
+<span class="badge badge-info">单机已注册</span>。</p>
 
-    <div class="toc">
-        <h3>快速导航</h3>
-        <div class="toc-grid">
-            <a href="#where">一、注册入口在哪</a>
-            <a href="#offline">二、离线激活（单机注册）</a>
-            <a href="#online">三、在线激活（单机注册）</a>
-            <a href="#family">四、两台在线授权</a>
-            <a href="#upgrade">五、授权升级</a>
-            <a href="#faq">六、常见问题</a>
-            <a href="#contact">七、联系方式</a>
-        </div>
-    </div>
-
-    <div class="section" id="where">
-        <h2>一、注册入口在哪</h2>
-        <p>主窗口右上角点<strong>「注册」</strong>（开始试用或注册完成后，该入口显示为<strong>「关于」</strong>），即可打开注册 / 关于窗口。</p>
-        <p>窗口内分三个页签，并在底部提供一排通用入口：</p>
-        <ul>
-            <li><strong>单台离线/在线激活</strong>：办理单机注册的两种方式都在这一页</li>
-            <li><strong>两台在线授权/升级</strong>：办理 2 台终身在线授权与授权升级</li>
-            <li><strong>购买须知/官方信息</strong>：购买、申请、反馈、客服、官网五个二维码</li>
-            <li><strong>窗口底部</strong>：查看价格、权益说明、注册方法三个入口</li>
-        </ul>
-        <div class="note">
-            本窗口只负责「办理与激活」，不摆放说明书。价格在官网查看，
-            权益与本方法即《权益说明》与本文档，由窗口底部按钮一键打开。
-        </div>
-    </div>
-
-    <div class="section" id="offline">
-        <h2>二、离线激活（单机注册）</h2>
-        <p>适合不想联网、或想直接把申请码发给客服办理的用户。全程不需要登录账号。</p>
-        <ol class="steps">
-            <li>在「单台离线/在线激活」页签点<strong>「复制申请信息」</strong>，申请码（本机设备身份）与联系方式会整串复制到剪贴板，供填单时直接粘贴。</li>
-            <li><strong>某宝下单付款</strong>后，用手机扫「购买须知/官方信息」页的<strong>离线申请</strong>码，打开收集单填单：
-                订单号 ＋ 邮箱 ＋ 本机设备身份（复制申请信息后直接粘贴）。</li>
-            <li>卖家核对订单后，授权码发送到你填写的邮箱。</li>
-            <li>回到「单台离线/在线激活」页签，把授权码粘贴到输入框，点<strong>「激活」</strong>。</li>
-        </ol>
-        <div class="warn">
-            <strong>申请码请复制后直接粘贴，不要手抄。</strong>它由本机硬件信息生成，换机器会变化；
-            先点「复制申请信息」把整串申请码放进剪贴板，手机填单时先发到自己的
-            微信（文件传输助手）再粘贴。手抄容易断行或改错字符，
-            会导致签出的授权码在本机激活不通过。
-        </div>
-        <p>激活成功后全部功能即时解锁，<strong>无需重启软件</strong>，状态显示为
-            <span class="badge badge-info">单机已注册</span>。</p>
-    </div>
-
-    <div class="section" id="online">
-        <h2>三、在线激活（单机注册）</h2>
-        <p>同样办单机注册，但免去扫码填单：<strong>某宝下单付款</strong>后直接在软件内提交订单号即可。</p>
-        <ol class="steps">
-            <li><strong>某宝下单付款</strong>，复制订单号（从某宝 App「我的订单」详情里复制）。</li>
-            <li>在「单台离线/在线激活」页签点<strong>「单台在线激活申请」</strong>，填入订单号与接收授权码的邮箱，提交。</li>
-            <li>卖家核对后，授权码自动发送到该邮箱。</li>
-            <li>在<strong>「两台在线授权/升级」</strong>页签用收码邮箱登录，登录成功后点<strong>「拉取授权 / 刷新设备」</strong>，自动完成激活。</li>
-        </ol>
-        <div class="tip">
-            提交时会一并把本机设备身份带上，卖家据此签出「在本机可直接激活」的授权码，
-            因此<strong>不需要</strong>再手工抄写申请码。
-        </div>
-        <div class="note">
-            不想登录账号也可以：按邮件提示把授权码粘贴到「单台离线/在线激活」页签的
-            输入框，点<strong>「激活」</strong>，结果与自动激活完全一样。
-        </div>
-        <div class="note">
-            断网时软件内提交不了：对话框会自动展开<strong>离线申请</strong>二维码与本机设备身份，
-            改用手机填单即可，两条通道最终都通过邮箱收码。
-        </div>
-    </div>
-
-    <div class="section" id="family">
-        <h2>四、两台在线授权（2 台终身）</h2>
-        <p>适合要在两台电脑上使用、或需要换机的用户。以账号为中心，一次办理、多机可用。</p>
-        <ol class="steps">
-            <li>在「两台在线授权/升级」页签用<strong>邮箱验证码登录</strong>（首次登录自动注册账号）。</li>
-            <li>登录后软件会自动登记本机并尝试拉取授权；已付款的也可先点<strong>「两台在线授权申请」</strong>提交订单号。</li>
-            <li>卖家核对订单后，回本页点<strong>「拉取授权 / 刷新设备」</strong>，授权即时生效，状态显示为
-                <span class="badge badge-purple">在线已授权</span>，当场解锁全部功能（<strong>无需重启软件</strong>）。</li>
-        </ol>
-        <h3>更换电脑</h3>
-        <ol class="steps">
-            <li>新电脑安装软件，用<strong>同一账号</strong>登录。</li>
-            <li>点<strong>「设备管理（查看 / 解绑 / 换机）」</strong>，解绑旧电脑。</li>
-            <li>回本页点<strong>「拉取授权 / 刷新设备」</strong>，新机即可使用。</li>
-        </ol>
-        <div class="warn">
-            新设备绑定后 <strong>7 天</strong>内为绑定冷静期，期间不可自助解绑；
-            同一设备 <strong>90 天</strong>内限自助解绑 1 次。这是为了保障账号与设备不被他人随意转移。
-        </div>
-    </div>
-
-    <div class="section" id="upgrade">
-        <h2>五、授权升级（老授权 → 现行 2 台终身）</h2>
-        <p>已经办理过授权的用户，都可按自己的情况<strong>补差价升级到现行 2 台终身在线授权</strong>
-            权益（2 台、终身、可换机）。按当初办理的档位分两种情形，<strong>走的是同一个入口、同一套流程</strong>。</p>
-        <table>
-            <tr>
-                <th style="width:30%">你的情况</th>
-                <th style="width:30%">升级目标</th>
-                <th>补差价</th>
-            </tr>
-            <tr>
-                <td><span class="badge badge-info">已购单机注册</span><br>（当年单台买断）</td>
-                <td>现行 2 台终身在线授权</td>
-                <td>单台价与 2 台终身价的差额，金额以官网公布为准</td>
-            </tr>
-            <tr>
-                <td><span class="badge badge-info">已购 2 台终身</span><br>（当年两台买断）</td>
-                <td>现行 2 台终身在线授权</td>
-                <td>两台买断价与现行价的差额，金额以官网公布为准</td>
-            </tr>
-        </table>
-
-        <h3>办理步骤（两种情形相同）</h3>
-        <ol class="steps">
-            <li>先到官网核对当期补差价金额（两种情形的金额不同，见上表）。</li>
-            <li>在<strong>某宝下单付款</strong>补差价。</li>
-            <li>打开「两台在线授权/升级」页签，点<strong>「两台在线升级申请」</strong>，填写补差价订单号与邮箱并提交
-                （原购买订单号<strong>选填</strong>：只有原购买未关联到当前账号的历史订单才需填写）。</li>
-            <li>卖家核对后，后续流程与在线授权一致：用收码邮箱登录后点<strong>「拉取授权 / 刷新设备」</strong>，即完成激活。</li>
-        </ol>
-        <div class="tip">
-            <strong>已购 2 台终身（当年两台买断）的用户：</strong>不必另找入口，同样在
-            「两台在线授权/升级」页签点「两台在线升级申请」提交即可。升级后与现行
-            2 台终身在线授权完全一致 —— 设备管理、换机、后续版本免费升级全部可用。
-        </div>
-        <div class="note">
-            <strong>升级时限：</strong>须在最后一台注册成功（激活）之日起 180 天（半年）内办理，
-            逾期升级通道关闭。
-        </div>
-    </div>
-
-    <div class="section" id="faq">
-        <h2>六、常见问题</h2>
-
-        <h3>换电脑后原来的授权还能用吗？</h3>
-        <ul>
-            <li>单机注册：不能，授权码绑定原机硬件信息。新机需重新办理，或按「授权升级」升到在线授权获得可换机能力。</li>
-            <li>在线授权：可以，新机登录同一账号、解绑旧机、拉取授权即可。</li>
-        </ul>
-
-        <h3>激活后需要重启软件吗？</h3>
-        <p>不需要。授权在激活瞬间即时生效，受限入口即刻解锁。</p>
-
-        <h3>重装系统要重新注册吗？</h3>
-        <p>单机注册：授权码绑定本机硬件指纹（取自 CPU 序列号），重装系统、清理系统都不会改变指纹，授权照旧；只有更换 CPU 这类会改变指纹的部件才需重新办理。在线授权：用同一账号登录后点「拉取授权 / 刷新设备」即恢复。</p>
-
-        <h3>点了「关于 / 注册」没有反应？</h3>
-        <p>窗口是独立进程，可能已被其它窗口遮挡。同一时刻只允许打开一个注册 / 关于窗口，重复点击会把已有窗口拉到前台。若仍无反应，请重启软件再试。</p>
-
-        <h3>离线能激活吗？</h3>
-        <p>能。离线激活通道全程不需要联网，授权码验签在本机完成，之后离线也能正常使用。</p>
-
-        <h3>软件里为什么看不到价格了？</h3>
-        <p>价格统一在官网公布，软件内只提供跳转入口。这样调整价格无需更新软件，也不会出现「软件与官网价格不一致」的情况。</p>
-
-        <h3>试用到期后数据会丢吗？</h3>
-        <p>不会。软件数据保存在本机用户目录，试用到期只是把专业版功能暂时置灰，注册后立即恢复。</p>
-    </div>
-
-    <div class="section" id="contact">
-        <h2>七、联系方式</h2>
-        <ul>
-            <li>客服微信：MToolsService</li>
-            <li>客服邮箱：kanlorone@163.com</li>
-            <li>官网：<a class="link" href="https://kanlorone.com">kanlorone.com</a>
-                （价格、下载、更新说明均在此）</li>
-        </ul>
-        <p>相关文档：《权益说明》（同目录）—— 本文档《注册方法》。</p>
-    </div>
-
+<!-- ══════════════════ 三、在线激活 ══════════════════ -->
+<h2 id="online">三、在线激活（单机注册）</h2>
+<p>同样办单机注册，但免去扫码填单：<b>某宝下单付款</b>后直接在软件内提交订单号即可。</p>
+<ol class="steps">
+    <li><b>某宝下单付款</b>，复制订单号（从某宝 App「我的订单」详情里复制）。</li>
+    <li>在「单台离线/在线激活」页签点<b>「单台在线激活申请」</b>，填入订单号与接收授权码的邮箱，提交。</li>
+    <li>卖家核对后，授权码自动发送到该邮箱。</li>
+    <li>在<b>「两台在线授权/升级」</b>页签用收码邮箱登录，登录成功后点<b>「拉取授权 / 刷新设备」</b>，自动完成激活。</li>
+</ol>
+<div class="tip">
+提交时会一并把本机设备身份带上，卖家据此签出「在本机可直接激活」的授权码，
+因此<b>不需要</b>再手工抄写申请码。
+</div>
+<div class="note">
+不想登录账号也可以：按邮件提示把授权码粘贴到「单台离线/在线激活」页签的
+输入框，点<b>「激活」</b>，结果与自动激活完全一样。
+</div>
+<div class="note">
+断网时软件内提交不了：对话框会自动展开<b>离线申请</b>二维码与本机设备身份，
+改用手机填单即可，两条通道最终都通过邮箱收码。
 </div>
 
-<div class="footer">
-    注册方法 &middot; &copy; 2026 Kanlor
+<!-- ══════════════════ 四、两台在线授权 ══════════════════ -->
+<h2 id="family">四、两台在线授权（2 台终身）</h2>
+<p>适合要在两台电脑上使用、或需要换机的用户。以账号为中心，一次办理、多机可用。</p>
+<ol class="steps">
+    <li>在「两台在线授权/升级」页签用<b>邮箱验证码登录</b>（首次登录自动注册账号）。</li>
+    <li>登录后软件会自动登记本机并尝试拉取授权；已付款的也可先点<b>「两台在线授权申请」</b>提交订单号。</li>
+    <li>卖家核对订单后，回本页点<b>「拉取授权 / 刷新设备」</b>，授权即时生效，状态显示为
+        <span class="badge badge-purple">在线已授权</span>，当场解锁全部功能（<b>无需重启软件</b>）。</li>
+</ol>
+
+<h3>更换电脑</h3>
+<ol class="steps">
+    <li>新电脑安装软件，用<b>同一账号</b>登录。</li>
+    <li>点<b>「设备管理（查看 / 解绑 / 换机）」</b>，解绑旧电脑。</li>
+    <li>回本页点<b>「拉取授权 / 刷新设备」</b>，新机即可使用。</li>
+</ol>
+<div class="warn">
+新设备绑定后 <b>7 天</b>内为绑定冷静期，期间不可自助解绑；
+同一设备 <b>90 天</b>内限自助解绑 1 次。这是为了保障账号与设备不被他人随意转移。
+</div>
+
+<!-- ══════════════════ 五、授权升级 ══════════════════ -->
+<h2 id="upgrade">五、授权升级（老授权 → 现行 2 台终身）</h2>
+<p>已经办理过授权的用户，都可按自己的情况<b>补差价升级到现行 2 台终身在线授权</b>
+权益（2 台、终身、可换机）。按当初办理的档位分两种情形，<b>走的是同一个入口、同一套流程</b>。</p>
+
+<div class="table-wrap">
+<table class="price">
+    <thead>
+        <tr>
+            <th style="width:28%">你的情况</th>
+            <th style="width:26%">升级目标</th>
+            <th>补差价</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="badge badge-info">已购单机注册</span><br>（当年单台买断）</td>
+            <td>现行 2 台终身在线授权</td>
+            <td>单台价与 2 台终身价的差额，金额以<a class="link" href="../price.html">官网价格表</a>公布为准</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-info">已购 2 台终身</span><br>（当年两台买断）</td>
+            <td>现行 2 台终身在线授权</td>
+            <td>两台买断价与现行价的差额，金额以<a class="link" href="../price.html">官网价格表</a>公布为准</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<h3>办理步骤（两种情形相同）</h3>
+<ol class="steps">
+    <li>先到<a class="link" href="../price.html">官网价格表</a>核对当期补差价金额（两种情形的金额不同，见上表）。</li>
+    <li>在<b>某宝下单付款</b>补差价。</li>
+    <li>打开「两台在线授权/升级」页签，点<b>「两台在线升级申请」</b>，填写补差价订单号与邮箱并提交
+        （原购买订单号<b>选填</b>：只有原购买未关联到当前账号的历史订单才需填写）。</li>
+    <li>卖家核对后，后续流程与在线授权一致：用收码邮箱登录后点<b>「拉取授权 / 刷新设备」</b>，即完成激活。</li>
+</ol>
+<div class="tip">
+<b>已购 2 台终身（当年两台买断）的用户：</b>不必另找入口，同样在
+「两台在线授权/升级」页签点「两台在线升级申请」提交即可。升级后与现行
+2 台终身在线授权完全一致 —— 设备管理、换机、后续版本免费升级全部可用。
+</div>
+<div class="note">
+<b>升级时限：</b>须在最后一台注册成功（激活）之日起 180 天（半年）内办理，逾期升级通道关闭。
+</div>
+
+<!-- ══════════════════ 六、常见问题 ══════════════════ -->
+<h2 id="faq">六、常见问题</h2>
+
+<h3>换电脑后原来的授权还能用吗？</h3>
+<ul>
+    <li>单机注册：不能，授权码绑定原机硬件信息。新机需重新办理，或按「授权升级」升到在线授权获得可换机能力。</li>
+    <li>在线授权：可以，新机登录同一账号、解绑旧机、拉取授权即可。</li>
+</ul>
+
+<h3>激活后需要重启软件吗？</h3>
+<p>不需要。授权在激活瞬间即时生效，受限入口即刻解锁。</p>
+
+<h3>重装系统要重新注册吗？</h3>
+<p>单机注册：授权码绑定本机硬件指纹（取自 CPU 序列号），重装系统、清理系统都不会改变指纹，授权照旧；只有更换 CPU 这类会改变指纹的部件才需重新办理。在线授权：用同一账号登录后点「拉取授权 / 刷新设备」即恢复。</p>
+
+<h3>点了「关于 / 注册」没有反应？</h3>
+<p>窗口是独立进程，可能已被其它窗口遮挡。同一时刻只允许打开一个注册 / 关于窗口，重复点击会把已有窗口拉到前台。若仍无反应，请重启软件再试。</p>
+
+<h3>离线能激活吗？</h3>
+<p>能。离线激活通道全程不需要联网，授权码验签在本机完成，之后离线也能正常使用。</p>
+
+<h3>软件里为什么看不到价格了？</h3>
+<p>价格统一在<a class="link" href="../price.html">官网价格表</a>公布，软件内只提供跳转入口。这样调整价格无需更新软件，也不会出现「软件与官网价格不一致」的情况。</p>
+
+<h3>试用到期后数据会丢吗？</h3>
+<p>不会。软件数据保存在本机用户目录，试用到期只是把专业版功能暂时置灰，注册后立即恢复。</p>
+
+<!-- ══════════════════ 七、联系方式 ══════════════════ -->
+<h2 id="contact">七、联系方式</h2>
+<ul>
+    <li>客服微信：MToolsService</li>
+    <li>客服邮箱：kanlorone@163.com</li>
+    <li>官网：<a class="link" href="../index.html">kanlorone.com</a>（价格、下载、更新说明均在此）</li>
+</ul>
+<p>相关文档：《<a class="link" href="benefits.html">权益说明</a>》—— 本文档《注册方法》。</p>
+</div>
+
+<div class="page-footer">
+    注册方法 · &copy; 2026 千洛智一 KanlorOne. All Rights Reserved.
 </div>
 
 </body>

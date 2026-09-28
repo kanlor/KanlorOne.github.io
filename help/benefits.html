@@ -3,280 +3,373 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>权益说明</title>
+<meta name="description" content="千洛智一 KanlorOne 权益说明：授权档位一览、各档权益对照、免费版与专业版、免费试用、注册状态、设备与换机规则。">
+<meta name="keywords" content="千洛智一,KanlorOne,权益说明,授权档位,单机注册,在线授权,免费试用,换机规则">
+<meta property="og:title" content="权益说明 | 千洛智一 KanlorOne">
+<meta property="og:description" content="授权档位、各档权益对照、试用与设备换机规则，以本页为准">
+<meta property="og:type" content="website">
+<title>权益说明 | 千洛智一 KanlorOne</title>
+<link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-    :root {
-        --primary: #0984E3;
-        --success: #00B894;
-        --warning: #FDCB6E;
-        --danger: #D63031;
-        --purple: #6C5CE7;
-        --orange: #E17055;
-        --bg: #F5F6FA;
-        --card: #FFFFFF;
-        --text: #2D3436;
-        --muted: #636E72;
-        --muted-2: #999999;
-        --border: #DFE6E9;
-        --code-bg: #F1F2F6;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-        font-family: "Microsoft YaHei", "Segoe UI", -apple-system, sans-serif;
-        background: var(--bg); color: var(--text); line-height: 1.8;
-    }
-    .header {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
-        color: #fff; padding: 44px 20px; text-align: center;
-        box-shadow: 0 4px 20px rgba(9, 132, 227, .25);
-    }
-    .header h1 { font-size: 32px; letter-spacing: 1px; margin-bottom: 8px; }
-    .header .version {
-        display: inline-block; background: rgba(255,255,255,.2);
-        padding: 4px 14px; border-radius: 20px; font-size: 13px; margin-top: 4px;
-    }
-    .header .tagline { font-size: 15px; margin-top: 14px; opacity: .95; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
-    .toc {
-        background: var(--card); border-radius: 12px; padding: 18px 24px;
-        margin-bottom: 22px; border: 1px solid var(--border);
-        box-shadow: 0 2px 12px rgba(0,0,0,.05);
-    }
-    .toc h3 { border: none; padding: 0; margin-bottom: 10px; color: var(--primary); font-size: 15px; }
-    .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
-    .toc a {
-        color: var(--muted); text-decoration: none; padding: 6px 10px;
-        border-radius: 4px; display: block; font-size: 13px; transition: all .2s;
-    }
-    .toc a:hover { background: var(--bg); color: var(--primary); padding-left: 14px; }
-    .section {
-        background: var(--card); border-radius: 12px; padding: 28px;
-        margin-bottom: 22px; border: 1px solid var(--border);
-        box-shadow: 0 2px 12px rgba(0,0,0,.05);
-    }
-    .section h2 {
-        font-size: 20px; color: var(--primary); border-bottom: 2px solid var(--border);
-        padding-bottom: 12px; margin-bottom: 18px;
-    }
-    .section h3 {
-        font-size: 16px; color: var(--text); margin: 20px 0 10px;
-        padding-left: 10px; border-left: 3px solid var(--primary);
-    }
-    .section h3:first-of-type { margin-top: 4px; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
-    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-    th { background: var(--bg); font-weight: 600; }
-    tr:hover td { background: #FAFBFC; }
-    code {
-        background: var(--code-bg); padding: 2px 7px; border-radius: 4px;
-        font-family: Consolas, Monaco, monospace; font-size: 13px; color: var(--danger);
-    }
-    .note, .tip, .warn {
-        padding: 12px 16px; border-radius: 6px; margin: 12px 0;
-        font-size: 14px; line-height: 1.75;
-    }
-    .note { background: #FFF8E1; border-left: 4px solid var(--warning); }
-    .tip { background: #E8F5E9; border-left: 4px solid var(--success); }
-    .warn { background: #FFF3E0; border-left: 4px solid var(--orange); }
-    ul, ol { padding-left: 24px; margin: 8px 0; }
-    li { margin: 5px 0; }
-    .badge {
-        display: inline-block; padding: 2px 8px; border-radius: 10px;
-        font-size: 12px; font-weight: 600; margin: 0 2px; white-space: nowrap;
-    }
-    .badge-free { background: #D4EDDA; color: #155724; }
-    .badge-vip { background: #FDE2E2; color: #A61B1B; }
-    .badge-info { background: #D1ECF1; color: #0C5460; }
-    .badge-purple { background: #E2D6F5; color: #5B2C8E; }
-    a.link { color: var(--primary); text-decoration: none; }
-    a.link:hover { text-decoration: underline; }
-    .footer { text-align: center; padding: 28px 20px; color: var(--muted-2); font-size: 13px; }
-    @media (max-width: 640px) {
-        .header h1 { font-size: 23px; }
-        .section { padding: 18px; }
-        .container { padding: 14px; }
-        th, td { padding: 8px; font-size: 13px; }
-    }
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; }
+img { max-width: 100%; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .page-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .page-identity .mark { font-size: 34px; line-height: 1; }
+.sidebar .page-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 6px; }
+.sidebar .page-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover { background: #fff5f2; color: var(--brand); }
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row { display: flex; justify-content: center; gap: 12px; }
+.sidebar .wechat-box .qr-item { flex: 1; min-width: 0; }
+.sidebar .wechat-box .qr-item img { width: 100%; max-width: 100px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.sidebar .wechat-box .qr-item .tip { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 1060px;
+    padding: 30px 32px 60px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 20px; font-weight: 700; }
+h2 { font-size: 20px; margin: 34px 0 14px; padding-left: 12px; border-left: 4px solid var(--brand); }
+h3 { font-size: 16px; margin: 22px 0 8px; padding-left: 10px; border-left: 3px solid #ffb9a3; }
+p { margin: 10px 0; }
+ul, ol { padding-left: 24px; margin: 8px 0; }
+li { margin: 5px 0; }
+b { color: #111; }
+code { background: #f1f2f6; padding: 2px 6px; border-radius: 4px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: #d63031; }
+
+.lead { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
+.stamp {
+    display: inline-block; margin: 6px 0 4px;
+    background: #fff5f2; color: var(--brand);
+    border: 1px solid #ffd9cc; border-radius: 20px;
+    padding: 3px 12px; font-size: 13px;
+}
+
+/* 表格 */
+.table-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+table.price { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.price th, table.price td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.price thead th { background: var(--brand); color: #fff; font-weight: 600; border-bottom: none; }
+table.price thead th:first-child { border-top-left-radius: 11px; }
+table.price thead th:last-child { border-top-right-radius: 11px; }
+table.price tbody tr:nth-child(even) { background: #fcfcfd; }
+table.price tbody tr:hover { background: #fff7f4; }
+table.price tbody tr:last-child td { border-bottom: none; }
+
+.tip, .note, .warn {
+    padding: 12px 16px; border-radius: 8px; margin: 14px 0;
+    font-size: 14px; line-height: 1.75;
+}
+.tip { background: #E8F5E9; border-left: 4px solid #00B894; }
+.note { background: #FFF8E1; border-left: 4px solid #FDCB6E; }
+.warn { background: #FFF3E0; border-left: 4px solid #E17055; }
+.badge {
+    display: inline-block; padding: 2px 9px; border-radius: 10px;
+    font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.badge-info { background: #D1ECF1; color: #0C5460; }
+.badge-purple { background: #E2D6F5; color: #5B2C8E; }
+.badge-gray { background: #E9ECEF; color: #495057; }
+a.link { color: var(--brand); text-decoration: none; }
+a.link:hover { text-decoration: underline; }
+
+/* 步骤列表 */
+ol.steps { padding-left: 22px; }
+ol.steps > li { margin: 9px 0; }
+
+.page-footer {
+    margin-left: 280px;
+    max-width: 1060px;
+    padding: 0 32px 50px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .sidebar { position: static; width: auto; border-right: none; border-bottom: 1px solid var(--line); }
+    .main-content, .page-footer { margin-left: 0; max-width: none; padding: 20px 16px 40px; }
+    h1 { font-size: 22px; }
+}
 </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>权益说明</h1>
-    <div class="version">授权档位与功能权益 &copy; 2026 Kanlor</div>
-    <div class="tagline">授权档位 &middot; 功能权益 &middot; 设备与换机规则</div>
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="page-identity">
+        <div class="mark">🎫</div>
+        <div class="name">权益说明</div>
+        <div class="nameCn">授权档位 · 功能权益 · 换机规则</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#tiers">一、授权档位一览</a>
+        <a href="#compare">二、各档权益对照</a>
+        <a href="#feature">三、免费版与专业版</a>
+        <a href="#trial">四、免费试用</a>
+        <a href="#status">五、注册状态说明</a>
+        <a href="#device">六、设备与换机规则</a>
+        <a href="#price">七、价格与购买</a>
+        <a href="#contact">八、联系方式</a>
+    </nav>
+    <div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>权益说明</h1>
+<p class="lead">授权档位、各档权益对照、试用与设备换机规则。软件内不显示这些内容，一律以本页为准。</p>
+
+<!-- ══════════════════ 一、授权档位一览 ══════════════════ -->
+<h2 id="tiers">一、授权档位一览</h2>
+<p>本软件提供两种授权档位，二者权益不同、互不通用。按自己的使用场景选一种即可。</p>
+
+<div class="table-wrap">
+<table class="price">
+    <thead>
+        <tr>
+            <th style="width:22%">档位</th>
+            <th style="width:18%">设备数</th>
+            <th style="width:22%">有效期</th>
+            <th>适合谁</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="badge badge-info">单机注册</span><br>（离线激活 / 在线激活）</td>
+            <td>1 台，绑定本机</td>
+            <td>永久有效，支持后续版本免费升级</td>
+            <td>只用一台电脑、不需要在设备间切换的用户</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-purple">在线授权</span><br>（2 台终身）</td>
+            <td>最多 2 台，绑定账号</td>
+            <td>终身使用，支持换机</td>
+            <td>同时用两台电脑，或需要换新机的用户</td>
+        </tr>
+    </tbody>
+</table>
 </div>
 
-<div class="container">
-
-    <div class="toc">
-        <h3>快速导航</h3>
-        <div class="toc-grid">
-            <a href="#tiers">一、授权档位一览</a>
-            <a href="#compare">二、各档权益对照</a>
-            <a href="#feature">三、免费版与专业版</a>
-            <a href="#trial">四、免费试用</a>
-            <a href="#status">五、注册状态说明</a>
-            <a href="#device">六、设备与换机规则</a>
-            <a href="#price">七、价格与购买</a>
-            <a href="#contact">八、联系方式</a>
-        </div>
-    </div>
-
-    <div class="section" id="tiers">
-        <h2>一、授权档位一览</h2>
-        <p>本软件提供两种授权档位，二者权益不同、互不通用。按自己的使用场景选一种即可。</p>
-        <table>
-            <tr>
-                <th style="width:22%">档位</th>
-                <th style="width:18%">设备数</th>
-                <th style="width:22%">有效期</th>
-                <th>适合谁</th>
-            </tr>
-            <tr>
-                <td><span class="badge badge-info">单机注册</span><br>（离线激活 / 在线激活）</td>
-                <td>1 台，绑定本机</td>
-                <td>永久有效，支持后续版本免费升级</td>
-                <td>只用一台电脑、不需要在设备间切换的用户</td>
-            </tr>
-            <tr>
-                <td><span class="badge badge-purple">在线授权</span><br>（2 台终身）</td>
-                <td>最多 2 台，绑定账号</td>
-                <td>终身使用，支持换机</td>
-                <td>同时用两台电脑，或需要换新机的用户</td>
-            </tr>
-        </table>
-        <div class="note">
-            <strong>激活渠道不影响权益。</strong>单机注册的「离线激活」与「在线激活」只是办理方式不同，
-            授权码效力完全一致（都绑定本机、都永久有效、都能免费升级），两种办法的软件内状态都显示为
-            <span class="badge badge-info">单机已注册</span>。
-        </div>
-    </div>
-
-    <div class="section" id="compare">
-        <h2>二、各档权益对照</h2>
-        <table>
-            <tr>
-                <th style="width:26%">权益项</th>
-                <th style="width:37%">单机注册</th>
-                <th style="width:37%">在线授权（2 台终身）</th>
-            </tr>
-            <tr><td>设备数量</td><td>1 台</td><td>最多 2 台</td></tr>
-            <tr><td>绑定对象</td><td>本机硬件指纹（与账号无关）</td><td>账号（同一账号跨设备登录）</td></tr>
-            <tr><td>有效期</td><td>永久有效</td><td>终身使用</td></tr>
-            <tr><td>版本升级</td><td>后续所有版本免费升级</td><td>后续所有版本免费升级</td></tr>
-            <tr><td>更换电脑</td><td>不支持（授权随本机硬件指纹）</td><td>支持：新机登录同一账号、解绑旧机后点「拉取授权 / 刷新设备」即恢复</td></tr>
-            <tr><td>设备管理</td><td>无（单台无需管理）</td><td>可查看已绑定设备、解绑、换机</td></tr>
-            <tr><td>重装系统</td><td>授权随本机硬件指纹（取自 CPU 序列号），重装系统照旧；更换 CPU 等改变指纹的部件需重新办理</td><td>登录同一账号后点「拉取授权 / 刷新设备」即恢复</td></tr>
-            <tr><td>新设备冷静期</td><td>不适用</td><td>新设备绑定后 <strong>7 天</strong>内为冷静期，期间不可自助解绑</td></tr>
-            <tr><td>自助解绑频次</td><td>不适用</td><td>同一设备 90 天内限自助解绑 1 次</td></tr>
-        </table>
-        <div class="tip">
-            <strong>已购单台想升级？</strong>可随时办理授权升级，补齐差价后按在线授权权益执行（2 台、终身、可换机）。
-            详见《注册方法》的「授权升级」一节。
-        </div>
-    </div>
-
-    <div class="section" id="feature">
-        <h2>三、免费版与专业版</h2>
-        <p>软件分「免费版」与「专业版」两层：免费版无需注册，基础功能开箱即用；
-            专业版功能在<strong>注册之后</strong>（或试用期内）全部解锁。</p>
-
-        <h3>免费版（无需注册）</h3>
-        <ul>
-            <li>直接安装即可使用，不需要账号、不需要联网。</li>
-            <li>软件的基础功能不受限，日常轻度使用足够。</li>
-        </ul>
-
-        <h3>专业版（注册后解锁）</h3>
-        <ul>
-            <li>注册完成的那一刻即时解锁，<strong>无需重启软件</strong>。</li>
-            <li>两种授权档位都能解锁同一套专业版功能 —— 专业功能与档位无关。</li>
-            <li>具体哪些功能属于专业版，以软件内界面标识为准：未解锁时对应入口会置灰或带提示。</li>
-        </ul>
-
-        <div class="note">
-            未注册且试用已结束时，专业版功能所对应的入口会<strong>置灰不可点击</strong>，
-            基础使用流程不受影响；重新注册后即时恢复，已保存的数据不受影响。
-        </div>
-    </div>
-
-    <div class="section" id="trial">
-        <h2>四、免费试用</h2>
-        <ul>
-            <li>未注册也可先完整体验：在「关于 / 注册」窗口点击<strong>开始试用</strong>，即刻开启 7 天全功能试用。</li>
-            <li>试用期内功能全部解锁，与已注册无明显差别。</li>
-            <li>标题栏与状态行实时显示剩余天数，临近到期会有提醒。</li>
-            <li>试用到期后自动回落为免费版，<strong>已有数据与配置不会丢失</strong>，随时注册即可继续使用。</li>
-        </ul>
-        <div class="tip">
-            试用是按设备计算的：同一台电脑重装、换路径不会重新获得试用期。
-        </div>
-    </div>
-
-    <div class="section" id="status">
-        <h2>五、注册状态说明</h2>
-        <p>「关于 / 注册」窗口顶部会显示当前状态，含义如下：</p>
-        <table>
-            <tr><th style="width:30%">状态</th><th>含义</th></tr>
-            <tr><td><span class="badge badge-purple">在线已授权</span></td><td>已办理 2 台终身在线授权，且本机已绑定到账号，可用「设备管理」</td></tr>
-            <tr><td><span class="badge badge-info">单机已注册</span></td><td>已办理单机注册（离线激活或在线激活都算），绑定本机、永久有效</td></tr>
-            <tr><td><span class="badge badge-info">试用中</span></td><td>正在试用期内，剩余天数会一并显示</td></tr>
-            <tr><td><span class="badge" style="background:#FFF3CD;color:#856404">试用即将到期</span></td><td>试用剩余 3 天以内，建议尽早注册</td></tr>
-            <tr><td><span class="badge" style="background:#F8D7DA;color:#721C24">试用已结束</span></td><td>试用期已用完，回落为免费版，注册后继续使用全部功能</td></tr>
-            <tr><td><span class="badge" style="background:#E9ECEF;color:#495057">未授权</span></td><td>尚未注册也尚未试用，可先点「开始试用」体验</td></tr>
-        </table>
-        <div class="note">
-            断网时状态判定采用<strong>离线容忍</strong>策略：网络查询失败不会把已注册状态误显示为未注册。
-        </div>
-    </div>
-
-    <div class="section" id="device">
-        <h2>六、设备与换机规则</h2>
-        <h3>单机注册</h3>
-        <ul>
-            <li>授权码与本机硬件指纹绑定，无法转移到其他电脑。</li>
-            <li>在同一台电脑上重装系统，硬件指纹不变，授权照旧生效。</li>
-            <li>只有更换 CPU 这类会改变硬件指纹的部件才需重新办理。</li>
-        </ul>
-        <h3>在线授权（2 台终身）</h3>
-        <ul>
-            <li>一个账号最多绑定 2 台设备，可在「设备管理」中查看已绑定设备。</li>
-            <li>换机：新电脑登录同一账号 → 解绑旧电脑 → 点「拉取授权 / 刷新设备」即可。</li>
-            <li>新设备绑定后 7 天内为冷静期，期间不可自助解绑，用于防止账号与设备被频繁转移。</li>
-            <li>同一设备 90 天内限自助解绑 1 次，超出需联系客服处理。</li>
-        </ul>
-        <div class="warn">
-            登录 / 退出账号<strong>不影响</strong>本机已有的授权：账号只是用来管理设备与恢复授权的增益通道。
-        </div>
-    </div>
-
-    <div class="section" id="price">
-        <h2>七、价格与购买</h2>
-        <p>各档位现行价格统一在官网公布，避免出现「软件内看到的价与官网不一致」的情况。下单前请先到官网核对当期价格。</p>
-        <ul>
-            <li>查看价格：<a class="link" href="https://kanlorone.com">kanlorone.com</a></li>
-            <li>购买渠道与办理步骤：见同目录的《注册方法》</li>
-        </ul>
-        <div class="note">
-            本页不列具体金额，是有意为之：价格调整只需改官网一处，软件无需更新，也不会残留旧价。
-        </div>
-    </div>
-
-    <div class="section" id="contact">
-        <h2>八、联系方式</h2>
-        <ul>
-            <li>客服微信：MToolsService</li>
-            <li>客服邮箱：kanlorone@163.com</li>
-            <li>官网：<a class="link" href="https://kanlorone.com">kanlorone.com</a></li>
-        </ul>
-    </div>
-
+<div class="note">
+<b>激活渠道不影响权益。</b>单机注册的「离线激活」与「在线激活」只是办理方式不同，
+授权码效力完全一致（都绑定本机、都永久有效、都能免费升级），两种办法的软件内状态都显示为
+<span class="badge badge-info">单机已注册</span>。
 </div>
 
-<div class="footer">
-    权益说明 &middot; &copy; 2026 Kanlor
+<!-- ══════════════════ 二、各档权益对照 ══════════════════ -->
+<h2 id="compare">二、各档权益对照</h2>
+
+<div class="table-wrap">
+<table class="price">
+    <thead>
+        <tr>
+            <th style="width:22%">权益项</th>
+            <th style="width:39%">单机注册</th>
+            <th style="width:39%">在线授权（2 台终身）</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>设备数量</td><td>1 台</td><td>最多 2 台</td></tr>
+        <tr><td>绑定对象</td><td>本机硬件指纹（与账号无关）</td><td>账号（同一账号跨设备登录）</td></tr>
+        <tr><td>有效期</td><td>永久有效</td><td>终身使用</td></tr>
+        <tr><td>版本升级</td><td>后续所有版本免费升级</td><td>后续所有版本免费升级</td></tr>
+        <tr><td>更换电脑</td><td>不支持（授权随本机硬件指纹）</td><td>支持：新机登录同一账号、解绑旧机后点「拉取授权 / 刷新设备」即恢复</td></tr>
+        <tr><td>设备管理</td><td>无（单台无需管理）</td><td>可查看已绑定设备、解绑、换机</td></tr>
+        <tr><td>重装系统</td><td>授权随本机硬件指纹（取自 CPU 序列号），重装系统照旧；更换 CPU 等改变指纹的部件需重新办理</td><td>登录同一账号后点「拉取授权 / 刷新设备」即恢复</td></tr>
+        <tr><td>新设备冷静期</td><td>不适用</td><td>新设备绑定后 <b>7 天</b>内为冷静期，期间不可自助解绑</td></tr>
+        <tr><td>自助解绑频次</td><td>不适用</td><td>同一设备 90 天内限自助解绑 1 次</td></tr>
+    </tbody>
+</table>
+</div>
+
+<div class="tip">
+<b>已购单台想升级？</b>可随时办理授权升级，补齐差价后按在线授权权益执行（2 台、终身、可换机）。
+详见《<a class="link" href="register_guide.html">注册方法</a>》的「授权升级」一节。
+</div>
+
+<!-- ══════════════════ 三、免费版与专业版 ══════════════════ -->
+<h2 id="feature">三、免费版与专业版</h2>
+<p>软件分「免费版」与「专业版」两层：免费版无需注册，基础功能开箱即用；
+专业版功能在<b>注册之后</b>（或试用期内）全部解锁。</p>
+
+<h3>免费版（无需注册）</h3>
+<ul>
+    <li>直接安装即可使用，不需要账号、不需要联网。</li>
+    <li>软件的基础功能不受限，日常轻度使用足够。</li>
+</ul>
+
+<h3>专业版（注册后解锁）</h3>
+<ul>
+    <li>注册完成的那一刻即时解锁，<b>无需重启软件</b>。</li>
+    <li>两种授权档位都能解锁同一套专业版功能 —— 专业功能与档位无关。</li>
+    <li>具体哪些功能属于专业版，以软件内界面标识为准：未解锁时对应入口会置灰或带提示。</li>
+</ul>
+
+<div class="note">
+未注册且试用已结束时，专业版功能所对应的入口会<b>置灰不可点击</b>，
+基础使用流程不受影响；重新注册后即时恢复，已保存的数据不受影响。
+</div>
+
+<!-- ══════════════════ 四、免费试用 ══════════════════ -->
+<h2 id="trial">四、免费试用</h2>
+<ul>
+    <li>未注册也可先完整体验：在「关于 / 注册」窗口点击<b>开始试用</b>，即刻开启全功能试用。</li>
+    <li>试用期内功能全部解锁，与已注册无明显差别。</li>
+    <li>标题栏与状态行实时显示剩余天数，临近到期会有提醒。</li>
+    <li>试用到期后自动回落为免费版，<b>已有数据与配置不会丢失</b>，随时注册即可继续使用。</li>
+</ul>
+<div class="tip">
+试用是按设备计算的：同一台电脑重装、换路径不会重新获得试用期。
+是否需要试用、试用多少天，以各软件注册窗口内的提示为准。
+</div>
+
+<!-- ══════════════════ 五、注册状态说明 ══════════════════ -->
+<h2 id="status">五、注册状态说明</h2>
+<p>「关于 / 注册」窗口顶部会显示当前状态，含义如下：</p>
+
+<div class="table-wrap">
+<table class="price">
+    <thead>
+        <tr>
+            <th style="width:26%">状态</th>
+            <th>含义</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td><span class="badge badge-purple">在线已授权</span></td><td>已办理 2 台终身在线授权，且本机已绑定到账号，可用「设备管理」</td></tr>
+        <tr><td><span class="badge badge-info">单机已注册</span></td><td>已办理单机注册（离线激活或在线激活都算），绑定本机、永久有效</td></tr>
+        <tr><td><span class="badge badge-info">试用中</span></td><td>正在试用期内，剩余天数会一并显示</td></tr>
+        <tr><td><span class="badge" style="background:#FFF3CD;color:#856404">试用即将到期</span></td><td>试用剩余 3 天以内，建议尽早注册</td></tr>
+        <tr><td><span class="badge" style="background:#F8D7DA;color:#721C24">试用已结束</span></td><td>试用期已用完，回落为免费版，注册后继续使用全部功能</td></tr>
+        <tr><td><span class="badge" style="background:#E9ECEF;color:#495057">未授权</span></td><td>尚未注册也尚未试用，可先点「开始试用」体验</td></tr>
+    </tbody>
+</table>
+</div>
+
+<div class="note">
+断网时状态判定采用<b>离线容忍</b>策略：网络查询失败不会把已注册状态误显示为未注册。
+</div>
+
+<!-- ══════════════════ 六、设备与换机规则 ══════════════════ -->
+<h2 id="device">六、设备与换机规则</h2>
+
+<h3>单机注册</h3>
+<ul>
+    <li>授权码与本机硬件指纹绑定，无法转移到其他电脑。</li>
+    <li>在同一台电脑上重装系统，硬件指纹不变，授权照旧生效。</li>
+    <li>只有更换 CPU 这类会改变硬件指纹的部件才需重新办理。</li>
+</ul>
+
+<h3>在线授权（2 台终身）</h3>
+<ul>
+    <li>一个账号最多绑定 2 台设备，可在「设备管理」中查看已绑定设备。</li>
+    <li>换机：新电脑登录同一账号 → 解绑旧电脑 → 点「拉取授权 / 刷新设备」即可。</li>
+    <li>新设备绑定后 7 天内为冷静期，期间不可自助解绑，用于防止账号与设备被频繁转移。</li>
+    <li>同一设备 90 天内限自助解绑 1 次，超出需联系客服处理。</li>
+</ul>
+<div class="warn">
+登录 / 退出账号<b>不影响</b>本机已有的授权：账号只是用来管理设备与恢复授权的增益通道。
+</div>
+
+<!-- ══════════════════ 七、价格与购买 ══════════════════ -->
+<h2 id="price">七、价格与购买</h2>
+<p>各档位现行价格统一在官网公布，避免出现「软件内看到的价与官网不一致」的情况。下单前请先到官网核对当期价格。</p>
+<ul>
+    <li>查看价格：<a class="link" href="../price.html">官网价格表</a></li>
+    <li>购买渠道与办理步骤：见《<a class="link" href="register_guide.html">注册方法</a>》</li>
+</ul>
+<div class="note">
+本页不列具体金额，是有意为之：价格调整只需改官网一处，软件无需更新，也不会残留旧价。
+</div>
+
+<!-- ══════════════════ 八、联系方式 ══════════════════ -->
+<h2 id="contact">八、联系方式</h2>
+<ul>
+    <li>客服微信：MToolsService</li>
+    <li>客服邮箱：kanlorone@163.com</li>
+    <li>官网：<a class="link" href="../index.html">kanlorone.com</a>（价格、下载、更新说明均在此）</li>
+</ul>
+</div>
+
+<div class="page-footer">
+    权益说明 · &copy; 2026 千洛智一 KanlorOne. All Rights Reserved.
 </div>
 
 </body>
