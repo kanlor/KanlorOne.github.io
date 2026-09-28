@@ -103,6 +103,8 @@
             <nav class="hidden md:flex gap-8 text-sm font-medium">
                 <a href="#home" class="hover:text-orange-600 transition-colors">首页</a>
                 <a href="#products" class="hover:text-orange-600 transition-colors">产品</a>
+                <a href="price.html" class="hover:text-orange-600 transition-colors">价格</a>
+                <a href="#help" class="hover:text-orange-600 transition-colors">帮助</a>
                 <a href="#contact" class="hover:text-orange-600 transition-colors">联系我们</a>
             </nav>
             <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-orange-600 transition-colors" aria-label="切换菜单" aria-expanded="false" aria-controls="mobile-menu">
@@ -112,6 +114,8 @@
         <nav id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4 space-y-4">
             <a href="#home" class="block text-sm font-medium hover:text-orange-600 transition-colors">首页</a>
             <a href="#products" class="block text-sm font-medium hover:text-orange-600 transition-colors">产品</a>
+            <a href="price.html" class="block text-sm font-medium hover:text-orange-600 transition-colors">价格</a>
+            <a href="#help" class="block text-sm font-medium hover:text-orange-600 transition-colors">帮助</a>
             <a href="#contact" class="block text-sm font-medium hover:text-orange-600 transition-colors">联系我们</a>
         </nav>
     </header>
@@ -166,37 +170,50 @@
                 </div>
             </div>
 
-            <!-- 注册授权说明 -->
-            <div class="mt-16 rounded-2xl bg-orange-50 border-l-4 border-orange-400 p-8">
+            <!-- 授权与价格（导航锚点 #help） -->
+            <div id="help" class="mt-16 rounded-2xl bg-orange-50 border-l-4 border-orange-400 p-8">
                 <h3 class="text-xl font-semibold text-gray-900 flex items-center gap-3 mb-6">
-                    <i class="fas fa-exclamation-triangle text-orange-500"></i>
-                    注册授权说明
-                    <span class="text-sm font-normal text-orange-600">本软件注册为付费授权</span>
+                    <i class="fas fa-shield-alt text-orange-500"></i>
+                    授权与价格
+                    <span class="text-sm font-normal text-orange-600">软件内不显示价格，一律以官网为准</span>
                 </h3>
-                <div class="grid md:grid-cols-2 gap-10">
+                <div class="grid md:grid-cols-3 gap-10">
                     <div>
-                        <h4 class="text-sm font-semibold text-gray-700 mb-4">注册流程</h4>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-4">两个档位</h4>
+                        <ul class="space-y-2.5 text-sm text-gray-600 leading-relaxed list-disc list-inside">
+                            <li><b>单机注册</b>：1 台，绑定本机，永久有效；离线激活与在线激活同价、权益一致。</li>
+                            <li><b>2 台终身在线授权</b>：最多 2 台，绑定账号，支持解绑换机。</li>
+                            <li>两种档位解锁的是同一套专业功能，差别只在设备数量与换机能力。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-4">办理流程</h4>
                         <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
                             <div class="flex items-start gap-3">
                                 <span class="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center mt-0.5">1</span>
-                                <span>在软件内复制本机生成的<b>申请码</b>，发送至微信或邮箱，我将为您生成对应的<b>注册码</b>。</span>
+                                <span>淘宝下单付款，复制订单号。</span>
                             </div>
                             <div class="flex items-start gap-3">
                                 <span class="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center mt-0.5">2</span>
-                                <span>将<b>注册码</b>粘贴至软件注册输入框，点击<b>确定</b>即可完成注册，解锁软件全部功能。</span>
+                                <span>打开软件的注册窗口，按自己的场景选页签提交订单号；不联网的机器可扫码填收集单。</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center mt-0.5">3</span>
+                                <span>卖家核对后授权码发到邮箱；在软件里用收码邮箱登录并点「拉取授权 / 刷新设备」即完成激活。</span>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <h4 class="text-sm font-semibold text-gray-700 mb-4">授权说明</h4>
-                        <ul class="space-y-2.5 text-sm text-gray-600 leading-relaxed list-disc list-inside">
-                            <li>注册码与设备硬件信息绑定，若电脑损坏或淘汰，注册授权将随之失效。</li>
-                            <li>授权在该设备正常使用周期内永久有效。</li>
-                            <li>享受后续全部版本更新升级服务。</li>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-4">价格与说明</h4>
+                        <ul class="space-y-2.5 text-sm text-gray-600 leading-relaxed">
+                            <li><a href="price.html" class="accent-color font-medium hover:underline">价格表</a> —— 各产品的现行价格与升级补差价</li>
+                            <li><a href="help/benefits.html" class="accent-color font-medium hover:underline">权益说明</a> —— 档位对照、试用规则、设备与换机</li>
+                            <li><a href="help/register_guide.html" class="accent-color font-medium hover:underline">注册方法</a> —— 四种办理方式的详细步骤</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -275,7 +292,7 @@
                     ? '<span class="inline-block bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full">完全免费</span>'
                     : '<span class="inline-block bg-orange-100 text-orange-600 text-xs font-semibold px-2 py-1 rounded-full">免费+注册</span>';
                 const trialBadge = product.trial
-                    ? '<span class="inline-block bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full mt-1">全功能7天试用</span>'
+                    ? `<span class="inline-block bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full mt-1">${escapeHtml(product.trial)}</span>`
                     : '';
 
                 card.innerHTML = `

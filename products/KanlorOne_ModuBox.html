@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne ModuBox（KanlorOne 工具箱）— 模块化桌面工具箱：13 个功能模块拆开独立售卖，免费模块直接可用，付费模块按需单独购买，只为自己真正用得上的功能付费。">
+<meta name="keywords" content="KanlorOne ModuBox,工具箱,模块化软件,待办管理,OCR,PDF工具箱,批量重命名,二维码">
+<meta property="og:title" content="KanlorOne ModuBox — 模块化桌面工具箱">
+<meta property="og:description" content="13 个模块按需选购，不买用不上的功能">
+<meta property="og:type" content="article">
+<title>KanlorOne ModuBox — 使用说明 | KanlorOne</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
+
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.com { background: #fef3c7; color: #92400e; }
+.tag.style { background: #ede9fe; color: #5b21b6; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Marker Demo */
+.marker-demo { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-family: 'Consolas', 'Microsoft YaHei', monospace; font-size: 13px; line-height: 1.8; white-space: pre-wrap; }
+.marker-tag { color: var(--brand); font-weight: bold; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_ModuBox.png" alt="KanlorOne ModuBox">
+        <div class="name">KanlorOne ModuBox</div>
+        <div class="nameCn">模块化桌面工具箱</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南（6步搞定）</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+    </nav>
+<div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne ModuBox — 模块化桌面工具箱</h1>
+
+<h2 id="intro">一、产品简介</h2>
+<p>KanlorOne 工具箱（KanlorOne ModuBox）是一款 <b>模块化桌面工具箱</b>。它把待办提醒、剪贴管理、图片处理、PDF 处理、文字识别等日常小工具收进同一个界面，需要什么就打开什么。</p>
+<p>和"一买全包"的软件不同，ModuBox 的功能按模块划分，<b>免费模块直接可用，付费模块按需单独购买</b>。你只需要为自己真正会用到的模块付费，用不上的功能不用买单；以后需要新模块，随时再单独加购即可。</p>
+
+<div class="tip">
+<b>最新更新（V1.6.0）</b>：换上全新统一主界面，13 个模块集中在一个窗口内切换；注册窗口整合为六个页签，新增「模块与升级」页，一眼看清每个模块的授权状态，支持按模块加购。
+</div>
+
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title">🤔 你可能遇到这些问题？</div>
+<div class="card-desc">
+<ul>
+<li>只是想找个"批量改文件名"的小工具，却被要求为整套软件付费？</li>
+<li>桌面上装了七八个绿色小软件，用的时候还要想"这个在哪"？</li>
+<li>PDF 要合并、图片要转格式、截图要转 GIF，各找一个网站太折腾？</li>
+<li>已经买了某个功能，后来想再加一个，却只能整套重买？</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✅ KanlorOne 工具箱的核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>按模块选购，不买用不上的功能</b>：功能拆成 13 个独立模块，免费模块直接可用，付费模块单独购买，只为你需要的部分付费</li>
+<li><b>后续可加购</b>：先用着几个模块，哪天需要新模块了，随时单独补买，已购模块不受影响</li>
+<li><b>一个窗口管全部</b>：左侧导航分组（常用 / 办公工具 / 系统），右侧内容区切换，不用在多个小窗口之间来回找</li>
+<li><b>打开过的页面不丢</b>：功能页保活，切换来切换去，当前进度还在</li>
+<li><b>授权状态看得见</b>：主窗口标题行常驻状态徽标，点一下就能进注册窗口，免费 / 已购 / 试用中一目了然</li>
+<li><b>桌面常驻、呼之即来</b>：托盘常驻 + 快捷键唤起，点一下就定位到对应功能页</li>
+</ul>
+</div>
+</div>
+
+<h2 id="guide">三、使用指南（6步搞定）</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>下载安装</b>：从官网下载安装包，按提示完成安装，首次启动会自动创建桌面快捷方式。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>唤起主界面</b>：双击桌面图标，或从系统托盘图标、快捷键唤起唯一主窗口。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>挑一个模块</b>：左侧导航按「常用 / 办公工具 / 系统」分组列出全部模块，点击即可在右侧内容区打开。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>免费模块直接用</b>：标记为<span class="tag free">免费</span>的模块无需任何注册，打开就能用。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>付费模块先试用或购买</b>：点击未授权模块的「获取」，打开注册窗口。可以先<b>全功能试用</b>体验，也可以直接购买；试用与购买都在同一个窗口完成。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>按需加购</b>：在注册窗口的「模块与升级」页，能看到每个模块的免费 / 已购 / 试用中状态。后续想再加模块，在这里申请加购即可，不需要重装软件。</div>
+</div>
+
+<div class="warn">
+购买前请留意模块之间的<b>依赖关系</b>：少数模块需要先拥有它依赖的模块（例如「剪贴板监控」依赖「剪贴管理」，「日历模式」「智能识别」「待办导出」依赖「待办管理」）。含有依赖的模块，在购买时会一并确认，具体以注册窗口内的提示为准。
+</div>
+
+<h2 id="functions">四、功能详解</h2>
+
+<h3>待办管理 <span class="tag">TODO</span></h3>
+<p class="no-indent">四象限 / 列表 / 日历三种视图管理待办，支持子任务、周期任务、批量操作与撤销重做，把"要做的事"真正管起来。</p>
+
+<h3>剪贴管理 <span class="tag free">CLIPBOARD · 免费</span></h3>
+<p class="no-indent">剪贴板的整理与再加工：目录树生成、路径批量处理、颜色识别与系统取色，免费的日常顺手工具。</p>
+
+<h3>图片图像 <span class="tag">IMAGE</span></h3>
+<p class="no-indent">图片相关的一站式处理：PNG 转 ICO、PDF 与图片批量裁切，以及图片文字识别。</p>
+
+<h3>颜色工具 <span class="tag">COLOR</span></h3>
+<p class="no-indent">颜色识别、提取、格式转换与系统取色，做设计或配色时随手取用。</p>
+
+<h3>剪贴板监控 <span class="tag reg">CLIPEXPORT · 依赖剪贴管理</span></h3>
+<p class="no-indent">在后台自动监控剪贴板，把复制过的内容自动留存下来，回头再找不用重新复制。</p>
+
+<h3>日历模式 <span class="tag reg">CALENDAR · 依赖待办管理</span></h3>
+<p class="no-indent">以日历视图查看和安排待办，按日期铺开看事情，适合排期和复盘。</p>
+
+<h3>智能识别 <span class="tag reg">SMART · 依赖待办管理</span></h3>
+<p class="no-indent">从文本中智能识别出待办事项（含腾讯会议信息）并一键生成任务，省去手动逐条录入。</p>
+
+<h3>待办导出 <span class="tag reg">TODO_EXPORT · 依赖待办管理</span></h3>
+<p class="no-indent">把待办导出保存、做备份，需要时从备份恢复，数据留在自己手里更安心。</p>
+
+<h3>PDF 工具箱 <span class="tag">PDF</span></h3>
+<p class="no-indent">PDF 合并、整份提取拆分、转成 PNG 图片，以及加密与解密，日常 PDF 处理不用再上网找工具。</p>
+
+<h3>OCR 文字识别 <span class="tag">OCR</span></h3>
+<p class="no-indent">把图片、截图里的文字识别出来，识别结果一键复制，纸质资料、截图素材都能变回可编辑文本。</p>
+
+<h3>批量文件重命名 <span class="tag">RENAME</span></h3>
+<p class="no-indent">前缀、后缀、序号、查找替换等规则可叠加，支持整个文件夹递归处理，<b>执行前先预览新旧文件名对照</b>，改错了也来得及回头。</p>
+
+<h3>屏幕截图 / 录屏 <span class="tag">SCREEN</span></h3>
+<p class="no-indent">全屏截图与拖拽选区截图，截图自动保存并复制到剪贴板；还能录屏保存为 GIF，做演示和文档配图很方便。</p>
+
+<h3>二维码工具 <span class="tag">QRCODE</span></h3>
+<p class="no-indent">输入文本或链接生成二维码并保存 PNG，也能识别图片里的二维码与条形码。</p>
+
+<h3>模块一览表</h3>
+<table>
+<tr><th>模块</th><th>依赖</th><th>说明</th></tr>
+<tr><td>待办管理 TODO</td><td>无</td><td>四象限 / 列表 / 日历三视图待办管理</td></tr>
+<tr><td>剪贴管理 CLIPBOARD</td><td>无（免费）</td><td>剪贴板管理、目录树生成、颜色识别</td></tr>
+<tr><td>图片图像 IMAGE</td><td>无</td><td>PNG 转 ICO、PDF / 图片批量裁切、图片 OCR</td></tr>
+<tr><td>颜色工具 COLOR</td><td>无</td><td>颜色识别、提取、格式转换、系统取色</td></tr>
+<tr><td>剪贴板监控 CLIPEXPORT</td><td><b>剪贴管理</b></td><td>自动监控剪贴板并留存内容</td></tr>
+<tr><td>日历模式 CALENDAR</td><td><b>待办管理</b></td><td>以待办为基础的日历视图</td></tr>
+<tr><td>智能识别 SMART</td><td><b>待办管理</b></td><td>从文本识别待办并生成任务</td></tr>
+<tr><td>待办导出 TODO_EXPORT</td><td><b>待办管理</b></td><td>待办导出、备份与恢复</td></tr>
+<tr><td>PDF 工具箱 PDF</td><td>无</td><td>合并、拆分、转 PNG、加密、解密</td></tr>
+<tr><td>OCR 文字识别 OCR</td><td>无</td><td>图片 / 截图转文字，一键复制</td></tr>
+<tr><td>批量文件重命名 RENAME</td><td>无</td><td>多规则叠加改名，执行前预览对照</td></tr>
+<tr><td>屏幕截图 / 录屏 SCREEN</td><td>无</td><td>全屏 / 区域截图，录屏转 GIF</td></tr>
+<tr><td>二维码工具 QRCODE</td><td>无</td><td>二维码生成与二维码 / 条形码识别</td></tr>
+</table>
+
+<div class="tip">
+「依赖」一栏里的模块需要先拥有被依赖的模块才能使用。购买含依赖的模块时，务必先确认自己已具备它所依赖的模块。
+</div>
+
+<h2 id="download">五、下载安装</h2>
+<p>点击下方按钮前往下载页面，获取最新版安装包。</p>
+
+<a class="download-btn" href="https://share.weiyun.com/d56f8rp2">⬇ 下载 KanlorOne 工具箱 V1.6.0</a>
+
+<p>下载后运行安装包，按提示完成安装即可。如遇安装或使用问题，可通过页面底部的客服微信或邮箱联系我们。</p>
+
+<div class="tip">
+<b>关于试用</b>：所有付费模块都可以<b>先试用再决定</b>。试用为全功能试用，按设备计算，重装不重置。
+</div>
+
+<h2 id="updates">六、更新日志</h2>
+
+<p class="no-indent"><b>V1.6.0</b> - 全新统一主界面：左侧导航按「常用 / 办公工具 / 系统」分组，13 个模块在同一个窗口内切换。</p>
+<p class="no-indent"><b>V1.6.0</b> - 注册窗口整合为六个页签：开始试用、在线激活、在线授权、离线激活、模块与升级、关于。</p>
+<p class="no-indent"><b>V1.6.0</b> - 新增「模块与升级」页，可查看每个模块的免费 / 已购 / 试用中状态，并支持按模块加购。</p>
+<p class="no-indent"><b>V1.6.0</b> - 离线激活支持直接导入授权文件，不必再手动粘贴长串内容。</p>
+<p class="no-indent"><b>V1.6.0</b> - 主窗口标题行常驻授权状态徽标，点击直达注册窗口。</p>
+<p class="no-indent"><b>V1.6.0</b> - 功能页保活：在模块之间来回切换不会丢失当前进度。</p>
+<p class="no-indent"><b>V1.5.2</b> - 新增「工具集合」一览页，13 个工具的名称、简介、状态与获取入口集中展示。</p>
+<p class="no-indent"><b>V1.5.2</b> - 未授权的付费模块也可打开界面预览，只读 / 展示类操作可真实体验。</p>
+<p class="no-indent"><b>V1.5.2</b> - 未授权提示按授权状态分级，消除「已注册却提示请先注册」的误解。</p>
+<p class="no-indent"><b>V1.5.1</b> - 修复全量买断用户可能被部分授权误锁的问题，已购功能不再受影响。</p>
+<p class="no-indent"><b>V1.5</b> - 新增五个办公模块：PDF 工具箱、OCR 文字识别、批量文件重命名、屏幕截图 / 录屏、二维码工具。</p>
+<p class="no-indent"><b>V1.5</b> - 支持限时试用授权，可单模块也可多模块组合申请，到期自动锁定。</p>
+<p class="no-indent"><b>V1.0.0</b> - 首发：由乾御拆分为独立应用，专注待办管理与效率辅助，原应用数据不受影响。</p>
+
+<h2 id="faq">七、常见问题</h2>
+
+<p class="no-indent"><b>问：</b>模块怎么买？可以只买一个吗？<br><b>答：</b>可以。ModuBox 走「按模块选购」，你在主界面点开某个未授权模块的「获取」，或打开注册窗口的「模块与升级」页，就能查看各模块并申请加购。买一个模块只解锁这一个模块，不会附带其他付费模块。具体价格以官网价格表为准。</p>
+
+<p class="no-indent"><b>问：</b>买了一个模块，能不能直接用它的依赖模块？<br><b>答：</b>不能，但方向是相反的：如果你买的是「依赖别的模块」的那个模块（例如「日历模式」依赖「待办管理」），系统会一并确认它依赖的模块，让你买了就能用；但反过来，已拥有「待办管理」并不会自动解锁「日历模式」，后者仍需单独购买。</p>
+
+<p class="no-indent"><b>问：</b>哪些模块是免费的？<br><b>答：</b>「剪贴管理」为免费模块，无需注册即可长期使用。其余模块中，免费/付费状态会在注册窗口的「模块与升级」页里逐个标出，一目了然。</p>
+
+<p class="no-indent"><b>问：</b>可以先试用再买吗？<br><b>答：</b>可以。注册窗口「开始试用」页提供全功能试用，试用期间付费模块均可体验。试用为全功能试用，按设备计算，重装不重置。</p>
+
+<p class="no-indent"><b>问：</b>以后出了新模块，需要整套重买吗？<br><b>答：</b>不需要。新模块会以独立模块的形式提供，你按需单独加购即可，已有的模块和授权不受影响。</p>
+
+<p class="no-indent"><b>问：</b>换电脑了，授权怎么办？<br><b>答：</b>授权与设备绑定。换机后可通过注册窗口内的在线授权或联系客服处理，各模块设有合理的设备数量与换机次数限制，具体以窗口内提示为准。</p>
+
+<p class="no-indent"><b>问：</b>重装系统会重置试用吗？<br><b>答：</b>不会。试用按设备计算，重装不重置。</p>
+
+<p class="no-indent"><b>问：</b>托盘和快捷键还在吗？<br><b>答：</b>在。托盘菜单仍可唤起主界面并直达各功能页，快捷键语义保持不变，唤起后会定位到对应模块页。</p>
+
+<div class="footer">KanlorOne ModuBox &middot; &copy; 2026 KanlorOne &middot; 客服微信 MToolsService ｜ 邮箱 kanlorone@163.com<br><a href="../price.html">查看价格</a> · <a href="../help/benefits.html">权益说明</a> · <a href="../help/register_guide.html">注册方法</a></div>
+
+</div>
+
+</body>
+</html>

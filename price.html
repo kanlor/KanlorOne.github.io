@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne 系列软件价格表：单机激活、2 台终身在线授权、授权升级补差价，各档位现行价格与说明。">
+<meta name="keywords" content="KanlorOne 价格,软件价格,在线授权,单机注册,授权升级,补差价">
+<meta property="og:title" content="KanlorOne 价格表">
+<meta property="og:description" content="单机激活 / 2 台终身在线授权 / 授权升级，现行价格一览">
+<meta property="og:type" content="website">
+<title>价格表 | KanlorOne</title>
+<link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; }
+img { max-width: 100%; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .page-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .page-identity .mark { font-size: 34px; line-height: 1; }
+.sidebar .page-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 6px; }
+.sidebar .page-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover { background: #fff5f2; color: var(--brand); }
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row { display: flex; justify-content: center; gap: 12px; }
+.sidebar .wechat-box .qr-item { flex: 1; min-width: 0; }
+.sidebar .wechat-box .qr-item img { width: 100%; max-width: 100px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.sidebar .wechat-box .qr-item .tip { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 1060px;
+    padding: 30px 32px 60px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 20px; font-weight: 700; }
+h2 { font-size: 20px; margin: 34px 0 14px; padding-left: 12px; border-left: 4px solid var(--brand); }
+h3 { font-size: 16px; margin: 20px 0 8px; }
+p { margin: 10px 0; }
+ul, ol { padding-left: 24px; margin: 8px 0; }
+li { margin: 5px 0; }
+b { color: #111; }
+code { background: #f1f2f6; padding: 2px 6px; border-radius: 4px; font-family: Consolas, Monaco, monospace; font-size: 13px; color: #d63031; }
+
+.lead { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
+.stamp {
+    display: inline-block; margin: 6px 0 4px;
+    background: #fff5f2; color: var(--brand);
+    border: 1px solid #ffd9cc; border-radius: 20px;
+    padding: 3px 12px; font-size: 13px;
+}
+
+/* 价格表 */
+.table-wrap { overflow-x: auto; margin: 18px 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+table.price { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 14px; }
+table.price th, table.price td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.price thead th { background: var(--brand); color: #fff; font-weight: 600; border-bottom: none; }
+table.price thead th:first-child { border-top-left-radius: 11px; }
+table.price thead th:last-child { border-top-right-radius: 11px; }
+table.price tbody tr:nth-child(even) { background: #fcfcfd; }
+table.price tbody tr:hover { background: #fff7f4; }
+table.price td.num { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+table.price td.pid { font-family: Consolas, Monaco, monospace; font-size: 12.5px; color: var(--muted); }
+table.price td.pname a { color: var(--ink); text-decoration: none; border-bottom: 1px dashed #c9ced6; }
+table.price td.pname a:hover { color: var(--brand); border-bottom-color: var(--brand); }
+table.price td.na { text-align: right; color: #b0b6be; font-weight: 500; }
+table.price tbody tr:last-child td { border-bottom: none; }
+.unit { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+.tip, .note, .warn {
+    padding: 12px 16px; border-radius: 8px; margin: 14px 0;
+    font-size: 14px; line-height: 1.75;
+}
+.tip { background: #E8F5E9; border-left: 4px solid #00B894; }
+.note { background: #FFF8E1; border-left: 4px solid #FDCB6E; }
+.warn { background: #FFF3E0; border-left: 4px solid #E17055; }
+.badge {
+    display: inline-block; padding: 2px 9px; border-radius: 10px;
+    font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.badge-info { background: #D1ECF1; color: #0C5460; }
+.badge-purple { background: #E2D6F5; color: #5B2C8E; }
+.badge-gray { background: #E9ECEF; color: #495057; }
+a.link { color: var(--brand); text-decoration: none; }
+a.link:hover { text-decoration: underline; }
+
+.page-footer {
+    margin-left: 280px;
+    max-width: 1060px;
+    padding: 0 32px 50px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .sidebar { position: static; width: auto; border-right: none; border-bottom: 1px solid var(--line); }
+    .main-content, .page-footer { margin-left: 0; max-width: none; padding: 20px 16px 40px; }
+    h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="page-identity">
+        <div class="mark">💴</div>
+        <div class="name">价格表</div>
+        <div class="nameCn">授权档位与现行价格</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#table">一、价格表</a>
+        <a href="#tiers">二、档位怎么选</a>
+        <a href="#upgrade">三、升级补差价</a>
+        <a href="#notes">四、购买与说明</a>
+        <a href="#help">五、权益与注册方法</a>
+        <a href="#contact">六、联系方式</a>
+    </nav>
+    <div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne 价格表</h1>
+<p class="lead">以下为各产品的现行价格（单位：人民币元）。软件内不显示价格，一律以本页为准。</p>
+<div class="stamp"><i class="fas fa-clock"></i> 价格更新日期：2026-09-28</div>
+
+<!-- ══════════════════ 一、价格表 ══════════════════ -->
+<h2 id="table">一、价格表</h2>
+
+<div class="table-wrap">
+<table class="price">
+    <thead>
+        <tr>
+            <th>产品ID</th>
+            <th>产品名称</th>
+            <th style="text-align:right">单机激活</th>
+            <th style="text-align:right">两台授权</th>
+            <th style="text-align:right">已购单机升级授权</th>
+            <th style="text-align:right">已购两台升级授权</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="pid">KanlorOne_MDLens</td>
+            <td class="pname"><a href="products/KanlorOne_MDLens.html">MarkDown超级助手</a></td>
+            <td class="num">9</td>
+            <td class="num">38</td>
+            <td class="num">29</td>
+            <td class="num">18</td>
+        </tr>
+        <tr>
+            <td class="pid">KanlorOne_RunVenv</td>
+            <td class="pname"><a href="products/KanlorOne_RunVenv.html">虚拟环境启动器</a></td>
+            <td class="num">19</td>
+            <td class="num">58</td>
+            <td class="num">39</td>
+            <td class="num">18</td>
+        </tr>
+        <tr>
+            <td class="pid">KanlorOne_ScreenGuard</td>
+            <td class="pname"><a href="products/KanlorOne_ScreenGuard.html">屏幕防沉迷</a></td>
+            <td class="num">19</td>
+            <td class="num">58</td>
+            <td class="num">39</td>
+            <td class="num">18</td>
+        </tr>
+        <tr>
+            <td class="pid">KanlorOne_MDinDocx</td>
+            <td class="pname"><a href="products/KanlorOne_MDinDocx.html">Word中的MD插件</a></td>
+            <td class="num">29</td>
+            <td class="num">78</td>
+            <td class="num">49</td>
+            <td class="num">18</td>
+        </tr>
+        <tr>
+            <td class="pid">KanlorOne_WordSuite</td>
+            <td class="pname"><a href="products/KanlorOne_WordSuite.html">Word一站式排版工具</a></td>
+            <td class="num">39</td>
+            <td class="num">98</td>
+            <td class="num">59</td>
+            <td class="num">18</td>
+        </tr>
+        <tr>
+            <td class="pid">KanlorOne_ExcelKitPlus</td>
+            <td class="pname"><a href="products/KanlorOne_ExcelKitPlus.html">格智</a></td>
+            <td class="num">49</td>
+            <td class="num">118</td>
+            <td class="num">69</td>
+            <td class="num">18</td>
+        </tr>
+        <tr>
+            <td class="pid">KanlorOne_ModuBox</td>
+            <td class="pname"><a href="products/KanlorOne_ModuBox.html">KanlorOne 工具箱</a></td>
+            <td class="num">19</td>
+            <td class="na">—</td>
+            <td class="na">—</td>
+            <td class="na">—</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p class="unit">金额单位：元（人民币）。「工具箱」为模块化计费，按所选功能模块分别计价，不适用两台授权与升级档位。</p>
+
+<div class="tip">
+<b>先试用，再决定。</b>多数产品提供全功能试用，无需付款即可完整体验；试用按设备计算，同一台电脑重装不会重新获得试用期。是否需要试用、试用多长，以各软件注册窗口内的提示为准。
+</div>
+
+<!-- ══════════════════ 二、档位怎么选 ══════════════════ -->
+<h2 id="tiers">二、档位怎么选</h2>
+<div class="table-wrap">
+<table class="price">
+    <thead>
+        <tr>
+            <th>档位</th>
+            <th>设备数</th>
+            <th>绑定对象</th>
+            <th>有效期</th>
+            <th>软件内状态</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="badge badge-info">单机激活</span></td>
+            <td>1 台</td>
+            <td>本机硬件指纹</td>
+            <td>永久有效</td>
+            <td>单机已注册</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-purple">两台授权</span></td>
+            <td>最多 2 台</td>
+            <td>账号（跨设备登录）</td>
+            <td>终身使用</td>
+            <td>在线已授权</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<ul>
+    <li><b>单机激活</b>：离线激活与在线激活两种办理方式<b>同价</b>，效力完全一致 —— 都绑定本机、都永久有效、都能免费升级后续版本。</li>
+    <li><b>两台授权</b>：以账号为中心，最多同时绑定 2 台电脑，支持换机（解绑旧机、在新机登录同一账号即可）。</li>
+    <li>两种档位解锁的是<b>同一套专业功能</b>，差别只在设备数量与换机能力。</li>
+</ul>
+
+<!-- ══════════════════ 三、升级补差价 ══════════════════ -->
+<h2 id="upgrade">三、升级补差价</h2>
+<p>已办理过授权的用户，都能补差价升级到<b>现行两台终身在线授权</b>（2 台、终身、可换机）。按当初办理的档位分两种情形，<b>走同一个入口、同一套流程</b>。</p>
+<div class="table-wrap">
+<table class="price">
+    <thead>
+        <tr>
+            <th>你的情况</th>
+            <th>升级目标</th>
+            <th>对应价格列</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>已购单机注册（当年单台买断）</td>
+            <td>现行两台终身在线授权</td>
+            <td>已购单机升级授权</td>
+        </tr>
+        <tr>
+            <td>已购两台（当年两台买断）</td>
+            <td>现行两台终身在线授权</td>
+            <td>已购两台升级授权</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<div class="note">
+<b>升级时限：</b>须在最后一台注册成功之日起 <b>180 天</b>内办理，逾期升级通道关闭。
+</div>
+
+<!-- ══════════════════ 四、购买与说明 ══════════════════ -->
+<h2 id="notes">四、购买与说明</h2>
+<ul>
+    <li>购买渠道为淘宝店铺，下单前后如有疑问请先联系客服确认档位。</li>
+    <li>价格调整只在本页更新，不随软件版本发布 —— 若你在软件内看到任何价格数字，均以本页为准。</li>
+    <li>下单时请按上表核对金额：金额与所选档位不符会导致核对不通过，需要重新下单。</li>
+    <li>所有产品均为<b>一次性买断</b>，无订阅、无自动续费；购买后享受后续版本免费升级。</li>
+</ul>
+
+<!-- ══════════════════ 五、权益与注册方法 ══════════════════ -->
+<h2 id="help">五、权益与注册方法</h2>
+<ul>
+    <li><a class="link" href="help/benefits.html">权益说明</a> —— 各档权益对照、试用规则、设备与换机规则。</li>
+    <li><a class="link" href="help/register_guide.html">注册方法</a> —— 离线激活、在线激活、两台在线授权、授权升级的办理步骤。</li>
+</ul>
+
+<!-- ══════════════════ 六、联系方式 ══════════════════ -->
+<h2 id="contact">六、联系方式</h2>
+<ul>
+    <li>客服微信：MToolsService</li>
+    <li>客服邮箱：kanlorone@163.com</li>
+    <li>淘宝店铺：<a class="link" href="https://shop247026454.taobao.com/" target="_blank" rel="noopener noreferrer">shop247026454.taobao.com</a></li>
+</ul>
+</div>
+
+<div class="page-footer">
+    价格表 · &copy; 2026 KanlorOne. All Rights Reserved.
+</div>
+
+</body>
+</html>

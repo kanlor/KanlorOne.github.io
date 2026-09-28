@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne MDinDocx（Word 中的 MD 插件）— 装在 Word / WPS 里的 Markdown 双向转换插件：打开 .md 即渲染为可编辑 Word，另存为 MD 即无损转回，公式、表格、代码、脚注全部保结构。">
+<meta name="keywords" content="KanlorOne MDinDocx,Markdown转Word,Word插件,WPS加载项,Markdown双向转换,文档排版">
+<meta property="og:title" content="KanlorOne MDinDocx — Word 中的 MD 插件">
+<meta property="og:description" content="Word 里直接读写 Markdown：打开即渲染，另存即转回">
+<meta property="og:type" content="article">
+<title>KanlorOne MDinDocx — 使用说明 | KanlorOne</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
+
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.com { background: #fef3c7; color: #92400e; }
+.tag.style { background: #ede9fe; color: #5b21b6; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Marker Demo */
+.marker-demo { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-family: 'Consolas', 'Microsoft YaHei', monospace; font-size: 13px; line-height: 1.8; white-space: pre-wrap; }
+.marker-tag { color: var(--brand); font-weight: bold; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_MDinDocx.png" alt="KanlorOne MDinDocx">
+        <div class="name">KanlorOne MDinDocx</div>
+        <div class="nameCn">Word 中的 MD 插件</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南（8步搞定）</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+    </nav>
+<div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne MDinDocx — Word 中的 MD 插件</h1>
+
+<h2 id="intro">一、产品简介</h2>
+<p>KanlorOne MDinDocx（中文名：Word中的MD插件）是一款装在 <b>Word / WPS 里的 Markdown 双向转换插件</b>。说白了，它让 Markdown 文件和 Word 文档在同一条路上来回走：打开 .md 就变成一篇能正常编辑、带规范样式的 Word 文档；写完了点一下「另存为 MD」，又变回干净的 Markdown。</p>
+<p>它对标 Writage，覆盖其全部核心功能，并且同时支持 <b>Word 与 WPS 两端</b>——这是它相对同类工具最大的不同。除此之外，它还覆盖了从 AI 网页粘贴内容、数学公式原生还原、引用文献生成、标题方案换装、格式模板库，到标题编号、标点转换、图片表格标准化这一整条文档整理链路。</p>
+<p>插件以功能区标签页的形式嵌在 Word / WPS 顶部，打开宿主就能用，不需要另外开一个软件窗口。</p>
+
+<div class="tip">
+<b>最新更新（v0.3.3）</b>：把一批常用的排版整理能力搬进插件——标题自动编号、WBS 与公文标题识别、中英标点互转、多余空格清理、无用样式清理、图片与表格标准化，同时重做了注册与授权体验。
+</div>
+
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title">🤔 你是否遇到这些问题？</div>
+<div class="card-desc">
+<ul>
+<li>从 ChatGPT 复制一段回答粘到 Word，代码块、公式、表格全糊成一坨纯文本？</li>
+<li>攒了一堆 .md 笔记要发给同事，对方只认 Word，手工重排太费劲？</li>
+<li>在 Word 里写好的东西要发到博客或代码仓库，手工改成 Markdown 格式几乎要重写一遍？</li>
+<li>文档里的公式在 Word 中是图片，既改不了也算不出来？</li>
+<li>参考文献格式要求按 APA / IEEE 排，一条条手改到眼花？</li>
+<li>拼来的文档带着一堆用不上的样式，想统一格式却怎么改都不动？</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✅ KanlorOne MDinDocx 的核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>双向往返</b>：打开 .md 即渲染为可编辑 Word，另存为 .md 时标题、列表、表格、公式、脚注原样回去</li>
+<li><b>AI 内容保格式粘贴</b>：ChatGPT / Claude / Gemini 的内容一键粘贴，代码块、公式、表格、脚注不丢</li>
+<li><b>公式是真公式</b>：<code>$...$</code> / <code>$$...$$</code> 转成 Word 原生方程，双击就能继续编辑</li>
+<li><b>Word + WPS 双端支持</b>：同一套插件，两种宿主都能装、都能用</li>
+<li><b>标题方案一键换装</b>：内置「科技」「公文」两套档位，改的是样式定义，全文标题自动跟随</li>
+<li><b>格式模板库</b>：把满意的一段格式命名存下来，跨文档、跨会话随时复用</li>
+<li><b>整理工具齐全</b>：标题自动编号、标题识别、标点转换、空格清理、无用样式清理、图片与表格标准化</li>
+<li><b>即开即用</b>：激活后功能区按钮立刻解锁，不用重启 Word / WPS</li>
+</ul>
+</div>
+</div>
+
+<h2 id="guide">三、使用指南（8步搞定）</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>下载并安装</b>：点下方「五、下载安装」里的下载按钮，从微云获取安装包。安装程序会自动把插件装到你的 Word 和 WPS，并建立 .md 文件的右键关联，不需要你手动配置任何东西。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>彻底退出宿主</b>：把正在运行的 Word、WPS 全部关掉（包括停留在后台的窗口），再重新打开。加载项只在宿主启动的那一刻装载，不重启是不会出现的。<b>用 WPS 的同学请先装好 WPS 官方 VBA 支持包</b>，否则页签能显示但按钮点不动。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>找到功能区</b>：重新打开 Word / WPS，顶部会出现「MDinDocx」标签页，里面的按钮按用途分成若干组：文件、粘贴、插入、样式、标题方案、编号识别、列表、格式、文本、清理整理、管理。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>打开一篇 Markdown</b>：点「打开 MD」选择 .md 文件（安装后也可以直接在资源管理器里右键 .md 文件选「用 MDinDocx 打开」）。文档立刻渲染成可编辑的 Word 文档，<code>#</code> / <code>##</code> / <code>###</code> 会变成「标题 1 / 2 / 3」，导航窗格和目录都能正常识别。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>从 AI 网页搬内容</b>：在 ChatGPT / Claude / Gemini 里复制回答，回到 Word 点「粘贴 AI 内容」，代码块、公式、表格、脚注按原来的结构落地，不用再手工收拾。想先看效果，可以先用「粘贴预览」。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>修排版</b>：缺编号就点「编号识别」组的「自动编号」，标题没样式就点「识别 WBS」或「识别公文」；格式想统一，用「标题方案」一键换装，或把满意的一段「存为模板」放进格式模板库；标点、空格、无用样式、图片表格尺寸，都在「文本」「清理整理」两组里。</div>
+</div>
+
+<div class="step">
+<div class="step-num">7</div>
+<div class="step-text"><b>转回 Markdown</b>：点「另存为 MD」选择保存位置，得到 .md 文件和配套的 <code>media/</code> 图片目录。如果只想把其中几段给别人，选中内容点「复制 MD」，Markdown 源码直接进剪贴板。</div>
+</div>
+
+<div class="step">
+<div class="step-num">8</div>
+<div class="step-text"><b>需要 PDF</b>：点「导出 PDF」，在 Word 内以原生方式导出，排版和你在屏幕上看到的一致。</div>
+</div>
+
+<div class="tip">
+<b>常用动线</b>：打开 MD → 编辑/粘贴 → 标题方案或编号识别 → 格式模板库统一格式 → 另存为 MD 或导出 PDF。日常只用其中两三个按钮就够了，其余按钮留着备用。
+</div>
+
+<h2 id="functions">四、功能详解</h2>
+
+<p>功能区里的按钮非常多，下面按用途分组说明。第一次用不必全看，遇到需要时回来查即可。</p>
+
+<h3>4.1 双向转换</h3>
+<table>
+<tr><th style="width:22%">按钮</th><th>作用</th></tr>
+<tr><td><b>打开 MD</b></td><td>把 .md 文件渲染成可编辑的 Word 文档。标题映射为内置标题样式，列表、表格、引用、代码块、脚注、公式一并还原。</td></tr>
+<tr><td><b>另存为 MD</b></td><td>把当前文档转换回 Markdown，图片统一落到同目录的 <code>media/</code> 文件夹。主标题 / 副标题会写成 Markdown 的标题元数据，不会在往返中丢掉。</td></tr>
+<tr><td><b>导入文件夹</b></td><td>整个目录的 .md 文件合并成一份 DOCX，适合把一堆零散笔记并成一本册子。</td></tr>
+<tr><td><b>导出 PDF</b></td><td>在 Word 内以原生方式导出 PDF。</td></tr>
+</table>
+
+<h3>4.2 粘贴与复制</h3>
+<ul>
+<li><b>粘贴 MD</b>：把剪贴板里的 Markdown 源码按格式插入到光标处。</li>
+<li><b>复制 MD</b>：选中的内容转成 CommonMark 语法写回剪贴板；没有选区时按整篇处理。</li>
+<li><b>粘贴 AI 内容</b>：专治从 ChatGPT / Claude / Gemini 复制的回答——代码块、公式、表格、脚注无损落地。</li>
+<li><b>粘贴预览</b>：先看一眼剪贴板里 Markdown 排成什么样，确认了再插进文档。</li>
+</ul>
+
+<h3>4.3 标题与样式</h3>
+<table>
+<tr><th style="width:22%">分项</th><th>作用</th></tr>
+<tr><td><b>主标题 / 副标题</b></td><td>一键设为文档主标题、副标题，对应 Word 内置样式；往返 Markdown 时写成 <code>title</code> / <code>subtitle</code> 元数据。</td></tr>
+<tr><td><b>标题 1 ~ 标题 9</b></td><td>把光标所在段落设成对应级别的大纲标题，也支持快捷键 Ctrl+1 ~ Ctrl+9。</td></tr>
+<tr><td><b>正文 / 清除样式</b></td><td>不管当前是什么样式，一律恢复为正文；「清除格式」还会顺带清掉直接格式。</td></tr>
+<tr><td><b>标题方案</b></td><td>内置「科技」与「公文」两套档位，一键把主标题、副标题、标题 1~9 全部换装。因为是改样式定义而不是逐段刷格式，全文已有标题会自动跟随，导航窗格与目录照常识别。也可以「自定义…」新建一套自己的方案，或点「方案详情」查看当前方案参数。</td></tr>
+<tr><td><b>格式模板库</b></td><td>「存为模板」把选中文字的格式命名保存（含中文字体、颜色、底纹、下划线、字符单位缩进等），跨文档、跨会话都能再调用；「模板库」里可以应用、重命名、删除。另有「复刻格式 / 应用格式」用于当次临时搬格式。</td></tr>
+</table>
+
+<h3>4.4 编号与标题识别</h3>
+<p>这一组是 v0.3.3 新加的，专门收拾「标题没编号」「标题没套样式」这两件麻烦事。</p>
+<table>
+<tr><th style="width:22%">按钮</th><th>作用</th></tr>
+<tr><td><b>自动编号</b></td><td>按大纲级别给标题排号：一级是 <code>1</code>、二级是 <code>1.1</code>，跳级时中间缺失的层级自动补 1。标题里原本已经有的旧编号会被就地改正，不会越编越乱。编号时只改编号那一小段文字，标题里的加粗、字体、颜色不会被压平。</td></tr>
+<tr><td><b>取消编号</b></td><td>去掉标题段落开头的编号文字，是「自动编号」的反向操作。</td></tr>
+<tr><td><b>识别 WBS</b></td><td>把以 <code>1</code> / <code>1.1</code> / <code>1.2.3</code> 开头的段落套用标题 1~9 级样式。</td></tr>
+<tr><td><b>识别公文</b></td><td>按公文层级识别并套用样式：<code>一、</code> → 标题1，<code>（一）</code> → 标题2，<code>1.</code> → 标题3，<code>（1）</code> → 标题4。</td></tr>
+<tr><td><b>标题体检</b></td><td>只读统计各级标题的数量与其中带编号的数量，不改动文档。</td></tr>
+</table>
+<div class="tip">
+<b>不会认错的地方</b>：数字点（<code>3.14</code>）、年份（<code>2024 年</code>）这类「看着像编号」的内容会被主动排除；以句号收尾或明显过长、更像正文的段落也不会被硬认成标题——宁可少认一行，也不把错误标题写进大纲。
+</div>
+
+<h3>4.5 列表与插入</h3>
+<ul>
+<li><b>列表组</b>：有序、无序、任务（复选框列表），以及「升高级别 / 降低级别」调整缩进层级。</li>
+<li><b>插入组</b>：图片、链接、表格、脚注、公式，按 Markdown 的写法插入到你正在编辑的 Word 文档里，保持结构规范。</li>
+</ul>
+
+<h3>4.6 文本处理</h3>
+<table>
+<tr><th style="width:22%">按钮</th><th>作用</th></tr>
+<tr><td><b>清理文本</b></td><td>全角转半角、去掉不可见字符、去掉首尾多余空格。有选区只处理选区，没有选区处理全文。圈号（<code>①</code>）和单位（<code>㎏</code>）这类中文文档里常见的字符不会被吞掉。</td></tr>
+<tr><td><b>统一字体</b></td><td>把选中内容（无选区则全文）的字体与字号统一。弹窗里选过的字体和字号会被记住，下次打开直接沿用。</td></tr>
+<tr><td><b>冒号加粗</b></td><td>把冒号（<code>:</code> / <code>：</code>）前面的文字加粗，适合「定义：说明」这类成段文档；如果已经全加粗了，再点一下就取消。</td></tr>
+<tr><td><b>段落间距</b></td><td>统一行距与段前、段后间距。</td></tr>
+<tr><td><b>删空段</b></td><td>删除空段落。表格内的段落和文档最后一段会保留，有选区时只清理选区内。</td></tr>
+<tr><td><b>时间戳</b></td><td>在光标处插入当前日期时间。</td></tr>
+<tr><td><b>文档统计</b></td><td>统计字数、字符数、行数、页数、段落数与表格数。</td></tr>
+</table>
+
+<h3>4.7 清理整理</h3>
+<table>
+<tr><th style="width:22%">按钮</th><th>作用</th></tr>
+<tr><td><b>标点转中文</b></td><td>半角标点转全角，中文引号按成对交替给出开 / 闭引号，<code>...</code> 与 <code>……</code> 双向互转。数字点、网址、邮箱、文件路径和反引号里的内容会跳过，不会把 <code>3.14</code> 改成 <code>3。14</code>。</td></tr>
+<tr><td><b>标点转英文</b></td><td>全角标点转半角，<code>《》</code>、<code>「」</code> 这类中文专有标点保持原样。</td></tr>
+<tr><td><b>多余空格</b></td><td>段首缩进和 Tab 一律保留；英文单词之间的连续空格折叠成一个（保留间隔）；中文之间、中文与英文之间、行尾的空格整段删除。</td></tr>
+<tr><td><b>无用样式</b></td><td>删掉文档里没被用到的自定义样式，清理样式面板。删除前会先列出清单让你确认；正在使用中的样式，以及 Word / WPS 自带的样式一律受保护。</td></tr>
+<tr><td><b>图片标准化</b></td><td>浮动图片转为嵌入、按页面可用宽度等比缩放（只缩不放）、居中并清掉缩进、强制单倍行距（避免固定行高把图片截断）。表格里的图片会跳过，免得把单元格撑破。</td></tr>
+<tr><td><b>表格标准化</b></td><td>统一表格宽度、行高（按内容撑开的最小值）、中英文字体与字号、首行加粗与底色、首行跨页重复、单元格水平垂直居中，并套用内置的「网格型」表格样式。</td></tr>
+</table>
+
+<h3>4.8 设置与授权</h3>
+<ul>
+<li><b>设置</b>：转换相关的偏好项，包括 Markdown 输出风味、引用文献所用的 .bib 文件与 CSL 样式、代码块底纹等开关。</li>
+<li><b>许可</b>：点一下查看当前授权状态（已注册 / 试用中 / 未授权），并即时刷新。</li>
+<li><b>注册 / 关于</b>：打开注册窗口，内含「离线/在线激活」「在线授权/升级」「购买与联系」页签，以及软件版本、申请码、操作说明、检查更新入口。</li>
+<li><b>文件关联</b>：安装后 .md / .markdown 文件可以直接右键「用 MDinDocx 打开」，渲染成可编辑文档。</li>
+</ul>
+
+<h3>4.9 引用文献（可选）</h3>
+<p>在设置中配置好 .bib 文献库与 CSL 样式后，就可以在文档里用 <code>[@引用键]</code> 的写法引用文献。转换时会按所选样式（APA、IEEE、MLA 等 9 种）自动生成规范的参考文献列表，不用手工排版。</p>
+
+<h2 id="download">五、下载安装</h2>
+
+<a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
+    <i class="fas fa-download"></i>
+    <span>下载 Windows 64位（Word / WPS 加载项）</span>
+</a>
+
+<div class="card">
+<div class="card-title">运行环境</div>
+<div class="card-desc">
+<ul>
+<li>操作系统：Windows 64 位（提供 Win10+ 与 Win7 两个版本，功能完全一致，同一微云链接内按需选择）</li>
+<li>宿主程序：Microsoft Word 或 WPS Office，二者装其一即可</li>
+<li>用 WPS 的用户请先安装 <b>WPS 官方 VBA 支持包</b>，否则页签会出现但按钮没有反应</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">安装步骤</div>
+<div class="card-desc">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text">点上方下载按钮，从微云链接获取安装包</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text">先关闭正在运行的 Word 与 WPS，避免安装时插件文件被占用</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text">双击运行安装程序，按提示完成安装。程序会自动把插件部署到 Word 与 WPS，并建立 .md 文件的右键「用 MDinDocx 打开」关联</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text">重新打开 Word / WPS，顶部功能区出现「MDinDocx」标签页即为安装成功</div>
+</div>
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text">如果只看到页签、点按钮没反应，说明宿主缺少宏环境（多见于 WPS 个人版），装好 VBA 支持包后重启即可</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">试用说明</div>
+<div class="card-desc">
+<p class="no-indent"><b>全功能试用，按设备计算，重装不重置。</b>首次使用在注册窗口点「开始试用」即可，试用期内转换、粘贴、导入导出等全部功能开放，不需要做任何注册动作。</p>
+<p class="no-indent">试用结束后，转换类功能需要注册解锁；编辑与排版类功能不受限制，可以继续使用。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">注册与授权</div>
+<div class="card-desc">
+<p class="no-indent"><b>离线注册</b>：功能区「管理 → 注册 / 关于」或「许可」，复制申请码发给客服，收到授权码后粘贴激活。一码一机，校验过程不需要联网。</p>
+<p class="no-indent"><b>在线授权</b>：在注册窗口「在线授权 / 升级」页签登录账号，由云端把设备与账号绑定并下发授权码。软件内可查看已绑定的设备列表、按规则自助解绑与换机。</p>
+<p class="no-indent"><b>激活即时生效</b>：授权状态变化后功能区按钮会立刻变化，不需要重启 Word / WPS。</p>
+<p class="no-indent"><b>检查更新</b>：注册窗口底部有「检查更新」按钮；发现新版本时只会在下次打开注册窗口时提示，不会在写作过程中弹窗打扰。</p>
+</div>
+</div>
+
+<h2 id="updates">六、更新日志</h2>
+
+<table>
+<tr><th style="width:14%">版本</th><th>更新内容</th></tr>
+<tr><td><b>v0.3.3</b></td><td>新增标题自动编号、取消编号与标题体检：按大纲级别自动排号，旧编号就地修正，编号只改编号那一小段文字</td></tr>
+<tr><td><b>v0.3.3</b></td><td>新增 WBS 与公文标题自动识别，把没套样式的标题按内容认出来并套用内置标题样式；跳过疑似正文的段落，宁可少认也不错认</td></tr>
+<tr><td><b>v0.3.3</b></td><td>新增中英标点双向互转，保护数字点、网址、邮箱与路径；新增多余空格清理，保留段首缩进，英文单词间保留一个空格</td></tr>
+<tr><td><b>v0.3.3</b></td><td>新增无用样式清理（先列清单再确认）、图片标准化（浮动转嵌入、按页宽只缩不放、居中清缩进）、表格标准化（宽度行高字体字号首行样式与对齐）</td></tr>
+<tr><td><b>v0.3.3</b></td><td>注册与授权体验重做：注册状态显示统一口径、新增设备管理（查看 / 解绑 / 换机）、在线自助报单与授权升级、客服微信与邮箱点击复制</td></tr>
+<tr><td><b>v0.3.3</b></td><td>新增「检查更新」：强制联网检查与静默后台检查，发现新版本只点亮提示不弹窗打扰，并提供下载入口与「打开下载文件夹」</td></tr>
+<tr><td><b>v0.3.3</b></td><td>修复一批「能跑但结果不对」的排版问题：旧编号没被替换、年份被当成章节编号、多余空格越删越多、空行被全部删掉、样式清理误删等在用问题</td></tr>
+<tr><td><b>v0.3.3</b></td><td>修复 Word 下功能区整份不显示的问题（改用兼容的功能区定义）；优化关闭文档时的卡顿，关闭文档后不再延迟 1~2 秒</td></tr>
+<tr><td><b>v0.3.2</b></td><td>新增主标题 / 副标题，映射 Word 内置样式并在往返 Markdown 时写成 title / subtitle 元数据；新增「科技」「公文」两套标题方案与自定义方案，改样式定义全文标题自动跟随</td></tr>
+<tr><td><b>v0.3.2</b></td><td>新增格式模板库（命名保存、跨文档复用、应用 / 重命名 / 删除）；新增文本处理一组：清理文本、统一字体、冒号加粗、段落间距、删空段、时间戳、文档统计</td></tr>
+<tr><td><b>v0.3.1</b></td><td>清理历史遗留的旧注册码通道，授权只保留一条判定路径，激活更安全稳定</td></tr>
+<tr><td><b>v0.3.0</b></td><td>授权码升级为更紧凑的格式，激活流程不变，后续版本换钥也不会作废已发出的授权码</td></tr>
+<tr><td><b>v0.2.0</b></td><td>上线「离线注册 + 在线授权」双通道，支持账号登录、设备绑定与解绑换机；功能区按钮随授权状态自动解锁，激活后无需重启；修复申请试用成功却仍被拦截、激活提示误导等问题</td></tr>
+<tr><td><b>v0.1.1</b></td><td>修复「另存为 MD / 复制 MD 会劫持当前文档」、复制 MD 忽略选区、AI 粘贴并发覆盖、安装脚本防护失效等问题；补齐 .md / .markdown 文件关联与「粘贴预览」入口</td></tr>
+<tr><td><b>v0.1.0</b></td><td>首个可运行版本：双向转换（打开 MD / 另存为 MD）、剪贴板粘贴与复制、AI 内容粘贴、粘贴预览、导出 PDF、导入文件夹、引用文献与设置、试用与授权等核心模块全部落地</td></tr>
+</table>
+
+<h2 id="faq">七、常见问题</h2>
+
+<div class="card">
+<div class="card-title"><b>问：</b>装完了，功能区没有「MDinDocx」页签？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>九成是宿主没重启——加载项只在 Word / WPS 启动的那一刻装载，请彻底退出（包括停留在后台的窗口）再打开。另一种情况是安装时 Word 正开着，插件文件被占用没能部署成功，重新运行一次安装程序即可。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>WPS 里页签出现了，但按钮点了没反应？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>这是 WPS 个人版默认不带宏引擎导致的——页签是界面，按钮要跑起来还需要宏环境。装上 WPS 官方 VBA 支持包后重启 WPS 就能恢复，插件本身没有问题。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>试用是怎么算的？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>全功能试用，按设备计算，重装不重置。首次使用点「开始试用」即可，期间转换、粘贴、导入导出等全部功能开放；试用结束后这些功能需要注册解锁，编辑与排版类功能不受限制，可以继续用。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>公式转过去还能编辑吗？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>能。Markdown 里的 <code>$...$</code> 行内公式和 <code>$$...$$</code> 块级公式会转成 Word 原生方程，双击就能继续编辑；另存为 Markdown 时再还原成 LaTeX 写法。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>从 ChatGPT 复制的回答粘进来会乱吗？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>用「粘贴 AI 内容」就不会，别用普通的 Ctrl+V。代码块、公式、表格、脚注都会按原来的结构落地，而不是糊成一段纯文本。想先确认效果，可以先用「粘贴预览」看一眼再插入。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>.md 里的图片去哪了？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>打开 .md 时图片按原路径载入；另存为 Markdown 时，文档里的图片会统一落到同目录的 <code>media/</code> 文件夹，.md 中写的是相对路径引用，拷走整个文件夹就不会掉图。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>「另存为 MD」会不会改坏我原来的 Word 文档？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>不会。转换不会改动当前文档的身份与路径，只是另外产出一份 .md 文件，你手上的 Word 文档保持原样。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>离线注册和在线授权该选哪个？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>想免联网、不想登录账号，走离线注册：把申请码复制发给客服，拿到授权码粘贴激活，一码一机。需要多设备，或者想自己查看绑定设备、解绑换机，就走在线授权：登录账号后由云端下发授权码，设备管理在软件内自助完成。两条通道的授权效果一致，装好之后功能区按钮都会即时解锁。</p>
+</div>
+</div>
+
+<div class="footer">KanlorOne MDinDocx &middot; &copy; 2026 KanlorOne &middot; 客服微信 MToolsService ｜ 邮箱 kanlorone@163.com<br><a href="../price.html">查看价格</a> · <a href="../help/benefits.html">权益说明</a> · <a href="../help/register_guide.html">注册方法</a></div>
+
+</div>
+
+</body>
+</html>

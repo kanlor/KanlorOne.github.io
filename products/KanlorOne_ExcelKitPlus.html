@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne ExcelKitPlus（格智）— 运行在 Microsoft Excel 里的办公效率增强插件：数据清理、数值处理、格式美化、统计分析，以及可自由扩展的 Python / VBA / 流程功能。">
+<meta name="keywords" content="KanlorOne ExcelKitPlus,格智,Excel插件,Excel加载项,数据清洗,批量处理,自定义功能包">
+<meta property="og:title" content="KanlorOne ExcelKitPlus — 格智：Excel 效率增强插件">
+<meta property="og:description" content="Excel 功能区里的一站式效率工具箱，选中区域点一下就把重复劳动做完">
+<meta property="og:type" content="article">
+<title>KanlorOne ExcelKitPlus — 使用说明 | KanlorOne</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
+
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.com { background: #fef3c7; color: #92400e; }
+.tag.style { background: #ede9fe; color: #5b21b6; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Marker Demo */
+.marker-demo { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-family: 'Consolas', 'Microsoft YaHei', monospace; font-size: 13px; line-height: 1.8; white-space: pre-wrap; }
+.marker-tag { color: var(--brand); font-weight: bold; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_ExcelKitPlus.png" alt="KanlorOne ExcelKitPlus">
+        <div class="name">KanlorOne ExcelKitPlus</div>
+        <div class="nameCn">格智 · Excel 效率增强插件</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+    </nav>
+<div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne ExcelKitPlus — 格智：Excel 效率增强插件</h1>
+
+<h2 id="intro">一、产品简介</h2>
+
+<p>KanlorOne ExcelKitPlus（中文名：<b>格智</b>）是一款 <b>原生运行在 Microsoft Excel 里的办公效率增强插件</b>。安装后，Excel 顶部的功能区会多出一个 <b>ExcelKitPlus</b> 页签——选中要处理的表格区域，点一下对应按钮，重复的整理、清洗、排版和搬运工作就完成了。</p>
+
+<p>插件内置六大功能组：结构调整、样式设置、数据处理、文档操作、AI 工具、系统管理，覆盖日常表格工作中最常见的那几类麻烦事。除了开箱即用的内置功能，它还带<b>官方功能包</b>，并且支持你自己编写 <b>Python / VBA / 流程</b> 三类自定义功能，把常用的宏和脚本也搬进功能区，一处点击就能跑。</p>
+
+<p>它不需要你安装 Python，不需要管理员权限，除「公式助手」需要联网调用大模型外，其余功能全部在本机离线运行，数据不出本机。程序文件与用户数据分开存放，升级、重装都不会覆盖你自己写的功能。</p>
+
+<div class="tip">
+<b>最新更新（V1.4.1）</b>：页签加载自愈补强（偶发不显示时自动恢复），并加入后台预热，首次点击功能按钮不再等待冷启动。
+</div>
+
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title">🤔 你可能遇到这些问题？</div>
+<div class="card-desc">
+<ul>
+<li>表格结构乱：一堆合并单元格、单元格里换行堆叠、层级分不清，手工整理半天？</li>
+<li>排版全靠手调：逐行设字体、调行高、冻结表头、按值上色，几十行还能忍，几百行就崩溃？</li>
+<li>数据脏：多余空格、隐形垃圾字符、日期格式五花八门、重复值和空值藏在里面看不出来？</li>
+<li>文件搬运繁琐：一张张表要合并成一个、一张表要拆成多个文件、选区要单独导出？</li>
+<li>公式不会写、写错又不知道错在哪？</li>
+<li>手里攒了一堆 VBA 宏和 Python 脚本，每次用都要翻出来手动运行？</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✅ KanlorOne ExcelKitPlus 的核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>原生长在 Excel 里</b>：不是悬浮窗、不是独立程序，按钮直接进功能区，和 Excel 自带功能一样顺手</li>
+<li><b>选中即处理</b>：选中区域 → 点一下按钮 → 完成，结果直接呈现在 Excel 状态栏，不打断工作流</li>
+<li><b>开箱即用</b>：无需 Python、无需管理员权限、无需外网，解压运行安装器，重开 Excel 就能用</li>
+<li><b>六大功能组全场景覆盖</b>：结构整理、样式统一、数据清洗、文件搬运、AI 公式、系统管理一站配齐</li>
+<li><b>可生长的插件平台</b>：支持 Python / VBA / 流程三类自定义功能，官方功能包还能直接启用与改造</li>
+<li><b>数据留在本机</b>：除 AI 公式助手外全部离线运行，不上传你的表格内容</li>
+<li><b>升级干净、卸载干净</b>：覆盖安装即可升级，用户数据（自定义功能 / 授权 / 布局 / 参数）不丢</li>
+</ul>
+</div>
+</div>
+
+<h2 id="guide">三、使用指南</h2>
+
+<p>ExcelKitPlus 是一个 <b>Excel 加载项</b>，不能双击即用，需要先运行一次安装器把功能区注册到 Excel 中。整个过程大约 1~2 分钟。</p>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>下载安装包</b>：从本页下载按钮或微云链接获取 <code>KanlorOne_ExcelKitPlus V1.4.1.zip</code>。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>解压</b>：把 zip 解压到任意目录（建议不要放在 Program Files），确认目录里有 <code>ExcelKitPlus-Setup.exe</code>。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>关闭 Excel</b>：请关闭所有 Excel 窗口，避免安装期间文件被占用。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>运行安装器</b>：双击 <code>ExcelKitPlus-Setup.exe</code>，等待进度条走完（共 6 步，约 1~2 分钟）。出现 <code>INSTALL_OK DEPLOY_SUCCESS</code> 提示即安装成功。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>重新打开 Excel</b>：在「开始」页签右侧看到 <b>ExcelKitPlus</b> 功能区页签，即安装完成。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>开始使用</b>：打开任意工作簿，选中要处理的数据区域，点击对应功能按钮即可。按钮悬停会显示该功能的说明。</div>
+</div>
+
+<div class="warn">
+<b>安装前建议先放开 VBA 宏</b>：安装过程需要在 Excel 里构建一个 VBA 桥（提供时间戳等辅助宏）。请按 <b>文件 → 选项 → 信任中心 → 信任中心设置 → 宏设置</b>，勾选「启用 VBA 宏」与「信任对 VBA 工程对象模型的访问」。若没有放开，安装时会提示「未生成 VBA 桥 xlam，VBA 辅助宏不可用」，插件主体功能不受影响。安装完成后，你可以按需把宏设置改回更严格的级别。
+</div>
+
+<div class="tip">
+<b>首次使用提示</b>：第一次打开「功能管理」时，插件会先检查你的 VBA 运行环境，如果还没就绪，会弹出一次图文指引告诉你要勾选哪些设置，勾选「不再提示」后就不再打扰。
+</div>
+
+<p><b>解锁 Pro 功能</b>：打开插件页签的「注册」按钮，有两种方式——</p>
+<ul>
+<li><b>在线激活（推荐）</b>：切到「在线激活」页，填邮箱 → 获取验证码 → 登录，自动完成本机激活，不用复制粘贴任何代码，功能区当场刷新，无需重启 Excel。</li>
+<li><b>离线申请</b>：切到「离线申请」页复制申请码，联系客服完成授权后把授权码粘贴回来即可。断网、内网机器照旧可用。</li>
+</ul>
+
+<h2 id="functions">四、功能详解</h2>
+
+<p>下面按用途分类介绍。<span class="tag free">免费</span> 标记的功能未注册时也能直接用，<span class="tag reg">注册</span> 标记的功能需要注册后解锁。</p>
+
+<h3>数据清理</h3>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 文本清洗</div>
+<div class="card-desc">
+<p class="no-indent">把从网页、系统导出的表格里那些看不见的垃圾清掉：零宽字符、装饰性符号、控制字符、多余空格、编号式换行、重复标点，一次处理干净，肉眼看不出的脏数据不再干扰后续筛选和统计。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 日期时间标准</div>
+<div class="card-desc">
+<p class="no-indent">把乱七八糟的日期写法统一成标准格式（仅日期 / 仅时间 / 日期+时间三种输出模式），结果追加到新列，原列保留。识别不了的单元格自动标黄，方便你回头人工核对。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 删除表格空行</div>
+<div class="card-desc">
+<p class="no-indent">一键删掉选区里的空白行，让表头与数据重新连成一片，排序、筛选、透视都不再被断层行打断。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 删除文字空行</div>
+<div class="card-desc">
+<p class="no-indent">清理「看着有内容、其实只有空格」，或单元格内堆了很多空行的单元格，把文字行的空白压缩掉，表格更紧凑。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 删除形状图片</div>
+<div class="card-desc">
+<p class="no-indent">批量删除表格上叠着的文本框、普通形状和图片，可分别勾选要删的类型，并支持应用到全部工作表——数据下发前做一次「净身」很省事。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 自动填充</div>
+<div class="card-desc">
+<p class="no-indent">把选中列里的空白单元格按规则补上：智能填充、复制填充、序列填充三种模式，适合处理「只在首行写一次」的台账类表格。</p>
+</div>
+</div>
+
+<h3>数值与格式</h3>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 全局格式化</div>
+<div class="card-desc">
+<p class="no-indent">一次性统一字体、字号、边框、奇偶行交替上色、标题加粗居中，并自动适配列宽行高。可以只处理当前表，也可以应用到全部工作表。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 统调行高</div>
+<div class="card-desc">
+<p class="no-indent">把整表行高统一设为固定值，或在原行高基础上统一增减。几十页表格一次拉齐，打印和截图都好看。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 冻结表头</div>
+<div class="card-desc">
+<p class="no-indent">智能识别标题行并自动冻结，长表格往下滚动时表头始终可见；支持只处理当前表或应用到全部工作表，还能指定冻结到第几列。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 条件行填色</div>
+<div class="card-desc">
+<p class="no-indent">以所选列为条件分组，相同值恒用同一种颜色，整行循环着色，多列选区按整行组合分组。内置经典 13 色、冷色系、暖色系三套色板，人工核对时一眼就能看出分组边界。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 高亮重复异常</div>
+<div class="card-desc">
+<p class="no-indent">两种模式随心切换：<b>重复值</b>按 13 色循环标出同一值的所有出现位置；<b>异常/空值</b>用浅红色把空缺和可疑数据挑出来。数据体检的常用第一步。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 超链接设置</div>
+<div class="card-desc">
+<p class="no-indent">一键删除表内全部超链接（常用来清掉从系统导出时带上的蓝色下划线），或反过来批量给单元格设置统一的超链接格式：字号、字体颜色、背景颜色。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 数字文本转换</div>
+<div class="card-desc">
+<p class="no-indent">文本 ↔ 数字双向转换。解决「看起来是数字，其实存成了文本」导致求和为零、排序错乱这类经典问题。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 数据列归一化</div>
+<div class="card-desc">
+<p class="no-indent">对数值列做 Min-Max 归一化，把数据压缩到 0~1 区间并写入首个空白列，原列不动。做对比、打分、权重计算时很实用。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> WBS 格式化</div>
+<div class="card-desc">
+<p class="no-indent">面向项目 / 任务台账：可配置 WBS、任务、状态三类字段的映射关系，按层级自动缩进任务名、父级任务加粗、状态列按状态着色，一份原始任务表几秒变成规整的层级清单。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 文本序列强调</div>
+<div class="card-desc">
+<p class="no-indent">针对「一行里塞了多条内容」的单元格：把多行文本按行序列化，可选用数字序号或固定符号，并自动把冒号前的文字加粗，报价单、需求点的可读性明显提升。</p>
+</div>
+</div>
+
+<h3>统计与分析</h3>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 区域数据统计</div>
+<div class="card-desc">
+<p class="no-indent">选中区域即出结果：样本数、总和、最大值、最小值、平均值、中位数、标准差、Q1 / Q3。结果可以弹窗显示完整统计、生成一张统计摘要表，或只在状态栏给一句简短结论。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 高亮重复异常（辅助核对）</div>
+<div class="card-desc">
+<p class="no-indent">在执行清洗、拆分、合并这类写操作之前，先用重复值与异常/空值高亮做一次快速体检，确认选区里没有脏数据再动手，能省下大量返工时间。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 公式助手（AI）</div>
+<div class="card-desc">
+<p class="no-indent">不会写公式时的救兵：用一句话说明你的需求，公式助手结合当前选区的数据结构给出可用的 Excel 公式并直接插入单元格，也可以选择「解释并给公式」模式，顺带看懂这条公式在做什么。</p>
+<p class="no-indent"><b>需联网</b>：这是插件中唯一需要联网的功能，其余功能全部离线运行。</p>
+</div>
+</div>
+
+<h3>批量处理</h3>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 按首列展开</div>
+<div class="card-desc">
+<p class="no-indent">按首列分组，把单元格内换行堆叠的多条内容拆成多条独立记录，输出到一张新表。适合把「一行多条」的汇总表摊平成明细表，原始数据不受影响。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 按首列整合</div>
+<div class="card-desc">
+<p class="no-indent">与「按首列展开」互为逆操作：把首列值相同的多行合并成一行，内容以换行形式归拢，输出到新表。明细表要变成汇总表时用它。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 拆分合并单元格</div>
+<div class="card-desc">
+<p class="no-indent">拆掉选区内所有合并单元格，并把原来的值填回每一个拆分出来的单元格，避免出现大片空白导致筛选、排序失效。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 按列合并单元格</div>
+<div class="card-desc">
+<p class="no-indent">把单列选区中连续相同的值合并成一个单元格，用于整理分类列、部门列等重复值密集的列，表格一眼看上去更清爽。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 生成导航页</div>
+<div class="card-desc">
+<p class="no-indent">在最前面建（或复用）一张「导航」表，列出所有工作表的名称、行数、列数，并自动加上可点击的超链接；还能附加返回链接及其所在单元格，多表工作簿来回跳转不用再翻页签。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 表格拆分文件</div>
+<div class="card-desc">
+<p class="no-indent">按指定列的键值，把当前工作表拆成多个独立的 xlsx 文件，可指定输出目录与数据起始行。分公司、分部门下发表格时最省时间的一步。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 文件合并表格</div>
+<div class="card-desc">
+<p class="no-indent">把整个文件夹里所有 xlsx 汇总成一个工作簿。弹出参数窗选择文件夹，并设置表头处理方式与数据起始行，几十份文件一次搞定。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 区域导出文件</div>
+<div class="card-desc">
+<p class="no-indent">把选中的连续区域单独导出成一个 xlsx 文件，可自定义文件名与保存目录。要单独发一段数据给别人时，不用另存为再手工删行删列。</p>
+</div>
+</div>
+
+<h3>自定义功能包</h3>
+
+<p>ExcelKitPlus 不只是一个工具箱，还是一个可以继续长大的功能平台。除了随插件发布的功能，你还可以加载官方功能包，或者自己写功能加进功能区。</p>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 官方功能包（随插件自动载入）</div>
+<div class="card-desc">
+<p class="no-indent">插件启动时自动扫描并载入官方功能包，内含 6 个现成功能：<b>文件合并表格</b>、<b>文本序列强调</b>、<b>流程示例</b>、<b>转置选区</b>、<b>插入测试数据</b>、<b>设置列宽</b>。官方功能默认不占用功能区，可在功能管理中按需开启。</p>
+<p class="no-indent"><b>可编辑、不可删除</b>：官方功能可以直接修改并保存，你的改动单独存放、升级不覆盖；不需要时可在功能管理中隐藏。改错了还能一键「恢复到官方版本」。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 新建 Python 功能</div>
+<div class="card-desc">
+<p class="no-indent">在功能管理器里直接编写 Python 脚本，按统一入口写法提供 <code>run(xl, params=None)</code> 函数即可。脚本运行在插件自带的运行环境里，可用标准库直接读写当前 Excel 选区、工作表与格式，写好后立刻在功能区多出一个按钮。点「智能识别」还能自动回填名称、说明、提示与图标。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 新建 VBA 功能</div>
+<div class="card-desc">
+<p class="no-indent">把你原来的 VBA 宏接进功能区：粘贴宏代码，点「从代码获取」自动解析出宏名并回填，不必再记住宏名、跑到「开发工具 → 宏」里翻找执行。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 新建流程（组合）功能</div>
+<div class="card-desc">
+<p class="no-indent">把多个现成功能按顺序串成一条流水线：全局格式化 → 高亮重复 → 区域统计，一步一键全跑完。每一步可以设置间隔延迟，单步失败不会中断整条流程，出错信息会记录下来。流程不写脚本，只做编排，内置、Python、VBA、其他流程都能作为其中一步。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 功能管理：一处管好所有按钮</div>
+<div class="card-desc">
+<ul>
+<li><b>分类筛选</b>：全部功能按「内置 / VBA / Python / 流程」四类，以及「显示 / 隐藏」两态筛选，找功能不用翻菜单</li>
+<li><b>一键执行</b>：在管理器里就能直接试跑功能，Python 直跑当前代码，VBA / 流程保存后运行</li>
+<li><b>分组与布局</b>：自由分组、排序、显示或隐藏（含内置功能），布局方案可保存多套并一键切换</li>
+<li><b>备份与迁移</b>：单个功能导出、整包导出 / 导入、时间戳备份与恢复，换电脑也能把自定义功能带走</li>
+<li><b>官方功能还原</b>：单功能「恢复到官方版本」，或整体恢复到官方功能版</li>
+<li><b>帮助入口</b>：VBA 环境一键检测、打开图文说明、注册与关于，都收在「帮助」菜单里</li>
+</ul>
+</div>
+</div>
+
+<div class="tip">
+<b>自定义功能有上限吗？</b> 免费用户可持有的自定义功能合计上限为 <b>6 个</b>（官方 6 项已计入）。超过上限的功能会被自动隐藏，代码不删除、不丢失，注册后自动恢复显示。
+</div>
+
+<h2 id="download">五、下载安装</h2>
+
+<a href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer" class="download-btn">
+    <i class="fas fa-download"></i>
+    <span>下载 KanlorOne ExcelKitPlus</span>
+</a>
+
+<div class="card">
+<div class="card-title">系统要求</div>
+<div class="card-desc">
+<table>
+<tr><th style="width:28%">项目</th><th>要求</th></tr>
+<tr><td>操作系统</td><td>Windows 10 / 11（64 位）</td></tr>
+<tr><td>Excel</td><td>Excel 2016 / 2019 / 2021 / 365（<b>64 位</b>）</td></tr>
+<tr><td>运行环境</td><td>.NET Framework 4.6.2 及以上（Win10 / 11 自带，一般无需额外安装）</td></tr>
+<tr><td>Python</td><td><b>不需要</b>，插件自带运行环境</td></tr>
+<tr><td>网络</td><td><b>不需要</b>（仅「公式助手」AI 功能需联网）</td></tr>
+<tr><td>管理员权限</td><td><b>不需要</b>，安装与运行都写入当前用户</td></tr>
+</table>
+<p class="no-indent"><b>32 位 Office 不支持</b>。查看方式：Excel → 文件 → 账户 → 关于 Excel，确认标注为 "64-bit"。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">安装步骤</div>
+<div class="card-desc">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text">点击上方下载按钮获取安装包（微云下载）</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text">解压到任意目录（建议不要放在 Program Files）</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text">关闭所有 Excel 窗口</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text">双击 <code>ExcelKitPlus-Setup.exe</code>，等待提示 <code>INSTALL_OK</code></div>
+</div>
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text">重新打开 Excel，看到 <b>ExcelKitPlus</b> 功能区页签，安装完成</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">升级</div>
+<div class="card-desc">
+<p class="no-indent"><b>直接重新运行安装器即可覆盖升级，无需先卸载。</b>安装器会提示「已存在安装，本次将直接覆盖升级」，按提示继续即可。</p>
+<p class="no-indent">升级会完整保留你的<b>授权信息、自定义功能、菜单布局与参数记忆</b>，不会丢失。建议升级前先关闭 Excel。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">卸载</div>
+<div class="card-desc">
+<p class="no-indent">关闭 Excel 后，双击解压包根目录的 <code>ExcelKitPlus-卸载.exe</code> 即可卸载。卸载会移除插件本体、功能区注册与授权信息；如需连自定义功能一起清空，卸载后可手动清除用户数据目录。</p>
+</div>
+</div>
+
+<div class="tip">
+<b>升级前的老版本用户</b>：如果你的版本较旧，请先升级到本版本，再进行注册激活，以免新授权码在老版本上无法识别。
+</div>
+
+<h2 id="updates">六、更新日志</h2>
+
+<p class="no-indent"><b>V1.4.1</b> - 页签加载自愈补强：偶发不显示页签时自动恢复；新增后台预热，首次点击功能按钮不再等待冷启动；新增慢操作耗时记录，为后续优化积累数据；注册窗「已付款？提交订单号」自助报单区上移到「在线激活」页，登录后自动预填邮箱，报单成功可当场激活。</p>
+
+<p class="no-indent"><b>V1.4.0</b> - 授权校验机制整体升级换代，安全性与兼容性同步加强；授权码长度大幅缩短，复制粘贴更省事；升级前请先把插件升到本版本，再用新授权码激活。</p>
+
+<p class="no-indent"><b>V1.3.3</b> - 上线「在线激活」：邮箱 + 验证码登录，免粘贴自动激活，功能区即时刷新；新增设备管理窗口，可查看同账号已绑定设备并解绑不用的电脑（一个账号在每个产品下最多绑定 2 台）；离线申请通道完整保留，断网 / 内网机器照旧可用。</p>
+
+<p class="no-indent"><b>V1.3.2</b> - 注册成功后功能区即时刷新，不再需要重启 Excel 才生效；首次打开功能管理时新增 VBA 环境引导；修复若干注册与运行稳定性问题。</p>
+
+<p class="no-indent"><b>V1.3.1</b> - 商用发布与体验优化：卸载入口统一到解压包根目录的卸载程序；新建 VBA 功能时「智能识别」一键回填名称、说明、提示、图标与宏名；自定义功能图标保证一定能正常显示；全新安装的 AI 配置默认不预启用任何服务商。</p>
+
+<p class="no-indent"><b>V1.3.0</b> - 对外第一版正式发布：功能类型统一为内置 / VBA / Python / 流程四类，新增流程（组合）功能；官方功能可编辑、不可删除，支持一键恢复到官方版本；新增「检查更新」（可跳过某版本）与「彻底重启 Excel」按钮；支持自定义安装位置。</p>
+
+<p class="no-indent"><b>V1.2.0</b> - 功能管理界面全面重构：新增「一键执行」，内置 / VBA / Python / 流程分类筛选与显示隐藏筛选，布局方案直列切换，VBA 宏名自动获取，Python / VBA Skill 快捷入口。</p>
+
+<p class="no-indent"><b>V1.1.0</b> - 新增流程（组合）功能：多个功能按顺序串联，可设置步骤间延迟，单步失败不中断；新增布局方案快速切换；重构 VBA 运行链路，修复部分宏无法运行的问题。</p>
+
+<p class="no-indent"><b>V1.0.0</b> - 首个稳定版发布：Excel 功能区页签、六大功能组、内置 + 官方功能包 + 自定义功能三级生态、离线注册与 Pro 功能门控、图标库与专属 Logo。</p>
+
+<div class="tip">
+<b>关于未来</b>：后续计划加入功能开发模板与示例脚本共享、自定义功能导入导出、错误日志查看器、公式助手增强与数据可视化等能力。
+</div>
+
+<h2 id="faq">七、常见问题</h2>
+
+<p class="no-indent"><b>问：</b>安装后没有看到 ExcelKitPlus 页签？<br><b>答：</b>请依次确认——① 是否用的是 64 位 Excel；② 安装后是否<b>重新打开</b>了 Excel；③ 是否打开或新建了具体工作簿（停留在 Excel 开始引导屏时功能区整体不显示）；④ 「文件 → 选项 → 加载项 → 转到」中 KanlorOne ExcelKitPlus 是否处于勾选状态。若仍然没有，可关闭 Excel 后重新运行一次安装器（安装会自动清理功能区缓存）。</p>
+
+<p class="no-indent"><b>问：</b>32 位 Excel 能用吗？<br><b>答：</b>不支持，插件仅支持 64 位 Excel。查看方式：Excel → 文件 → 账户 → 关于 Excel，确认标注为 "64-bit"。</p>
+
+<p class="no-indent"><b>问：</b>为什么有些按钮是灰的、点不动？<br><b>答：</b>灰色按钮是需要注册后解锁的 Pro 功能。未注册也能正常使用全部免费功能；在插件页签点「注册」完成激活后，Pro 按钮会立即变为可用，并且不需要重启 Excel。</p>
+
+<p class="no-indent"><b>问：</b>需要提前安装 Python 或者联网吗？<br><b>答：</b>都不需要。插件自带运行环境，无需安装 Python，也无需管理员权限。除「公式助手」需要联网调用大模型外，其余功能全部在本机离线运行，表格数据不会上传。</p>
+
+<p class="no-indent"><b>问：</b>换了新电脑，授权还能继续用吗？<br><b>答：</b>一个账号在每个产品下最多可绑定 2 台电脑，可在注册窗「设备管理」中查看已绑定设备，并解绑不再使用的电脑以释放名额（新绑定的设备需满 7 天才能自助解绑）。若你使用的是离线申请方式，一份授权码只在一台电脑上生效，换机请重新申请并联系客服办理迁移。</p>
+
+<p class="no-indent"><b>问：</b>未注册时为什么新增不了自定义功能？<br><b>答：</b>免费用户可持有的自定义功能合计上限为 6 个（官方 6 项已计入）。超出上限的功能会被自动隐藏，<b>代码不会被删除</b>，注册后会自动恢复显示。</p>
+
+<p class="no-indent"><b>问：</b>功能执行后能撤销吗？<br><b>答：</b>不能。插件的功能是直接修改 / 覆盖当前工作表数据的一次性写操作，没有 Ctrl+Z。请在正式数据上执行前先备份工作簿（另存一份副本），在副本或空白表上试跑确认结果符合预期，再对正式数据执行；自定义的 Python / VBA / 流程功能建议先通读代码再运行。</p>
+
+<p class="no-indent"><b>问：</b>杀毒软件报毒或拦截安装怎么办？<br><b>答：</b>插件的运行环境由打包工具生成，个别杀毒软件可能误报。把安装目录加入杀毒软件白名单即可；安装与运行都只写入当前用户，不需要管理员权限，也不会修改系统目录。</p>
+
+<div class="footer">KanlorOne ExcelKitPlus &middot; &copy; 2026 KanlorOne &middot; 客服微信 MToolsService ｜ 邮箱 kanlorone@163.com<br><a href="../price.html">查看价格</a> · <a href="../help/benefits.html">权益说明</a> · <a href="../help/register_guide.html">注册方法</a></div>
+
+</div>
+
+</body>
+</html>

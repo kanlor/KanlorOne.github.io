@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="KanlorOne DMLens - 侧重阅读的 Markdown 轻量超级助手，Tauri 打造的完全离线本地阅读器与编辑器。支持章节大纲、代码高亮、Mermaid 图表、KaTeX 公式、所见即所得实时编辑与一键导出 HTML/Word/PDF。">
-<meta name="keywords" content="KanlorOne DMLens,Markdown阅读器,Markdown编辑器,MD阅读,大纲导航,公式渲染,Mermaid,文档导出">
-<meta property="og:title" content="KanlorOne DMLens - Markdown 阅读与编辑助手">
+<meta name="description" content="KanlorOne MDLens - 侧重阅读的 Markdown 轻量超级助手，Tauri 打造的完全离线本地阅读器与编辑器。支持章节大纲、代码高亮、Mermaid 图表、KaTeX 公式、所见即所得实时编辑与一键导出 HTML/Word/PDF。">
+<meta name="keywords" content="KanlorOne MDLens,Markdown阅读器,Markdown编辑器,MD阅读,大纲导航,公式渲染,Mermaid,文档导出">
+<meta property="og:title" content="KanlorOne MDLens - Markdown 阅读与编辑助手">
 <meta property="og:description" content="章节大纲 · 代码高亮 · 公式图表 · 实时编辑 · 一键导出">
 <meta property="og:type" content="article">
-<title>KanlorOne DMLens — 使用说明 | KanlorOne</title>
+<title>KanlorOne MDLens — 使用说明 | KanlorOne</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root {
@@ -208,8 +208,8 @@ b { color: var(--ink); }
         <i class="fas fa-arrow-left"></i> 返回首页
     </a>
     <div class="product-identity">
-        <img src="KanlorOne_DMLens.png" alt="KanlorOne DMLens">
-        <div class="name">KanlorOne DMLens</div>
+        <img src="KanlorOne_MDLens.png" alt="KanlorOne MDLens">
+        <div class="name">KanlorOne MDLens</div>
         <div class="nameCn">Markdown 阅读与编辑助手</div>
     </div>
     <div class="toc-title">目录</div>
@@ -239,23 +239,23 @@ b { color: var(--ink); }
 
 <!-- 右侧主内容 -->
 <div class="main-content">
-<h1>KanlorOne DMLens — Markdown 轻量阅读与编辑助手</h1>
+<h1>KanlorOne MDLens — Markdown 轻量阅读与编辑助手</h1>
 
 <!-- ══════════════════ 一、产品简介 ══════════════════ -->
 <h2 id="intro">一、产品简介</h2>
-<img src="KanlorOne_DMLens.png" alt="KanlorOne DMLens 界面" class="product-image">
-<p>KanlorOne DMLens 是一款<b>侧重阅读的 Markdown 轻量超级助手</b>，用 Tauri v2 打造的阅读器与简单编辑器。双击任意 <code>.md</code> 文件即可瞬间开启、漂亮渲染——内建可导航的章节大纲、代码语法高亮、Mermaid 图表、KaTeX 公式、可即时预览的实时编辑，以及多种一键导出。</p>
+<img src="KanlorOne_MDLens.png" alt="KanlorOne MDLens 界面" class="product-image">
+<p>KanlorOne MDLens 是一款<b>侧重阅读的 Markdown 轻量超级助手</b>，用 Tauri v2 打造的阅读器与简单编辑器。双击任意 <code>.md</code> 文件即可瞬间开启、漂亮渲染——内建可导航的章节大纲、代码语法高亮、Mermaid 图表、KaTeX 公式、可即时预览的实时编辑，以及多种一键导出。</p>
 <p>它<b>完全离线、全部本地化</b>：没有云端、没有遥测，数据与文件都在你的本机，隐私安全有保障。</p>
 
 <div class="tip">
-<b>最新更新（v1.7.4）</b>：源码模式新增矩形块选（Alt 拖拽列选，逐字符像素精确识别）、实时模式多选一键序列、自动化工具新增删除空行内容与序列强调加粗等。
+<b>最新更新（v1.8.6）</b>：更新弹窗支持一键装完，并在下载中显示真实进度与「已下 / 总大小」；更新说明与安装包路径分区展示，同一会话内已下载过的版本再次打开直接进入安装。
 </div>
 
 <!-- ══════════════════ 二、核心特色 ══════════════════ -->
 <h2 id="features">二、核心特色</h2>
 
 <div class="card">
-<div class="card-title">✅ KanlorOne DMLens 的核心优势</div>
+<div class="card-title">✅ KanlorOne MDLens 的核心优势</div>
 <div class="card-desc">
 <ul>
 <li><b>三种显示模式</b>：阅读 / 实时（所见即所得）/ 源码，循环切换，以顶部内容为锚点精准对应、不跳转</li>
@@ -439,6 +439,13 @@ b { color: var(--ink); }
 <table>
 <thead><tr><th>版本</th><th>更新内容</th></tr></thead>
 <tbody>
+<tr><td>v1.8.6</td><td>更新弹窗支持一键装完并在下载中显示真实进度与已下 / 总大小，重排信息、补齐快捷交互</td></tr>
+<tr><td>v1.8.5</td><td>双击已打开文件不再重复开窗而是切到最前，新增「新文件是否落在新页签」设置；实时模式支持行内算式计算，修复保存目录、表格编辑、打印页脚等问题</td></tr>
+<tr><td>v1.8.4</td><td>新增复制为公众号富文本、工作区右键菜单、外部文件实时同步、沉浸专注阅读与代码行号显示</td></tr>
+<tr><td>v1.8.3</td><td>新增上标下标、定义列表、提示框等增强语法与荧光高亮入口、源码自动换行，修复加粗斜体等失效问题</td></tr>
+<tr><td>v1.8.2</td><td>修复新建文档编辑误报、关闭文档后界面残留与保存异常，优化关于与设置弹窗排版</td></tr>
+<tr><td>v1.8.1</td><td>修复启动后点击无反应与设置页签内容重叠，新增空闲时自动检查更新，源码语法高亮改为注册功能</td></tr>
+<tr><td>v1.8.0</td><td>冷启动更轻快、大文档编辑更流畅，源码模式新增语法高亮与矩形块选，实时模式与主题自定义同步增强</td></tr>
 <tr><td>v1.7.4</td><td>新增源码模式矩形块选（Alt 拖拽列选，逐字符像素精确捕获）；实时模式多选一键序列；自动化工具新增删除空行内容与序列强调加粗；修复源码模式内容跳动与源码不可见；标题栏实时显示当前文档名；新增在线更新机制</td></tr>
 <tr><td>v1.7.3</td><td>启动页全新设计；新增 ==高亮== 语法；文件浏览器「仅MD/TXT」筛选与切换目录；实时模式点击公式/链接/图片弹出编辑面板；支持代码文件只读打开；工具栏全彩 emoji 升级；关于对话框在线检查更新</td></tr>
 <tr><td>v1.7.2</td><td>实时模式表格编辑强化（角落聚合菜单 + 四边边界插入条）；修复脚注渲染错位；新增 KaTeX 公式渲染；新增导出附件功能；设置新增保存导出默认目录</td></tr>
@@ -474,7 +481,7 @@ b { color: var(--ink); }
 
 <div class="card">
 <div class="card-title">Q：需要联网才能使用吗？</div>
-<div class="card-desc">A：完全不需要。DMLens 全部离线运行，无云端、无遥测，文件与数据都在本机。</div>
+<div class="card-desc">A：完全不需要。MDLens 全部离线运行，无云端、无遥测，文件与数据都在本机。</div>
 </div>
 
 <div class="card">

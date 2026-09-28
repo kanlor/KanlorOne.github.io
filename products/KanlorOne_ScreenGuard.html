@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne ScreenGuard（屏幕防沉迷）— 托盘常驻的屏幕使用管控工具：会话时长、每日限额、使用时段、休息锁定、工作模式加时，核心防护免费，面向儿童青少年与需要自律的上班族。">
+<meta name="keywords" content="KanlorOne ScreenGuard,屏幕防沉迷,护眼,屏幕时间管理,休息提醒,儿童管控,专注工作">
+<meta property="og:title" content="KanlorOne ScreenGuard — 屏幕防沉迷">
+<meta property="og:description" content="会话时长 · 每日限额 · 使用时段 · 休息锁定，核心防护免费">
+<meta property="og:type" content="article">
+<title>KanlorOne ScreenGuard — 使用说明 | KanlorOne</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
+
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.com { background: #fef3c7; color: #92400e; }
+.tag.style { background: #ede9fe; color: #5b21b6; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Marker Demo */
+.marker-demo { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-family: 'Consolas', 'Microsoft YaHei', monospace; font-size: 13px; line-height: 1.8; white-space: pre-wrap; }
+.marker-tag { color: var(--brand); font-weight: bold; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_ScreenGuard.png" alt="KanlorOne ScreenGuard">
+        <div class="name">KanlorOne ScreenGuard</div>
+        <div class="nameCn">屏幕防沉迷</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+    </nav>
+<div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne ScreenGuard — 屏幕防沉迷</h1>
+
+<h2 id="intro">一、产品简介</h2>
+<p><b>KanlorOne ScreenGuard（中文名：屏幕防沉迷）</b>是一款常驻系统托盘的屏幕使用管控工具，面向儿童青少年与上班族两类人群：前者由家长设定用屏边界，减少每天的口头拉扯；后者用于规律起身、护眼护腰、划定工作与休息的边界。核心只做一件事——<b>管住屏幕使用</b>：单次会话时长、每日累计限额、可用时段、到点休息锁定，加上给工作留出弹性的工作模式加时。</p>
+<p>程序无主窗口骚扰，启动后只在任务栏右下角显示托盘图标，右键菜单即可完成全部操作；所有配置与统计都保存在本机 <code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_ScreenGuard\</code>，不依赖安装路径，也无需联网。本产品<b>全功能试用，按设备计算，重装不重置</b>；试用结束后需注册授权继续使用。</p>
+
+<div class="tip">
+<b>最新更新（V4.0.0）</b>：自 V4.0.0 起，产品英文名由 <code>KanlorOne_Guard</code> 更名为 <code>KanlorOne_ScreenGuard</code>，中文名定为「屏幕防沉迷」（原「乾御」），产品定位聚焦屏幕防沉迷单一职责；原先并存的<b>待办提醒、剪贴工具（含图片图像）已拆分到独立应用「任务管家（KanlorOne ModuBox）」</b>，两应用独立安装、独立运行、互不依赖。沿用原数据目录，<b>已购用户的配置、使用状态、休息内容与注册信息直接继承</b>，覆盖升级即可，首次启动自动迁移到新目录，数据不受影响。本版另新增检查更新、空闲暂停计时、托盘剩余分钟数字图标、预置休息内容库与异常退出记录，并增强休息锁定的防绕过能力。
+</div>
+
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title">你可能遇到这些问题</div>
+<div class="card-desc">
+<ul>
+<li>孩子一坐到电脑前就停不下来，说好的时间总要反复催、反复吵</li>
+<li>想限制的只是「用多久」，却总要上手去关程序、抢鼠标键盘</li>
+<li>定好的规则容易被绕过：一关进程、一按 Win 键，管控就形同虚设</li>
+<li>大人在家办公一坐几小时，眼睛干涩、腰背僵硬，却总忘记起身</li>
+<li>加班赶项目时被硬性打断很烦，希望有「免责延时」的余地</li>
+<li>离开工位开会、出差，回来发现额度被白白耗掉</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✅ 核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>托盘常驻，零打扰</b>：无主窗口，右键菜单与全局快捷键直达各功能，日常几乎无感</li>
+<li><b>一套规则自动执行</b>：会话时长、每日限额、使用时段三线并行，到点自动休息锁定，不必盯着时间催</li>
+<li><b>防绕过设计</b>：休息锁定期间屏蔽 <code>Win</code>、<code>Alt+Tab</code>、<code>Alt+F4</code>、<code>Ctrl+Esc</code>、<code>Ctrl+Shift+Esc</code> 等切换 / 关机 / 任务管理器快捷键，避免被轻易跳过</li>
+<li><b>弹性与刚性并存</b>：工作模式提供受次数限制的免密延时，既留出赶项目的余地，又不至于无节制</li>
+<li><b>隐私优先</b>：全部数据本地存储，不上传、不收集个人信息</li>
+<li><b>家长掌握主动权</b>：系统密码 + 申请码核对机制，临时加时需家长确认，比直接改参数更有约束力</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag free">免费</span> 会话时长与每日限额</div>
+<div class="card-desc">
+<ul>
+<li>单次连续用屏达到设定值即触发休息，防止长时间不间歇盯屏</li>
+<li>工作日 / 节假日分别设置每日累计上限，用满即锁定</li>
+<li>概览页双进度条实时显示今日与本次会话用量</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag reg">注册</span> 使用时段 · 休息内容 · 统计趋势</div>
+<div class="card-desc">
+<ul>
+<li>仅在允许的时间段内可用，可设多段（对当天取并集），区间外强制休息</li>
+<li>休息内容池可自定义，含 20-20-20 护眼、颈肩拉伸、深呼吸等预置素材</li>
+<li>近 7 天用屏时长柱状图，用于复盘限额是否设得合理</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="tag new">V4.0.0</span> 托盘数字图标与检查更新</div>
+<div class="card-desc">
+<ul>
+<li>托盘图标直接显示距下次休息的剩余分钟，蓝色＝使用中、黄色＝即将休息，每分钟刷新，不必打开面板</li>
+<li>启动后后台静默检查新版本，不打扰、不阻塞；「关于软件」中可手动点击「检查更新」</li>
+<li>休息内容预置库、异常退出记录等新能力在 V4.0.0 一并加入</li>
+</ul>
+</div>
+</div>
+
+<h2 id="guide">三、使用指南</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>启动程序</b>：解压后双击 <code>KanlorOne_ScreenGuard.exe</code>。程序在系统托盘（任务栏右下角）显示彩色图标，<b>无主窗口</b>，不需要也不建议关闭。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>呼出托盘菜单</b>：右键托盘图标弹出完整菜单，自下而上为「🛡️ 屏幕使用」「📖 使用说明」「ℹ️ 关于软件」「🔐 系统设置」「⏏️ 退出程序」，菜单项后附当前快捷键。左键单击 / 双击托盘图标打开默认面板（默认即「屏幕使用」，可在设置中改）。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>设置系统密码（PIN）</b>：初始密码为 <code>1234</code>，<b>首次使用务必改成只有家长知道的密码</b>。进入系统设置、暂停守护、退出程序都需要验证该密码，否则孩子可自行进设置改参数。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>配置限额与时段</b>：从托盘菜单或 <code>Alt+0</code> 进入「系统设置」（需验证密码），按「时长与限额 / 休息与提醒 / 空闲检测 / 使用时段」分组设置单次使用分钟、每日总限额、休息时长、倒计时秒数等，点击保存后即时生效。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>记住三个快捷键</b>：<code>Alt+1</code> 打开屏幕使用面板、<code>Alt+0</code> 打开系统设置、<code>Alt+9</code> 打开关于软件。三个快捷键均可在「系统设置 → 通用」中改成自己的组合，托盘菜单提示会同步更新。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>开始试用 / 注册</b>：在「关于软件」（<code>Alt+9</code>）中可点击「免费试用全功能」开启试用；试用结束后，复制窗口中的<b>申请码</b>与联系方式，联系作者获取注册码，粘贴到注册码输入框点击「注册」即可完成授权。</div>
+</div>
+
+<div class="tip">
+<b>托盘悬浮提示</b>：鼠标悬停在托盘图标上会显示当前状态（注册状态、剩余时长等）；开启「托盘图标显示剩余分钟」后，图标上的数字即距下次休息的剩余分钟，可在「系统设置 → 通用」中关闭。
+</div>
+
+<h2 id="functions">四、功能详解</h2>
+
+<h3>🛡️ 屏幕使用面板</h3>
+<p class="no-indent">通过托盘菜单或快捷键 <code>Alt+1</code> 打开，顶部为「📊 概览 / 📈 统计 / 📝 休息内容」三个页签与右侧操作按钮。</p>
+
+<div class="card">
+<div class="card-title">📊 概览</div>
+<div class="card-desc">
+<ul>
+<li><b>四张状态卡片</b>：当前状态、今日使用（已用 / 限额）、本次会话（已用 / 单次上限）、下次休息（剩余分钟）</li>
+<li><b>今日进度</b>：按当天是工作日还是节假日，自动套用对应的总限额</li>
+<li><b>今日可用时段色条</b>：底部以 24 小时色条展示今日可用区间（绿色＝可用、红线＝当前时刻），启用使用时段后实时刷新</li>
+<li><b>暂停横幅</b>：守护暂停时顶部显示醒目的倒计时横幅</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">📈 统计<span class="tag reg">注册</span></div>
+<div class="card-desc">
+<ul>
+<li>最近 7 天使用时长柱状图，自动识别工作日 / 节假日</li>
+<li>每天使用量、限额参考线与最高值，直观判断限额设置是否合理</li>
+<li>未注册时该页签置灰不可点击，不影响基础防护</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">📝 休息内容</div>
+<div class="card-desc">
+<ul>
+<li>三大分类：<b>💬 名言警句 / 📜 古诗词 / 💡 小贴士</b></li>
+<li>休息触发时从当前分类随机抽取一条全屏显示，内容池每次休息实时重读，增删改下次休息立即生效</li>
+<li>内置 20-20-20 护眼、颈肩拉伸、深呼吸等健康提示与励志文案、经典诗词，可一键导入预置库</li>
+<li>新增 / 删除 / JSON 导入导出 <span class="tag reg">注册</span>（编辑不受限）</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">🔘 面板头部操作按钮</div>
+<div class="card-desc">
+<table>
+<tr><th>按钮</th><th>作用</th><th>说明</th></tr>
+<tr><td>⏸️ 暂停守护 / ▶️ 恢复守护</td><td>暂停 / 恢复管控</td><td>需验证系统密码；暂停时长由「暂停时长」参数决定，暂停期间不计时、不触发休息</td></tr>
+<tr><td>☕ 立即休息</td><td>立刻进入休息</td><td>强制解除暂停并马上开始休息；若已超出使用时段则仅作提示，不改变当前状态</td></tr>
+<tr><td>🔧 设置</td><td>打开系统设置</td><td>与托盘菜单「🔐 系统设置」为同一窗口</td></tr>
+</table>
+</div>
+</div>
+
+<h3>⏱️ 会话时长与每日限额</h3>
+<p class="no-indent">这是防沉迷的两条主线：<b>单次使用时长</b>管「连续用多久」，<b>每日总限额</b>管「一天用多少」，两者同时生效，命中任意一条即进入休息锁定。</p>
+<ul>
+<li><b>单次使用时长</b>：默认 15 分钟，单次连续用屏达到该值即触发休息，是护眼的核心参数</li>
+<li><b>每日总限额</b>：工作日与节假日分别设置（默认各 30 分钟），为每日累计上限，用满即锁定</li>
+<li><b>跨日自动重置</b>：跨过 24:00 或手动改动系统时间后，每日额度与会话计时在 1 秒内重置并归档昨日用量，确保新一天按新限额执行</li>
+</ul>
+
+<h3>🕘 使用时段（区间外强制休息）</h3>
+<p class="no-indent">开启「启用使用时段」后，只有在所设时段内才允许使用，<b>区间外任何时刻强制休息</b>；时段与每日限额同时生效——既要在允许的时段内，且当日累计未超限，才能继续使用。</p>
+<ul>
+<li><b>默认时段</b>：周一至周日 08:00–22:00，免费保留 1 条且不可删除</li>
+<li><b>多时段取并集</b>：注册后可新增至 5 条，可修改、可启停；多条启用时段之间为并集关系，落在任意一条内即允许，重叠或相邻会自动合并。例如设「08:00–12:00」与「14:00–18:00」，则中午 12:00–14:00 强制休息</li>
+<li><b>生效星期</b>：每条时段可单独指定星期，例如「周一至周五 18:00–21:00」</li>
+<li><b>剩余 1 分钟提示</b>：开启后，时段结束前 1 分钟弹窗提示「今日使用时段马上到」，3 秒后自动消失</li>
+</ul>
+<div class="warn">
+<b>时段外不可绕过</b>：处于使用时段之外时，无法通过「暂停守护」或「立即休息」绕过，需由管理者进入系统设置调整时段。时段窗口中的修改需确认保存后才生效。
+</div>
+
+<h3>☕ 休息锁定与提醒</h3>
+<p class="no-indent">当单次使用时长、每日限额到点，或处于使用时段之外时，程序进入全屏休息锁定。</p>
+<div class="card">
+<div class="card-desc">
+<ul>
+<li><b>全屏休息界面</b>：显示随机休息内容，并提示今日已用时长</li>
+<li><b>锁定前倒计时</b>：可配置 1–60 秒（默认 15 秒），倒计时结束后锁定，给保存工作留出缓冲</li>
+<li><b>1 分钟预警浮窗</b>：锁定前 1 分钟弹出醒目浮窗，<b>浮窗可拖动</b>到任意位置避免遮挡；设置项右侧的「测试」按钮可预览效果</li>
+<li><b>休息结束后手动开始</b>：开启后休息结束不会自动续上计时，需手动点击才开始新一轮，形成真正的停顿</li>
+<li><b>休息时长</b>：每次休息的持续时间（默认 10 分钟），结束后自动恢复计时</li>
+</ul>
+</div>
+</div>
+<div class="warn">
+<b>防绕过说明</b>：休息锁定期间会屏蔽 <code>Win</code>、<code>Alt+Tab</code>、<code>Alt+F4</code>、<code>Alt+Esc</code>、<code>Ctrl+Esc</code>、<code>Ctrl+Shift+Esc</code> 等切换 / 关机 / 任务管理器快捷键，避免绕过全屏休息界面。需注意：<code>Ctrl+Alt+Del</code> 属 Windows 安全注意序列，由系统内核处理，任何软件都无法拦截——这是系统层面的固有限制。若程序被强制结束，会在「关于软件」中记录累计次数（见下）。
+</div>
+
+<h3>💼 工作模式（免密延时加时）<span class="tag reg">注册</span></h3>
+<p class="no-indent">面向「赶项目 / 开会时不想被硬性打断」的场景：开启后，休息界面会提供免密延时按钮，点一下按「每次加时」的分钟数继续使用，无需输入系统密码。</p>
+<div class="card">
+<div class="card-desc">
+<ul>
+<li><b>启用条件</b>：在「系统设置 → 时长与限额」中开启「启用工作模式」，并配置每次加时分钟数（默认 30）与日限次数（默认 3）</li>
+<li><b>按钮替换</b>：工作模式启用且有剩余次数时，休息界面仅显示「💼 工作模式加时 (已用/上限)」与「🚪 退出运行」，<b>不显示「🔄 切换模式」（暂停休息）按钮</b></li>
+<li><b>点击后效果</b>：状态切回使用中，本次会话从 0 开始重新计时，<b>有效会话限制即加时分钟数</b>（不再叠加基础会话时长）</li>
+<li><b>次数用尽</b>：达到每日次数上限后，恢复「切换模式」按钮，可正常进入休息</li>
+</ul>
+</div>
+</div>
+<div class="tip">
+<b>使用建议</b>：把工作模式当「专注券」——日限 3 次，用完即回到正常节奏，既给灵活度也有天花板，避免无节制延长。儿童管控场景建议关闭该功能。
+</div>
+
+<h3>🖥️ 空闲暂停计时<span class="tag reg">注册</span></h3>
+<p class="no-indent">键鼠无输入超过设定阈值（默认 5 分钟，可配 1–60 分钟）时，自动暂停会话与每日计时；回到电脑后自动恢复。离开期间不消耗当日额度（已用额度也不会回退）。</p>
+<div class="warn">
+<b>注意</b>：观看视频等无键鼠操作的状态同样会被判定为「离开」。儿童管控场景若担心以此规避计时，请酌情关闭该功能并在「系统设置 → 空闲检测」中确认开关状态。
+</div>
+
+<h3>🔐 系统设置</h3>
+<p class="no-indent">入口：托盘菜单「🔐 系统设置」、快捷键 <code>Alt+0</code>，或屏幕使用面板的「🔧 设置」按钮——三者打开的是同一窗口，<b>统一验证一次密码、保存后全部生效</b>。V4.0.0 起按下列分组归类：</p>
+<table>
+<tr><th>分组</th><th>主要参数</th><th>说明</th></tr>
+<tr><td>通用</td><td>开机自动启动、托盘图标显示剩余分钟、屏幕使用 / 系统设置 / 关于软件三个快捷键</td><td>开机自启会在「启动」文件夹创建快捷方式，可点击「查看快捷方式」核对</td></tr>
+<tr><td>时长与限额</td><td>单次使用(分)、休息时长(分)、暂停时长(分)、工作日 / 节假日总限额(分)、启用工作模式、每次加时(分)、日限次数</td><td>防沉迷核心数值；工作模式加时与日限次数需注册</td></tr>
+<tr><td>休息与提醒</td><td>休息结束后手动开始、显示锁定前倒计时、倒计时秒数、开启 1 分钟提醒</td><td>控制提醒节奏与锁定前的缓冲</td></tr>
+<tr><td>空闲检测</td><td>空闲暂停计时开关、离开判定分钟数</td><td>键鼠无输入自动暂停计时，需注册</td></tr>
+<tr><td>使用时段</td><td>启用使用时段、剩余 1 分钟提示、🕘 设置使用时段</td><td>时段管理窗口可新增最多 5 条，免费保留 1 条默认时段</td></tr>
+<tr><td>家长管理与安全</td><td>系统密码(≥4位)、申请码导出（CSV / 长图）</td><td>密码用于进入设置、暂停守护与退出程序；申请码映射表的导出需注册</td></tr>
+</table>
+<div class="tip">
+<b>申请码机制</b>：需要临时继续使用时，休息界面会显示一个申请码，孩子出示给家长；家长用导出的映射表核对无误后，把对应密码告知孩子即可解锁继续使用——比直接改参数更有约束力。
+</div>
+
+<h3>🆓 免费功能 / 🔒 注册解锁 对照</h3>
+<p class="no-indent">核心防护能力长期免费，注册解锁的是「效率与复盘」类高级能力。</p>
+<table>
+<tr><th><span class="tag free">免费</span> 免费功能</th><th><span class="tag reg">注册</span> 注册解锁的高级能力</th></tr>
+<tr><td>会话时长（单次连续用屏到点休息）</td><td>空闲暂停计时（离开不消耗额度，回位自动恢复）</td></tr>
+<tr><td>每日限额（工作日 / 节假日分别设置）</td><td>工作模式免密加时（受每次加时与日限次数约束）</td></tr>
+<tr><td>休息锁定（全屏休息界面与锁定前倒计时）</td><td>自定义使用时段（免费默认 1 条，注册后可增至 5 条）</td></tr>
+<tr><td>暂停守护（密码保护的暂停 / 恢复）</td><td>使用统计趋势（近 7 天用屏时长与历史统计）</td></tr>
+<tr><td>系统密码（PIN 保护设置、暂停与退出）</td><td>申请码导出（CSV / 长图映射表）</td></tr>
+<tr><td>1 分钟提醒（锁定前预警浮窗）</td><td>休息内容管理（新增、删除、JSON 导入导出）</td></tr>
+<tr><td>托盘剩余分钟（图标实时显示距下次休息分钟）</td><td>—</td></tr>
+<tr><td>使用时段启用（可用默认时段 08:00–22:00）</td><td>—</td></tr>
+</table>
+<div class="tip">
+<b>未注册表现</b>：受限功能的按钮 / 页签会置灰不可点击，基础防沉迷能力不受影响；注册后所有功能自动解锁。
+</div>
+
+<h3>🔑 注册与授权</h3>
+<div class="card">
+<div class="card-desc">
+<ul>
+<li><b>注册状态</b>：窗口标题栏与托盘悬浮提示会显示状态——试用中 / 未授权 / 无标记（已注册）</li>
+<li><b>试用</b>：在「关于软件」中点击「免费试用全功能」，<b>全功能试用，按设备计算，重装不重置</b>；试用期内所有功能开放</li>
+<li><b>注册方式</b>：① 打开「关于软件」，复制<b>申请码</b>及联系方式；② 通过微信或邮箱联系作者获取注册码；③ 在注册码输入框粘贴并点击「注册」完成授权</li>
+<li><b>注册独立</b>：屏幕防沉迷与任务管家（KanlorOne ModuBox）各按自身产品名生成注册码，互不通用，需分别注册</li>
+<li><b>反馈入口</b>：关于软件与注册窗口中提供意见反馈二维码，可扫码提交反馈</li>
+</ul>
+</div>
+</div>
+
+<h3>🔄 检查更新</h3>
+<ul>
+<li>启动 3 秒后自动在后台静默检查，24 小时内仅联网一次，长会话每 6 小时复查一次</li>
+<li>发现新版本时分级提示：普通更新弹出含版本信息、更新说明与下载入口的窗口，可选择「跳过此版本」；重要更新弹出不可跳过的提示</li>
+<li>「关于软件」窗口底部提供「检查更新」按钮，可随时手动触发</li>
+<li>断网、超时或服务异常一律静默降级，不打扰、不阻塞启动</li>
+</ul>
+
+<h3>📁 数据存储</h3>
+<p class="no-indent">所有用户数据统一存放在 <code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_ScreenGuard\</code>，<b>不依赖程序所在路径</b>，覆盖安装或升级不会丢失。</p>
+<table>
+<tr><th>类型</th><th>路径</th></tr>
+<tr><td>用户配置</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_ScreenGuard\</code></td></tr>
+<tr><td>休息内容</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_ScreenGuard\rest_contents.json</code></td></tr>
+<tr><td>默认提醒声音</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_ScreenGuard\KanlorOne_ScreenGuard.wav</code>（放入即生效）</td></tr>
+<tr><td>日志</td><td><code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_ScreenGuard\logs\</code></td></tr>
+</table>
+<div class="tip">
+<b>数据迁移</b>：升级后旧版本数据会自动迁移到新目录；换电脑时把上述整个目录复制到新电脑相同位置即可。
+</div>
+
+<h2 id="download">五、下载安装</h2>
+
+<a class="download-btn" href="https://share.weiyun.com/d56f8rp2" target="_blank" rel="noopener noreferrer">
+<span>下载 KanlorOne ScreenGuard（Windows 64 位）</span>
+</a>
+
+<div class="card">
+<div class="card-title">安装说明</div>
+<div class="card-desc">
+<ul>
+<li><b>免安装、解压即用</b>：下载后解压到任意目录，双击 <code>KanlorOne_ScreenGuard.exe</code> 即可运行，无需安装向导</li>
+<li><b>托盘常驻程序</b>：启动后无主窗口，只在系统托盘显示图标；建议将解压目录固定放置，避免误删</li>
+<li><b>升级方式</b>：用新版本文件覆盖旧目录即可，配置与统计保留在用户数据目录中，不受影响</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">系统要求</div>
+<div class="card-desc">
+<ul>
+<li>操作系统：Windows 7 及以上（64 位）</li>
+<li>磁盘空间：至少 100 MB 可用空间</li>
+<li>内存：建议 2 GB 及以上</li>
+</ul>
+</div>
+</div>
+
+<h2 id="updates">六、更新日志</h2>
+
+<table>
+<tr><th>版本</th><th>更新内容</th><th>发布日期</th></tr>
+<tr><td>V4.0.0</td><td>产品更名「屏幕防沉迷」并聚焦单一职责，待办 / 剪贴 / 图片工具拆分至独立应用「任务管家」，新增检查更新、空闲暂停计时、托盘剩余分钟数字图标与预置休息内容库，同时增强防绕过并合并设置入口</td><td>2026-09-09</td></tr>
+<tr><td>V3.1.4</td><td>剪贴管理新增图片 OCR（剪贴板识别 / 批量识别），新增独立「图片图像」窗口（PNG 转 ICO、PDF 与图片批量裁切）</td><td>2026-08-29</td></tr>
+<tr><td>V3.1.3</td><td>新增使用时段管理与时段剩余 1 分钟提示、今日可用时段色条、申请码导出 CSV / 长图双格式，并统一术语、修复设置与锁定界面相关缺陷</td><td>2026-08-23</td></tr>
+<tr><td>V3.1.2</td><td>新增强制休息锁定（休息期间屏蔽系统快捷键，防止其他程序覆盖休息界面），用户数据目录统一到 <code>%LOCALAPPDATA%\KanlorOneApp\</code> 下</td><td>2026-08</td></tr>
+<tr><td>v3.2</td><td>工作模式优化（X 分钟后触发休息，不再叠加基础会话）；剪贴管理增强（文件夹过滤、后缀筛选、路径显示、生成目录、去除临时文件、去除后缀、按钮重命名）；待办自动清理已完成任务；周期任务延后只影响本次提醒；修复开机自启偶发 cmd 窗口弹出</td><td>2026-07-28</td></tr>
+<tr><td>v3.1</td><td>新增工作模式（免密延时加时，替代暂停休息）；新增目录层级设置；修复周期任务日期跳 2 天问题；优化色块竖向居中显示；优化工作模式时间显示（避免负值）</td><td>2026-07-21</td></tr>
+<tr><td>v3.0</td><td>待办提醒增强（日历视图、循环任务、智能识别、浮动窗口、自动备份）；剪贴管理增强（颜色识别、目录结构工具）；托盘图标修复；StartupApproved 注册表修复；声音同步播放与停止</td><td>2026-07-15</td></tr>
+</table>
+
+<h2 id="faq">七、常见问题</h2>
+
+<div class="card">
+<div class="card-title"><b>问：</b>升级到 V4.0.0 数据会不会丢？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>不会。产品更名后沿用原用户数据目录，配置、使用状态、休息内容与注册信息<b>直接继承</b>，覆盖升级即可；新数据目录为 <code>%LOCALAPPDATA%\KanlorOneApp\KanlorOne_ScreenGuard\</code>，首次启动自动完成迁移，无需手工搬移。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>原来的待办和剪贴工具去哪了？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>自 V4.0.0 起，待办提醒、剪贴工具与图片图像等任务效率工具已拆分到独立应用<b>「任务管家（KanlorOne ModuBox）」</b>，两应用独立安装、独立运行、互不依赖；ScreenGuard 专注屏幕防沉迷单一职责。两者注册码各自独立，需分别注册。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>忘记系统密码（PIN）怎么办？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>密码以加密方式保存在本机配置中，无法在界面查看或找回。请通过「关于软件」中的联系方式联系作者，凭申请码申请重置。为避免这种情况，首次使用请把默认密码 <code>1234</code> 改成自己记得住的密码。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>休息锁定能不能用任务管理器绕过？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>休息锁定期间已屏蔽 <code>Ctrl+Shift+Esc</code>（任务管理器）、<code>Ctrl+Esc</code>（开始菜单）等入口，常规路径无法绕过。需说明：<code>Ctrl+Alt+Del</code> 属 Windows 安全注意序列，由系统内核处理，任何软件都无法拦截，从此入口打开任务管理器属系统层面的固有限制。若程序被强制结束（如被任务管理器结束进程），下次启动会在「关于软件」中显示「异常退出：N 次」累计记录，仅作记录、不做时间惩罚，家长可据此核查是否被绕过；记录需验证家长密码才能重置。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>试用期怎么算？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>在「关于软件」中点击「免费试用全功能」即可开启试用，试用期内全部功能开放。<b>全功能试用，按设备计算，重装不重置</b>；试用结束后未注册则高级能力置灰，基础防沉迷能力仍可继续使用。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>设置了使用时段，为什么全天都无法使用？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>请依次检查：时段是否已<b>启用</b>、<b>生效星期</b>是否包含今天、开始 / 结束时间是否填反，以及修改后是否点击了保存（未保存不生效）。多条时段为<b>并集</b>关系，只要当前时刻落在任意一条启用时段内即可使用。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>看视频时计时停止了是怎么回事？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>这是「空闲暂停计时」的正常表现——观看视频时没有键鼠输入，会被判定为「离开」而暂停计时。若希望看视频也计入时长（如儿童管控场景），请在「系统设置 → 空闲检测」中<b>关闭</b>该功能。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><b>问：</b>达到限额后想临时再用一会儿怎么办？</div>
+<div class="card-desc">
+<p class="no-indent"><b>答：</b>两种方式：① 家长核对孩子在休息界面出示的<b>申请码</b>，用导出的映射表比对无误后，把对应密码告知孩子即可临时解锁；② 若已启用<b>工作模式</b>，可直接使用免密延时（受「日限次数」限制，用完即止）。</p>
+</div>
+</div>
+
+<div class="footer">KanlorOne ScreenGuard &middot; &copy; 2026 KanlorOne &middot; 客服微信 MToolsService ｜ 邮箱 kanlorone@163.com<br><a href="../price.html">查看价格</a> · <a href="../help/benefits.html">权益说明</a> · <a href="../help/register_guide.html">注册方法</a></div>
+
+</div>
+
+</body>
+</html>

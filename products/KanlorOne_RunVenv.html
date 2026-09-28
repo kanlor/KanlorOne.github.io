@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KanlorOne RunVenv（虚拟环境启动器）— 把「选脚本、配环境、填参数、点运行」收进一个窗口的 Python 脚本运行与管理工具：脚本分组、虚拟环境管理、批量操作、实时日志，绿色便携免安装。">
+<meta name="keywords" content="KanlorOne RunVenv,虚拟环境启动器,Python脚本运行,venv管理,批处理运行,脚本管理工具">
+<meta property="og:title" content="KanlorOne RunVenv — 虚拟环境启动器">
+<meta property="og:description" content="Python 脚本的运行与管理窗口：分组、环境、批量、日志，一步到位">
+<meta property="og:type" content="article">
+<title>KanlorOne RunVenv — 使用说明 | KanlorOne</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --brand: #ff3b00;
+    --ink: #20242a;
+    --muted: #667085;
+    --line: #e8eaed;
+    --bg: #f7f8fa;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; line-height: 1.7; color: var(--ink); background: var(--bg); overflow-x: hidden; scroll-padding-top: 24px; }
+img { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+
+/* 左侧固定栏 */
+.sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 24px 20px;
+    z-index: 10;
+}
+.sidebar .back-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--brand); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+}
+.sidebar .back-home:hover { background: #cc3000; }
+.sidebar .product-identity {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+.sidebar .product-identity img { height: 56px; margin-bottom: 8px; }
+.sidebar .product-identity .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.sidebar .product-identity .nameCn { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.sidebar .toc-title {
+    font-size: 12px; font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.sidebar nav.toc a {
+    display: block;
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.sidebar nav.toc a:hover {
+    background: #fff5f2;
+    color: var(--brand);
+}
+
+.sidebar .wechat-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.sidebar .wechat-box .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.sidebar .wechat-box .qr-item {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar .wechat-box .qr-item img {
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sidebar .wechat-box .qr-item .tip {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* 右侧主内容区 */
+.main-content {
+    margin-left: 280px;
+    max-width: 960px;
+    padding: 30px 32px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+
+h1 { font-size: 28px; color: var(--brand); border-bottom: 3px solid var(--brand); padding-bottom: 12px; margin-bottom: 24px; font-weight: 700; }
+
+/* 产品图片（产品简介章节内） */
+.product-image {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 16px 0;
+    display: block;
+}
+
+/* 下载按钮（按主页样式） */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 59, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-size: 16px;
+    margin: 16px 0;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 59, 0, 0.35);
+    text-decoration: none;
+}
+
+/* Typography */
+h2 { font-size: 20px; color: var(--brand); margin-top: 36px; margin-bottom: 14px; padding-left: 10px; border-left: 4px solid var(--brand); font-weight: 700; scroll-margin-top: 24px; }
+h3 { font-size: 16px; color: var(--ink); margin-top: 20px; margin-bottom: 10px; font-weight: 600; scroll-margin-top: 24px; }
+p { margin-bottom: 10px; text-indent: 2em; }
+p.no-indent { text-indent: 0; }
+
+/* Card */
+.card { background: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid var(--line); }
+.card-title { font-weight: bold; color: var(--brand); font-size: 15px; margin-bottom: 6px; }
+.card-desc { color: var(--muted); font-size: 14px; }
+.card-desc ul { margin: 8px 0 12px 2em; }
+.card-desc li { margin-bottom: 4px; }
+
+/* Tags */
+.tag { display: inline-block; background: #ffe6dd; color: var(--brand); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 6px; }
+.tag.com { background: #fef3c7; color: #92400e; }
+.tag.style { background: #ede9fe; color: #5b21b6; }
+.tag.num { background: #e5e7eb; color: #6b7280; font-weight: bold; }
+.tag.new { background: #ecfdf5; color: #059669; }
+.tag.free { background: #dbeafe; color: #1e40af; }
+.tag.reg { background: #fef3c7; color: #92400e; }
+
+/* Tip / Warn */
+.tip { background: #ecfdf5; border-left: 4px solid #10b981; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+.warn { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+
+/* Steps */
+.step { display: flex; align-items: flex-start; margin-bottom: 10px; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--brand); color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: bold; margin-right: 12px; margin-top: 2px; }
+.step-text { flex: 1; }
+
+/* Table */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; table-layout: auto; word-break: break-word; }
+th { background: var(--brand); color: #fff; padding: 8px 12px; text-align: left; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: #f9fafb; }
+
+/* Lists */
+ul, ol { margin: 8px 0 12px 2em; }
+li { margin-bottom: 4px; }
+
+/* Marker Demo */
+.marker-demo { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-family: 'Consolas', 'Microsoft YaHei', monospace; font-size: 13px; line-height: 1.8; white-space: pre-wrap; }
+.marker-tag { color: var(--brand); font-weight: bold; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer a { color: var(--brand); text-decoration: none; }
+
+code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', 'Microsoft YaHei', monospace; }
+b { color: var(--ink); }
+
+/* 移动端：隐藏左侧栏，全宽显示 */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧固定栏 -->
+<aside class="sidebar">
+    <a href="../index.html" class="back-home" title="返回首页">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+    <div class="product-identity">
+        <img src="KanlorOne_RunVenv.png" alt="KanlorOne RunVenv">
+        <div class="name">KanlorOne RunVenv</div>
+        <div class="nameCn">虚拟环境启动器</div>
+    </div>
+    <div class="toc-title">目录</div>
+    <nav class="toc">
+        <a href="#intro">一、产品简介</a>
+        <a href="#features">二、核心特色</a>
+        <a href="#guide">三、使用指南（8 步上手）</a>
+        <a href="#functions">四、功能详解</a>
+        <a href="#download">五、下载安装</a>
+        <a href="#updates">六、更新日志</a>
+        <a href="#faq">七、常见问题</a>
+    </nav>
+<div class="wechat-box">
+        <div class="qr-row">
+            <div class="qr-item">
+                <img src="../assets/wechat.png" alt="微信二维码">
+                <div class="tip">扫码添加微信</div>
+            </div>
+            <div class="qr-item">
+                <img src="../assets/WeChat_Official_Account.png" alt="微信公众号">
+                <div class="tip">关注公众号</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<!-- 右侧主内容 -->
+<div class="main-content">
+<h1>KanlorOne RunVenv — 虚拟环境启动器</h1>
+
+<h2 id="intro">一、产品简介</h2>
+<p>KanlorOne RunVenv（虚拟环境启动器）是一款 <b>Python 脚本的运行与管理工具</b>。简单来说，你把平时要敲命令才能跑起来的脚本交给它，之后选脚本、点运行、看结果，全程都在一个窗口里完成，不用再对着黑窗口敲命令。</p>
+<p>它把「选脚本、配环境、填参数、点运行」这四步收进一个界面：脚本按项目归档摆放，虚拟环境自动匹配，运行结果实时显示，常用脚本还能置顶收藏。你不需要记住命令，也不需要背参数，更不用盯着控制台猜它到底跑没跑成。</p>
+
+<div class="tip">
+<b>最新更新（v4.1.0）</b>：激活窗口全新改版，五个页签按使用场景重排、登录状态改为醒目账号条；发送验证码前先校验邮箱是否绑定，并修复了申请码与报单身份漂移的问题。
+</div>
+
+<h2 id="features">二、核心特色</h2>
+
+<div class="card">
+<div class="card-title">🤔 你可能遇到这些问题</div>
+<div class="card-desc">
+<ul>
+<li>记不住「先激活环境、再切目录、最后 python xxx.py」这一长串命令？</li>
+<li>装错了包、版本冲突、动不动提示找不到模块，却不知道脚本到底跑在哪个环境里？</li>
+<li>脚本一多就乱，文件散落在各个项目目录，今天跑这个、明天跑那个全靠翻？</li>
+<li>脚本是成功还是报错、跑了多久，只能守着黑窗口看？</li>
+<li>手里只有别人写好的 .bat 批处理，也想一键运行、看输出？</li>
+<li>换电脑、重装系统后，脚本列表和参数还得重新配一遍？</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title">✅ KanlorOne RunVenv 的核心优势</div>
+<div class="card-desc">
+<ul>
+<li><b>一键运行</b>：选中脚本、填上参数（多数可留空），点一下「运行」即可，结果直接显示在窗口里</li>
+<li><b>环境自动匹配</b>：自动识别当前脚本适合用哪个 Python 环境，减少装错包、版本冲突</li>
+<li><b>脚本可管可搜</b>：列表 / 缩略图双视图，实时搜索，按项目归档，多项目一键切换</li>
+<li><b>置顶收藏 + 最近运行</b>：常用脚本一键置顶（恒排最前），也可按最近运行时间排序</li>
+<li><b>运行状态可视化</b>：运行中 / 成功 / 失败徽标与执行耗时直接标在列表和缩略图上</li>
+<li><b>批量整理</b>：多选后一次完成批量改分组、批量移除、批量更换图标</li>
+<li><b>Python 与 bat 双支持</b>：.py 与 .bat/.cmd 一视同仁，编码自适配，中文不乱码</li>
+<li><b>出错可补救</b>：缺模块会给出提示，并提供一键安装入口</li>
+<li><b>数据存本机</b>：脚本列表、参数、环境设置都保存在本机用户目录，卸载升级不丢，配置还有自动备份</li>
+</ul>
+</div>
+</div>
+
+<h2 id="guide">三、使用指南（8 步上手）</h2>
+
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><b>打开软件</b>：解压下载的压缩包，双击 <code>KanlorOne_RunVenv.exe</code> 即可启动，无需安装。</div>
+</div>
+
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><b>添加脚本</b>：点右上角「＋ 浏览添加」选择 .py / .bat / .cmd 文件；也可以在脚本区空白处<b>双击</b>快速添加。添加时会自动把脚本所在目录记入最近项目。</div>
+</div>
+
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><b>选脚本、配环境</b>：在左侧选中要运行的脚本，右侧「虚拟环境（Python 解释器）」会自动匹配或由你手动下拉选择；若检测到缺少第三方模块，可直接一键安装。</div>
+</div>
+
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text"><b>填参数（可选）</b>：在「参数」框里填写脚本需要的命令行参数，大多数脚本留空即可。日志区工具栏上的「保存」可把当前脚本与参数一并记住。</div>
+</div>
+
+<div class="step">
+<div class="step-num">5</div>
+<div class="step-text"><b>运行</b>：点「▶ 运行 (F5)」开始，输出会实时显示在下方「输出日志」区；需要中止时点「■ 停止 (Esc)」。</div>
+</div>
+
+<div class="step">
+<div class="step-num">6</div>
+<div class="step-text"><b>看结果、导出日志</b>：日志区支持清空日志、复制内容、导出日志；运行状态（运行中 / 成功 / 失败）与耗时会显示在脚本卡片或列表行上。</div>
+</div>
+
+<div class="step">
+<div class="step-num">7</div>
+<div class="step-text"><b>整理脚本（可选）</b>：用「置顶收藏」把常用脚本排到最前；用分组页签归类脚本（可拖拽切组）；多选后可批量改分组 / 移除 / 换图标；左上角「当前项目」下拉可一键切换项目目录。</div>
+</div>
+
+<div class="step">
+<div class="step-num">8</div>
+<div class="step-text"><b>按需注册</b>：未注册用户可先在注册 / 关于窗口点「开始试用」，试用期内全部功能解锁；日常「选脚本、跑脚本、看结果」的完整流程免费可用。</div>
+</div>
+
+<div class="tip">
+<b>小提示</b>：脚本区空白处双击就能添加脚本；未选中脚本时点运行，软件会提示你先选一个，不会误跑。
+</div>
+
+<h2 id="functions">四、功能详解</h2>
+
+<p>下面按模块介绍，<span class="tag free">免费</span>标记的为免费版即可使用，<span class="tag reg">注册</span>标记的需注册后使用。</p>
+
+<h3>1. 脚本管理 <span class="tag free">免费</span></h3>
+<ul>
+<li><b>双视图浏览</b>：列表视图看信息、缩略图视图看得更直观，一键切换。</li>
+<li><b>实时搜索</b>：输入关键字即时筛出目标脚本，脚本多了也不难找。</li>
+<li><b>双击运行</b>：双击列表行或卡片即可运行；双击空白处则快速添加脚本。</li>
+<li><b>置顶收藏</b>：给常用脚本打上 ★，恒排最前，不会被其他排序打乱。</li>
+<li><b>最近运行</b>：记录每个脚本最近一次运行时间，可按此排序。</li>
+<li><b>运行状态徽标</b>：列表与缩略图直接显示运行中 / 成功 / 失败与执行耗时。</li>
+<li><b>从列表移除</b>：只移除列表记录，不会删除磁盘上的脚本文件。</li>
+</ul>
+
+<h3>2. 项目与分组 <span class="tag reg">注册</span></h3>
+<table>
+<tr><th>能力</th><th>说明</th></tr>
+<tr><td>当前项目切换</td><td>左上角「当前项目」下拉，多项目之间一键聚焦</td></tr>
+<tr><td>项目目录管理</td><td>添加、删除、置前最近项目目录；双击切换、右键或 Delete 删除记录（不影响磁盘文件）</td></tr>
+<tr><td>动态「项目」页签</td><td>实时显示当前项目目录下的脚本（含子目录，可开关），切换项目自动更新</td></tr>
+<tr><td>分组页签</td><td>左侧竖排分组页签，右键新建分组；空分组也会保留</td></tr>
+<tr><td>拖拽切组</td><td>把脚本拖到目标分组页签即完成归组</td></tr>
+<tr><td>分组管理</td><td>新建 / 重命名（组内脚本自动迁移）/ 删除（组内脚本回到未分组）</td></tr>
+<tr><td>批量操作</td><td>列表（Ctrl/Shift 多选）、缩略图（Ctrl 点选）多选后，批量改分组 / 批量移除 / 批量更换图标</td></tr>
+</table>
+
+<h3>3. 自定义图标 <span class="tag reg">注册</span></h3>
+<ul>
+<li>支持导入 PNG / JPG / BMP / ICO / GIF 作为脚本图标（方形、清晰即可），导入后永久保存在本机、与内置图标混池使用。</li>
+<li>视图模式卡片可右键「更换图标…」，弹窗内点击即应用，当前图标以蓝色边框标记，还支持「随机换一个」。</li>
+<li>图标按脚本分配，同类脚本不再统一显示同一张图，一眼就能分辨。</li>
+</ul>
+
+<h3>4. 虚拟环境管理 <span class="tag reg">注册</span></h3>
+<ul>
+<li><b>环境自动匹配</b>：识别当前脚本适合哪个 Python 环境，降低装错包、版本冲突的概率。</li>
+<li><b>管理Venv</b>：可设置扫描路径，汇总列出该路径下的所有虚拟环境，与已保存列表合并去重展示。</li>
+<li><b>环境信息</b>：显示每个环境的 Python 版本与来源，可「设为当前脚本环境」「打开目录」「从列表移除」，也可删除不再需要的环境目录（有二次确认）。</li>
+<li><b>构建新环境</b>：基于系统 Python 一键创建新的虚拟环境。</li>
+</ul>
+
+<h3>5. 模块管理 <span class="tag reg">注册</span></h3>
+<ul>
+<li>对指定虚拟环境查看模块列表、安装模块、卸载模块，执行结果直接输出到主界面日志区。</li>
+<li>安装时支持一次填多个模块、可带版本号（如 <code>requests==2.31.0</code>）。</li>
+<li>脚本运行报「缺少模块」时，软件会给出提示并提供便捷安装入口。</li>
+</ul>
+
+<h3>6. 新建临时脚本 <span class="tag reg">注册</span></h3>
+<ul>
+<li>不用离开软件，直接新建一个临时脚本来试跑想法，支持「Python 脚本」与「批处理」两种类型，后缀与代码区标签联动。</li>
+<li>批处理类型会自动预填命令模板，按中文系统习惯的编码与换行写出，避免中文乱码。</li>
+</ul>
+
+<h3>7. 运行与日志 <span class="tag free">免费</span></h3>
+<ul>
+<li><b>实时输出</b>：脚本运行时输出实时滚动显示，Python 与批处理体验一致。</li>
+<li><b>随时停止</b>：点「■ 停止 (Esc)」即可中止；Windows 下会连同子进程一并结束，不残留。</li>
+<li><b>日志工具</b>：清空日志 / 复制 / 导出日志，方便留存或贴给他人排查。</li>
+<li><b>编码自适配</b>：Python 脚本按 UTF-8 输出，批处理按中文系统编码正确显示，中文不乱码。</li>
+</ul>
+
+<h3>8. 数据与本机保存 <span class="tag free">免费</span></h3>
+<ul>
+<li>脚本列表、参数、环境设置、图标与分组等配置，全部保存在本机用户目录，卸载、升级都不会丢失。</li>
+<li>配置保存采用自动备份，配置文件损坏或丢失时可自动恢复。</li>
+</ul>
+
+<h3>9. 激活与授权</h3>
+<p>主窗口右上角点「注册」（开始试用或注册完成后显示为「关于」）即可打开注册 / 关于窗口。窗口内分五个页签，按使用场景一一对应：</p>
+<table>
+<tr><th>页签</th><th>用途</th></tr>
+<tr><td>单台离线激活</td><td>不联网办理单机注册：复制申请信息 → 扫码填单 → 邮箱收码 → 粘贴激活</td></tr>
+<tr><td>单台在线激活</td><td>联网办理单机注册：填订单号与邮箱提交，收到授权码后激活</td></tr>
+<tr><td>两台在线授权</td><td>邮箱验证码登录账号，登记设备并拉取授权（最多 2 台，支持换机）</td></tr>
+<tr><td>两台在线升级</td><td>已购单台可补差价升级为两台终身在线授权</td></tr>
+<tr><td>购买须知 / 官方信息</td><td>购买、离线申请、问题反馈、客服微信、官网五个二维码与联系方式</td></tr>
+</table>
+
+<h3>10. 免费版与专业版</h3>
+<table>
+<tr><th>能力</th><th>免费版（无需注册）</th><th>专业版（注册或试用期内）</th></tr>
+<tr><td>添加、搜索、管理脚本</td><td>✅</td><td>✅</td></tr>
+<tr><td>填参数、一键运行、随时停止</td><td>✅</td><td>✅</td></tr>
+<tr><td>实时查看结果、清空 / 复制 / 导出日志</td><td>✅</td><td>✅</td></tr>
+<tr><td>虚拟环境自动识别</td><td>✅</td><td>✅</td></tr>
+<tr><td>数据本机保存、配置自动备份</td><td>✅</td><td>✅</td></tr>
+<tr><td>新建临时脚本（Python / 批处理）</td><td>—</td><td>✅</td></tr>
+<tr><td>构建新的虚拟环境</td><td>—</td><td>✅</td></tr>
+<tr><td>模块管理（安装 / 查看 / 卸载）</td><td>—</td><td>✅</td></tr>
+<tr><td>虚拟环境列表统一管理</td><td>—</td><td>✅</td></tr>
+<tr><td>分组管理与批量归组</td><td>—</td><td>✅</td></tr>
+<tr><td>导入自定义图标</td><td>—</td><td>✅</td></tr>
+<tr><td>动态「项目」分组</td><td>—</td><td>✅</td></tr>
+</table>
+
+<div class="tip">
+两种授权档位都能解锁同一套专业功能 —— 专业功能与档位无关，按自己的使用场景选一种即可。未注册且试用已结束时，专业功能对应的入口会置灰，基础使用流程不受影响，重新注册后即时恢复，已保存的数据不会丢失。
+</div>
+
+<h2 id="download">五、下载安装</h2>
+
+<p class="no-indent">
+<a class="download-btn" href="https://share.weiyun.com/d56f8rp2">⬇ 下载 KanlorOne RunVenv</a>
+</p>
+
+<p><b>解压即用，无需安装。</b>下载后把压缩包解压到任意目录（不建议放在系统盘根目录或带特殊字符的路径），双击其中的 <code>KanlorOne_RunVenv.exe</code> 即可启动，不会向系统写入安装信息。</p>
+
+<h3>运行环境</h3>
+<ul>
+<li><b>操作系统</b>：Windows（64 位）。</li>
+<li><b>是否联网</b>：日常添加脚本、配置环境、运行脚本都不需要联网；仅在线激活、拉取授权、检查更新时需要联网，离线激活通道全程不需要联网。</li>
+<li><b>是否要装 Python</b>：软件本身已内置运行环境，解压即可开箱使用；要运行的 Python 脚本本身仍需要本机有 Python 或对应的虚拟环境。</li>
+<li><b>是否要会命令</b>：不需要，界面操作即可完成选脚本、运行、看结果。</li>
+</ul>
+
+<h3>安装与升级提示</h3>
+<ul>
+<li>软件是绿色便携式，<b>卸载＝删除整个文件夹</b>；脚本列表、参数、环境设置保存在本机用户目录，删除程序文件夹不会丢。</li>
+<li>升级时解压新版本并覆盖即可，已保存的脚本列表、分组、图标、收藏与运行历史都会自动跟随恢复。</li>
+<li>强烈建议只从上方官方渠道下载，避免使用来源不明的安装包。</li>
+</ul>
+
+<div class="warn">
+<b>首次打开提示</b>：如果系统提示「Windows 已保护你的电脑」，请点击「更多信息」→「仍要运行」。这是新版本程序首次运行时常见的系统提示，不代表文件有问题。
+</div>
+
+<h2 id="updates">六、更新日志</h2>
+
+<ul>
+<li><b>v4.1.0</b> - 激活窗口全新改版：页签更名为「单台离线激活」「单台在线激活」「两台在线授权」「两台在线升级」「购买须知/官方信息」，申请入口按使用场景语义化排布，一眼对应。</li>
+<li><b>v4.1.0</b> - 登录状态改为醒目账号条展示，当前登录账号一目了然；设备面板四行化展示，发送验证码前先校验邮箱是否已绑定，避免白跑一步。</li>
+<li><b>v4.1.0</b> - 修复申请码与报单身份在登录、退出前后漂移的问题，单机注册状态不再受影响；报单入口改为已授权时置灰而非隐藏，避免找不到按钮。</li>
+<li><b>v4.0.9</b> - 新增「最近运行 + 置顶收藏」：脚本可置顶（★ 恒排最前），支持按最近运行时间排序，配置重启不丢。</li>
+<li><b>v4.0.9</b> - 新增运行状态可视化：列表与缩略图均显示运行中 / 成功 / 失败状态徽标与执行耗时，脚本健康度一眼看清。</li>
+<li><b>v4.0.9</b> - 新增批量操作：列表（Ctrl/Shift 多选）与缩略图（Ctrl 点选）多选后，可批量改分组 / 批量移除 / 批量更换图标。</li>
+<li><b>v4.0.8</b> - 分组页签支持右键新建分组（空分组也会持久保留）；新增自定义图标导入，支持 PNG/JPG/BMP/ICO/GIF，永久保存、与内置图标同池混用。</li>
+<li><b>v4.0.7</b> - 左侧分组筛选由下拉改为竖排页签，支持页签右键新建、把脚本拖到页签即可切组；修复批处理输出的中文乱码问题。</li>
+<li><b>v4.0.6</b> - 新增脚本分组支持与分组管理（新建 / 重命名 / 删除 / 移动到分组）；新增 7 天全功能试用：试用期内全部功能解锁，主窗口标题实时显示剩余天数。</li>
+<li><b>v4.0.5</b> - 支持批处理脚本（.bat / .cmd）：可浏览添加并运行，实时输出、停止、日志导出与 Python 脚本一致；批处理可绑定虚拟环境，脚本里调用的 python 自动命中该环境，无需改脚本。</li>
+<li><b>v4.0.4</b> - 「管理」升级为「管理Venv」：支持设置扫描路径，汇总列出该路径下所有虚拟环境；新增显示 Python 版本与来源，可设为当前脚本环境、打开目录、从列表移除。</li>
+<li><b>v4.0.3</b> - 视图模式卡片图标支持手动更换，弹窗内点击即应用，支持「随机换一个」；图标改为随机唯一分配，同类脚本不再统一显示同一图标。</li>
+<li><b>v4.0.2</b> - 激活窗口全面升级：新增购买、注册申请、问题反馈三个入口；申请码支持一键复制申请信息。</li>
+<li><b>v4.0.1</b> - 配置原子写与自动备份：每次保存生成备份文件，主配置损坏或丢失时自动恢复；默认展示模式改为缩略图视图。</li>
+<li><b>v4.0.0</b> - 新增项目目录快速切换与管理，脚本列表优先展示当前项目内脚本；新增空状态操作引导，降低首次使用门槛。</li>
+</ul>
+
+<h2 id="faq">七、常见问题</h2>
+
+<p class="no-indent"><b>问：需要安装吗？</b><br><b>答：</b>不需要。软件是绿色便携式，下载后解压，双击 <code>KanlorOne_RunVenv.exe</code> 就能用，卸载直接删除整个文件夹即可。</p>
+
+<p class="no-indent"><b>问：需要联网才能用吗？</b><br><b>答：</b>日常使用不需要。添加脚本、配置环境、运行脚本、看日志全部可以离线完成；只有在线激活、拉取授权、检查更新这类操作需要联网，离线激活通道全程不需要联网。</p>
+
+<p class="no-indent"><b>问：我不会 Python，能用吗？</b><br><b>答：</b>能。你只要把别人写好的脚本添加进来，选好脚本点「运行」就行。软件会自动帮你匹配运行环境，缺组件时也会给出提示和一键安装入口。</p>
+
+<p class="no-indent"><b>问：试用是怎么算的？</b><br><b>答：</b>未注册也可以先完整体验全部专业功能，也就是全功能试用；试用按设备计算，重装、换路径都不会重新获得试用期。试用期内标题栏会实时显示剩余天数，到期后自动回落为免费版，已保存的数据不会丢失，随时注册即可继续使用。</p>
+
+<p class="no-indent"><b>问：换电脑或重装系统后还能用吗？</b><br><b>答：</b>单机注册绑定本机，不支持换机，重新办理即可；两台在线授权的用户在新电脑上登录同一账号、解绑旧设备并拉取授权后即可恢复使用。此外，脚本列表、参数、分组、图标等配置保存在本机用户目录，重装软件不会丢失。</p>
+
+<p class="no-indent"><b>问：软件支持哪些类型的脚本？</b><br><b>答：</b>支持 Python 脚本（.py）与批处理脚本（.bat / .cmd）。两者都可以添加、运行、实时看输出、停止、导出日志；批处理还可以绑定虚拟环境，让脚本内部调用的 python 自动命中该环境。</p>
+
+<p class="no-indent"><b>问：运行时提示缺少模块怎么办？</b><br><b>答：</b>软件会识别出缺少的模块并给出提示，提供便捷的安装入口；你也可以在「模块管理」里手动安装、查看或卸载第三方包。</p>
+
+<p class="no-indent"><b>问：怎么注册和购买？价格在哪里看？</b><br><b>答：</b>在主窗口右上角点「注册」（开始试用或注册完成后显示为「关于」）打开窗口，按页签对应自己的场景办理即可。产品价格统一在官网公布，请以官网当期信息为准；具体办理步骤见《注册方法》文档，各档位权益见《权益说明》。</p>
+
+<div class="footer">KanlorOne RunVenv &middot; &copy; 2026 KanlorOne &middot; 客服微信 MToolsService ｜ 邮箱 kanlorone@163.com<br><a href="../price.html">查看价格</a> · <a href="../help/benefits.html">权益说明</a> · <a href="../help/register_guide.html">注册方法</a></div>
+
+</div>
+
+</body>
+</html>
