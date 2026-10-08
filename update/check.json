@@ -1,0 +1,7 @@
+{
+  "has_update": false,
+  "latest_version": "1.10.2",
+  "latest_version_num": 11002,
+  "product_id": "KanlorOne_WordSuite",
+  "note": "静态兜底源：仅客户端主备 FC 均不可达时使用；正式发版时手工更新本文件（has_update/版本/下载链接）"
+}
