@@ -1,7 +1,12 @@
 {
-  "has_update": false,
-  "latest_version": "1.10.2",
-  "latest_version_num": 11002,
+  "has_update": true,
+  "latest_version": "1.10.3",
+  "latest_version_num": 11003,
   "product_id": "KanlorOne_WordSuite",
-  "note": "静态兜底源：仅客户端主备 FC 均不可达时使用；正式发版时手工更新本文件（has_update/版本/下载链接）"
+  "download": {
+    "weiyun": {
+      "win10": "https://share.weiyun.com/d56f8rp2"
+    }
+  },
+  "note": "静态兜底源：仅客户端主备 FC 均不可达时使用；2026-10-08 发布 1.10.3，与云端 releases 保持一致。注意：客户端对静态源不做本地版本比较（has_update 直读），1.10.3 成为主流版本后应把 has_update 改回 false；下次发版再次更新本文件（版本/下载链接/changelog）"
 }
