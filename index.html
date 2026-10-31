@@ -72,8 +72,8 @@
 
         // ==================== 联系方式（已集中维护） ====================
         const contactInfo = {
-            email: "kanlorone@163.com",
-            wechatId: "MToolsService",
+            email: "okmfj@163.com",
+            wechatId: "KanlorOneService",
             officialQRCode: "assets/WeChat_Official_Account.png",  // 搜一搜公众号二维码
             officialTip: "微信搜一搜：KanlorOne",
             socialAccounts: "小红书/快手/抖音：KanlorOne"
@@ -302,6 +302,9 @@
                 const trialBadge = product.trial
                     ? `<span class="inline-block bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full mt-1">${escapeHtml(product.trial)}</span>`
                     : '';
+                const legacyBadge = product.legacy
+                    ? `<span class="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-2 py-1 rounded-full mt-1">旧版维护</span>`
+                    : '';
 
                 card.innerHTML = `
                     <div class="p-6 pb-4">
@@ -316,6 +319,7 @@
                             <div class="text-right flex-shrink-0">
                                 ${tierBadge}
                                 ${trialBadge}
+                                ${legacyBadge}
                                 <div class="text-sm font-semibold text-orange-600 mt-1">v${version}</div>
                                 <div class="text-xs text-gray-400">${releaseDate}</div>
                             </div>

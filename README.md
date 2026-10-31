@@ -13,9 +13,9 @@ python -m http.server 8000
 
 ## 一键部署
 
-双击 `deploy.bat` 即可自动完成 git 添加、提交、推送，GitHub Pages 会在 1-5 分钟后自动更新。
+双击 `deploy.bat`：它调用 `deploy.ps1`，只暂存公开站点路径，检查是否有越界文件，再提交并推送；静态站点会在 1-5 分钟后更新。
 
-访问地址：https://kanlorone.github.io
+访问地址：https://kanlorone.com
 
 ## 项目结构
 
@@ -23,7 +23,8 @@ python -m http.server 8000
 KanlorOne.github.io/
 ├── index.html                          # 首页（产品列表、导航、联系我们）
 ├── manage.html                         # 产品数据管理工具（增删改查、导入导出，本地工具不公开部署）
-├── deploy.bat                          # 一键部署脚本（含分支校验）
+├── deploy.bat                          # 一键部署入口（调用 deploy.ps1）
+├── deploy.ps1                          # 部署白名单与分支校验
 ├── .gitignore                          # Git 忽略规则
 ├── Kanlor_html.md                      # 网站架构与设计规范文档
 ├── KanlorOne_PRODUCT_TEMPLATE.json     # 产品数据模板
@@ -132,15 +133,13 @@ KanlorOne.github.io/
 
 ### 一键部署
 
-双击 `deploy.bat`，脚本会自动执行（含分支校验，仅 main 分支可部署）：
+双击 `deploy.bat`，实际执行 `deploy.ps1`：
 1. 校验当前分支是否为 main
-2. `git add -A`
-3. `git commit -m "Deploy update YYYY-MM-DD HH:MM:SS"`
-4. `git push origin main`
+2. 如果暂存区已有非公开文件，直接中止
+3. 只暂存 `index.html`、`price.html`、`.nojekyll`、`assets/`、`help/`、`products/`、`update/`、`workport/`
+4. 提交并推送 `main`
 
-部署时 GitHub Actions 会自动排除以下内部文件，不发布到公开站点：
-- `manage.html`（产品数据管理后台）
-- `deploy.bat`、`KanlorOne_PRODUCT_TEMPLATE.json`、`Kanlor_html.md`、`README.md`
+部署时 GitHub Actions 会继续排除内部文件；允许名单外的文件（如 `manage.html`、`Kanlor_html.md`、模板、README、部署脚本）不会由部署脚本自动提交。
 
 ## 相关文档
 

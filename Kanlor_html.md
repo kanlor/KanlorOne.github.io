@@ -6,7 +6,7 @@
 
 KanlorOne 是一个专业软件产品展示网站，采用纯前端技术栈（HTML + CSS + JavaScript），无需后端服务器即可运行，支持 GitHub Pages 静态部署。
 
-- 线上地址：`https://kanlorone.github.io`
+- 线上地址：`https://kanlorone.com`
 - 技术栈：HTML5 + 原生 CSS + Font Awesome 6.5.1 + 原生 JavaScript
 - 部署方式：GitHub Actions 自动部署 main 分支
 
@@ -365,7 +365,7 @@ card.onclick = () => { window.location.href = detailUrl; };
 
     <!-- Footer -->
     <div class="footer">
-        <p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: MToolsService | 邮箱: <a href="mailto:kanlorone@163.com">kanlorone@163.com</a></p>
+        <p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: KanlorOneService | 邮箱: <a href="mailto:okmfj@163.com">okmfj@163.com</a></p>
     </div>
 </div>
 ```
@@ -697,7 +697,7 @@ git add .
 git commit -m "更新说明"
 git push origin main
 ```
-GitHub Actions 自动部署，1-5 分钟后访问 `https://kanlorone.github.io` 验证。
+GitHub Actions 自动部署，1-5 分钟后访问 `https://kanlorone.com` 验证。
 
 ### 11.4 常见操作清单
 

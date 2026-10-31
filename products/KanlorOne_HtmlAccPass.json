@@ -32,7 +32,7 @@
     ],
     "updates": [
         "v2.6 - 完善使用说明与帮助系统，新增帮助按钮弹窗，按钮图标化适配移动端单行显示，新增数据统计 N/M 显示，支持标签分类，新增空状态引导页，扩展键盘快捷键，统一备份文件命名规范，剪贴板清空改为可配置默认关闭",
-        "v2.5 - 品牌信息更新为 KanlorOne_HtmlAccPass，邮箱更换为 kanlorone@163.com，微信更换为 MToolsService",
+        "v2.5 - 品牌信息更新为 KanlorOne_HtmlAccPass，邮箱更换为 okmfj@163.com，微信更换为 KanlorOneService",
         "v2.4 - 实现双触发备份机制：时间间隔备份 + 数据变更即时备份，xlsx 库双轨加载实现单文件便携性",
         "v2.3 - 修复搜索无高亮、handleSearchChange 重复定义死代码、移动端 min-width 强制横向滚动等问题，补全 aria-label 等无障碍属性，替换原生 confirm 为自定义弹窗，恢复模态框 ESC/遮罩关闭，添加剪贴板自动清空与自动备份机制",
         "v2.2 - 引入 Web Crypto API 加密存储（PBKDF2 + AES-GCM），修复 innerHTML 拼接导致的 XSS 漏洞，新增密码生成器、键盘快捷键、自动锁定功能，加密 .mtvault 备份格式",
