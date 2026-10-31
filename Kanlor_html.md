@@ -365,7 +365,7 @@ card.onclick = () => { window.location.href = detailUrl; };
 
     <!-- Footer -->
     <div class="footer">
-        <p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: KanlorOneService | 邮箱: <a href="mailto:okmfj@163.com">okmfj@163.com</a></p>
+        <p class="no-indent">© 2026 KanlorOne. All Rights Reserved. | 微信: MToolsService | 邮箱: <a href="mailto:okmfj@163.com">okmfj@163.com</a></p>
     </div>
 </div>
 ```
