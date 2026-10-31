@@ -74,10 +74,8 @@
         const contactInfo = {
             email: "kanlorone@163.com",
             wechatId: "MToolsService",
-            wechatQRCode: "assets/wechat.png",   // 个人微信二维码
-            wechatTip: "扫码添加微信",
-            officialQRCode: "assets/WeChat_Official_Account.png",  // 公众号二维码
-            officialTip: "关注公众号",
+            officialQRCode: "assets/WeChat_Official_Account.png",  // 搜一搜公众号二维码
+            officialTip: "微信搜一搜：KanlorOne",
             socialAccounts: "小红书/快手/抖音：KanlorOne"
         };
 
@@ -154,18 +152,15 @@
                     <h2 class="text-4xl font-semibold mb-8">联系我们</h2>
                     <div class="space-y-6 text-lg">
                         <p><i class="fas fa-envelope mr-3 accent-color"></i> <span id="email"></span></p>
-                        <p><i class="fab fa-weixin mr-3 text-green-600"></i> <span id="wechat"></span></p>
+                        <p><i class="fab fa-weixin mr-3 text-green-600"></i> 售后微信：<span id="wechat"></span></p>
                     </div>
                 </div>
                 <div class="text-center">
-                    <div class="flex justify-center gap-10">
+                    <div class="flex justify-center">
                         <div>
-                            <img id="wechat-qrcode" src="" alt="微信二维码" class="mx-auto w-40 rounded-2xl shadow-xl">
-                            <p id="wechat-tip" class="mt-4 text-gray-600"></p>
-                        </div>
-                        <div>
-                            <img id="official-qrcode" src="" alt="微信公众号" class="mx-auto w-40 rounded-2xl shadow-xl">
+                            <img id="official-qrcode" src="" alt="搜一搜微信公众号二维码" class="mx-auto w-40 rounded-2xl shadow-xl">
                             <p id="official-tip" class="mt-4 text-gray-600"></p>
+                            <p class="mt-2 text-sm text-gray-500">打开微信，搜一搜「KanlorOne」</p>
                         </div>
                     </div>
                     <div class="mt-8 space-y-1.5 text-sm text-gray-500">
@@ -269,8 +264,6 @@
         function renderContact() {
             document.getElementById('email').textContent = contactInfo.email;
             document.getElementById('wechat').textContent = contactInfo.wechatId;
-            document.getElementById('wechat-qrcode').src = contactInfo.wechatQRCode;
-            document.getElementById('wechat-tip').textContent = contactInfo.wechatTip;
             document.getElementById('official-qrcode').src = contactInfo.officialQRCode;
             document.getElementById('official-tip').textContent = contactInfo.officialTip;
             document.getElementById('official-account').textContent = contactInfo.socialAccounts;
