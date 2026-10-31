@@ -6,6 +6,10 @@ $allowed = @('index.html','price.html','.nojekyll','assets','help','products','u
 $branch = (git rev-parse --abbrev-ref HEAD).Trim()
 if ($branch -ne 'main') { throw "Current branch is '$branch', expected 'main'" }
 
+$factsCheck = Join-Path (Split-Path $PSScriptRoot -Parent) 'tools\check_wordsuite_public_facts.py'
+python $factsCheck
+if ($LASTEXITCODE -ne 0) { throw 'WordSuite public facts check failed.' }
+
 $staged = @(git diff --cached --name-only)
 $bad = @($staged | Where-Object {
     $name = $_
