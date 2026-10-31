@@ -22,21 +22,37 @@ if ($bad.Count -gt 0) {
 
 git add -A -- $allowed
 $staged2 = @(git diff --cached --name-only)
-if ($staged2.Count -eq 0) {
+if ($staged2.Count -gt 0) {
+    Write-Host 'Files staged for public deployment:' -ForegroundColor Cyan
+    $staged2 | ForEach-Object { Write-Host "  $_" }
+}
+
+$upstream = "origin/$branch"
+git rev-parse --verify $upstream 2>$null | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "Missing upstream '$upstream'." }
+$pendingBefore = [int](git rev-list --count "${upstream}..HEAD")
+
+if ($DryRun) {
+    Write-Host ("Dry run only; staged={0}, pending_push={1}; no commit/push performed." -f $staged2.Count, $pendingBefore) -ForegroundColor Yellow
+    exit 0
+}
+
+if ($staged2.Count -gt 0) {
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    git commit -m "Deploy update $timestamp"
+    if ($LASTEXITCODE -ne 0) { throw 'git commit failed' }
+}
+
+$pending = [int](git rev-list --count "${upstream}..HEAD")
+if ($pending -eq 0) {
     Write-Host 'Nothing to deploy.' -ForegroundColor Yellow
     exit 0
 }
-Write-Host 'Files staged for public deployment:' -ForegroundColor Cyan
-$staged2 | ForEach-Object { Write-Host "  $_" }
 
-if ($DryRun) {
-    Write-Host 'Dry run only; no commit/push performed.' -ForegroundColor Yellow
-    exit 0
+Write-Host ("Pushing {0} pending commit(s) to {1}..." -f $pending, $upstream) -ForegroundColor Cyan
+$env:GIT_TERMINAL_PROMPT = '0'
+git -c credential.helper= -c credential.helper=manager push origin $branch
+if ($LASTEXITCODE -ne 0) {
+    throw 'git push failed. Pending commits remain local; check GitHub connectivity/proxy and rerun deploy.bat to retry.'
 }
-
-$timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-git commit -m "Deploy update $timestamp"
-if ($LASTEXITCODE -ne 0) { throw 'git commit failed' }
-git push origin main
-if ($LASTEXITCODE -ne 0) { throw 'git push failed; check GitHub authentication' }
-Write-Host 'Deploy committed and pushed. Wait for the static site to rebuild.' -ForegroundColor Green
+Write-Host 'Deploy pushed. Wait for the static site to rebuild.' -ForegroundColor Green
